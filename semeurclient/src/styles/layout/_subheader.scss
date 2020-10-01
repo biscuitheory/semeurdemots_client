@@ -1,0 +1,12 @@
+.subheader__container {
+  padding: 3em 0 5em 3em;
+
+  &-titlebox {
+    
+  }
+  &-breadcrumbbox {
+    display: flex;
+    flex-direction: row;
+    padding: 2em 0 0 1em;
+  }
+}

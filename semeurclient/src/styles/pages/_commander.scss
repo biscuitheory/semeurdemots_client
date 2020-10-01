@@ -1,0 +1,33 @@
+.productsheet__container {
+  display: flex;
+  flex-direction: row;
+  margin: 3em;
+  border: 1px solid orange;
+
+  &-imgbox {
+    border: 1px solid black;
+    width: 50%;
+
+    img {
+      width: 25em;
+    }
+  }
+
+  &-infobox {
+    border: 1px solid black;
+    width: 50%;
+
+    p {
+      margin-bottom: 1em;
+    }
+
+    &-price {
+      color: #77a464;
+      font-size: 1.25em;
+    }
+
+    &-stock {
+      color: #77a464;
+    }
+  }
+}
