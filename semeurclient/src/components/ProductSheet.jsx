@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
+
+import InputCount, { SubmitButton, TestText } from '../components/Misc';
 
 // const API = process.env.REACT_APP_API_URL;
 // console.log(API)
@@ -8,16 +9,22 @@ const ProductSheet = ({ description, id, image, name, price, stock, type }) => {
   return (
     <div className="productsheet__container">
       <section className="productsheet__container-imgbox">
-        <img src={image}></img>
+        <img src={image} alt="produit poisson rouge"></img>
       </section>
       <section className="productsheet__container-infobox">
         <h2>{name}</h2>
         <p className="productsheet__container-infobox-price">{price}€</p>
-        <p className="productsheet__container-infobox-description">{description}</p>
-        <p className="productsheet__container-infobox-stock">En stock : {stock}</p>
-        <input type="number" id="tentacles" name="tentacles"
-       min="1" max="100" placeholder="0"></input>
-        <button>Ajouter au panier</button>
+        <p className="productsheet__container-infobox-description">
+          {description}
+        </p>
+        <p className="productsheet__container-infobox-stock">
+          En stock : {stock}
+        </p>
+        <InputCount />
+
+        <SubmitButton />
+
+        <TestText />
         <p>Catégorie : {type}</p>
       </section>
     </div>
