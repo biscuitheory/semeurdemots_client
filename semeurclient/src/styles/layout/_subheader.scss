@@ -1,8 +1,9 @@
 .subheader__container {
-  padding: 3em 0 5em 3em;
+  background: $color--blue;
+  padding: 0 0 5em 3em;
+  color: #ffffff;
 
   &-titlebox {
-    
   }
   &-breadcrumbbox {
     display: flex;

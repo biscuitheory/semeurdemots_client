@@ -25,7 +25,7 @@ const ProductSheet = ({ description, id, image, name, price, stock, type }) => {
         <SubmitButton />
 
         <TestText />
-        <p>Catégorie : {type}</p>
+        <p>Catégorie : <a>{type}</a></p>
       </section>
     </div>
   );

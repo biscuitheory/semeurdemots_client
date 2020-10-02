@@ -11,7 +11,7 @@ const Commander = () => {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const res = await axios('http://localhost:8088/api/commander');
+      const res = await axios('http://localhost:8088/api/products');
       setProducts(res.data);
       console.log(res.data);
     };
