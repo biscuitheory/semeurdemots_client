@@ -11,7 +11,7 @@ const Commander = () => {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const res = await axios('http://localhost:8088/api/products');
+      const res = await axios(`${API}products`);
       setProducts(res.data);
       console.log(res.data);
     };
@@ -20,7 +20,7 @@ const Commander = () => {
 
   return (
     <>
-      <SubHeader />
+      <SubHeader title="Commander"/>
       <div>
         {products.map((product, i) => (
           <ProductSheet key={i} {...product} />

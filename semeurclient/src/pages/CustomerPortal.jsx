@@ -4,7 +4,7 @@ import SubHeader from '../components/SubHeader';
 const CustomerPortal = () => {
     return (
         <>
-        <SubHeader/>
+        <SubHeader title="Mon compte"/>
         </>
     )
 

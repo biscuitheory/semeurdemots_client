@@ -3,21 +3,22 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome } from '@fortawesome/free-solid-svg-icons';
 
-const rubriques = [
-  'Accueil',
-  'Poisson rouge',
-  'Ambassadeurs',
-  'Editions',
-  'Commander',
-  'Mon compte',
-  'Panier',
-];
+// const rubriques = [
+//   'Accueil',
+//   'Poisson rouge',
+//   'Ambassadeurs',
+//   'Editions',
+//   'Commander',
+//   'Mon compte',
+//   'Panier',
+// ];
 
-const SubHeader = () => {
+const SubHeader = ({title}) => {
+  console.log(title)
   return (
     <div className="subheader__container">
       <div className="subheader__container-titlebox">
-      {rubriques.map((rubrique, i) => (<h1 className="subheader__container-title">{rubrique}</h1>))}
+  <h1 className="subheader__container-title">{title}</h1>
       </div>
       <div className="subheader__container-breadcrumbbox">
         <a href="/">
