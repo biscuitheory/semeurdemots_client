@@ -5,6 +5,7 @@ import { Breakpoint } from 'react-socks';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 
 const Navbar = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -17,13 +18,20 @@ const Navbar = () => {
           onClick={() => setModalIsOpen(true)}
           className="navbar__container-icon"
         />
-          <Modal
-            isOpen={modalIsOpen}
-            onRequestClose={() => setModalIsOpen(false)}
-            className="navbar__container-modal"
-          >
-            <DropdownMenu />
-          </Modal>
+        <Modal
+          isOpen={modalIsOpen}
+          onRequestClose={() => setModalIsOpen(false)}
+          className="navbar__container-modal"
+        >
+          <FontAwesomeIcon
+            type="button"
+            title="close modal"
+            onClick={() => setModalIsOpen(false)}
+            icon={faTimesCircle}
+            className="navbar__container-modal-crossbtn"
+          />
+          <DropdownMenu />
+        </Modal>
       </Breakpoint>
       <Breakpoint customQuery="(min-width: 1025px)">
         <DropdownMenu />

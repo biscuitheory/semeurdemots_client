@@ -33,6 +33,7 @@
   &-modal {
     background-color: $color--blue;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100%;
@@ -41,6 +42,13 @@
     line-height: 3em;
     @include media(desktop) {
       display: none;
+    }
+
+    &-crossbtn {
+      margin: -5em 0 5em 0;
+      color: #ffffff;
+      font-size: 1.5em;
+      background-color: $color--black;
     }
   }
 
