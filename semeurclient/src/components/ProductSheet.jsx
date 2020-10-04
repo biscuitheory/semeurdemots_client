@@ -1,6 +1,6 @@
 import React from 'react';
 
-import InputCount, { SubmitButton, TestText } from '../components/Misc';
+import InputCount, { SubmitButton } from '../components/Misc';
 
 // const API = process.env.REACT_APP_API_URL;
 // console.log(API)
@@ -21,10 +21,7 @@ const ProductSheet = ({ description, id, image, name, price, stock, type }) => {
           En stock : {stock}
         </p>
         <InputCount />
-
         <SubmitButton />
-
-        <TestText />
         <p>Catégorie : <a>{type}</a></p>
       </section>
     </div>

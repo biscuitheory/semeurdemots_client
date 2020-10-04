@@ -1,10 +1,14 @@
 import React from 'react';
+
 import SubHeader from '../components/SubHeader';
+
+import SignupForm from '../components/SignupForm';
 
 const CustomerPortal = () => {
     return (
         <>
-        <SubHeader title="Mon compte"/>
+        <SubHeader title="Compte client"/>
+        <SignupForm />
         </>
     )
 

@@ -5,9 +5,17 @@
 
   &-titlebox {
   }
+
   &-breadcrumbbox {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
     padding: 2em 0 0 1em;
+    width: 12em;
+    
+    a {
+      color: #ffffff;
+    }
   }
 }
