@@ -1,21 +1,36 @@
 .subheader__container {
   background: $color--blue;
-  padding: 0 0 5em 3em;
+  padding: 6em 0 4em 3em;
   color: #ffffff;
+  @include media(desktop) {
+    padding: 0 0 5em 3em;
+  }
 
   &-titlebox {
+    padding: 0em 0 0 0;
+    &-title {
+      font-size: 2.2em;
+    }
   }
 
   &-breadcrumbbox {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: flex-end;
+    align-items: center;
     padding: 2em 0 0 1em;
-    width: 12em;
-    
+    width: 15em;
+    font-size: 0.8em;
+    @include media(desktop) {
+      align-items: flex-end;
+      padding: 2em 0 0 1em;
+    }
+
     a {
       color: #ffffff;
+    }
+    p {
+      font-size: 1.2em;
     }
   }
 }

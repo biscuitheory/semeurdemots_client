@@ -3,16 +3,6 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome } from '@fortawesome/free-solid-svg-icons';
 
-// const rubriques = [
-//   'Accueil',
-//   'Poisson rouge',
-//   'Ambassadeurs',
-//   'Editions',
-//   'Commander',
-//   'Mon compte',
-//   'Panier',
-// ];
-
 const SubHeader = ({ title }) => {
   // console.log(title);
   return (
