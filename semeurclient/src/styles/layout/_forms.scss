@@ -1,0 +1,49 @@
+.signup__container {
+  border: 1px solid red;
+  padding: 2em 1.5em;
+
+  h2 {
+    @include media(desktop) {
+      font-size: 2.3em;
+      font-weight: 700;
+    }
+  }
+
+  &-form {
+    border: 1px solid $color--brinput;
+    border-radius: 0.5em;
+    margin: 2em 0;
+    padding: 1.5em;
+
+    label {
+      font-size: 1.2em;
+      font-weight: 400;
+    }
+
+    input {
+      margin: 1.5em 0;
+      width: 30em;
+      height: 3.5em;
+      border: 1px solid $color--brinput;
+      background: $color--bginput;
+    }
+
+    &-info-disclaimerbox {
+      p {
+        font-size: 1em;
+        padding: 0.5em 0 1em 0;
+      }
+    }
+
+    button {
+      font-family: 'Poppins';
+      font-weight: 600;
+      font-size: 17px;
+      color: #515151;
+      background: #EBE9EB;
+      border: none;
+      border-radius: 0.2em;
+      padding: 0.4em 1em;
+    }
+  }
+}

@@ -41,6 +41,7 @@ const SignupForm = () => {
           <label className="signup__container-form-info-label">
             Nom d'utilisateur
           </label>
+          <span className="required">*</span>
           <div className="signup__container-form-info-inputbox">
             <input
               type="username"
@@ -54,6 +55,7 @@ const SignupForm = () => {
         </div>
         <div className="signup__container-form-info">
           <label className="signup__container-form-info-label">Email</label>
+          <span className="required">*</span>
           <div className="signup__container-form-info-inputbox">
             <input
               type="email"
@@ -69,6 +71,7 @@ const SignupForm = () => {
           <label className="signup__container-form-info-label">
             Mot de passe
           </label>
+          <span className="required">*</span>
           <div className="signup__container-form-info-inputbox">
             <input
               type="password"
