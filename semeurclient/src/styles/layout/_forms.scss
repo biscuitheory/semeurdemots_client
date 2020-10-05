@@ -1,6 +1,12 @@
-.signup__container {
-  border: 1px solid red;
+.signup__container,
+.signin__container {
+  //   border: 1px solid red;
   padding: 2em 1.5em;
+  width: 100%;
+  @include media(desktop) {
+    padding: 2em 2.5em;
+    width: 50%;
+  }
 
   h2 {
     @include media(desktop) {
@@ -40,7 +46,7 @@
       font-weight: 600;
       font-size: 17px;
       color: #515151;
-      background: #EBE9EB;
+      background: #ebe9eb;
       border: none;
       border-radius: 0.2em;
       padding: 0.4em 1em;

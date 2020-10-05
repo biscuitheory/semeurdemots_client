@@ -1,0 +1,15 @@
+.customerportal__container {
+  @include media(desktop) {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .customernavbar__container-list {
+    border: 1px solid black;
+    color: $color--black;
+    display: flex;
+    flex-direction: column;
+  }
+}

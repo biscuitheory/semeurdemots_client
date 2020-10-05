@@ -14,6 +14,7 @@ export default function InputCount(){
   );
 };
 
+
 export function SubmitButton () {
   return <button className="submit-button">Ajouter au panier</button>;
 };
@@ -21,5 +22,6 @@ export function SubmitButton () {
 export function TestText () {
   return <p>Test Text</p>;
 };
+
 
  

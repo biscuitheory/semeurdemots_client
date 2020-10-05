@@ -2,8 +2,8 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
-import useForm from './useForm';
-import validate from './validateSignup';
+import useForm from './customedhooks/useForm';
+import validate from './validators/validateSignup';
 
 const API = process.env.REACT_APP_API_URL;
 
@@ -22,7 +22,7 @@ const SignupForm = () => {
         admin: values.admin,
       });
       if (res) {
-        history.push('/signin');
+        history.push('/compte-client');
       }
     } catch (err) {
       console.log('error from signup', err);
@@ -35,15 +35,21 @@ const SignupForm = () => {
       <form
         onSubmit={handleSubmit}
         noValidate
+        method="POST"
+        action={`${API}signuplite`}
         className="signup__container-form"
       >
         <div className="signup__container-form-info">
-          <label className="signup__container-form-info-label">
+          <label
+            htmlFor="username"
+            className="signup__container-form-info-label"
+          >
             Nom d'utilisateur
           </label>
           <span className="required">*</span>
           <div className="signup__container-form-info-inputbox">
             <input
+              id="username"
               type="username"
               name="username"
               value={values.username}
@@ -54,10 +60,13 @@ const SignupForm = () => {
           </div>
         </div>
         <div className="signup__container-form-info">
-          <label className="signup__container-form-info-label">Email</label>
+          <label htmlFor="email" className="signup__container-form-info-label">
+            Email
+          </label>
           <span className="required">*</span>
           <div className="signup__container-form-info-inputbox">
             <input
+              id="email"
               type="email"
               name="email"
               value={values.email}
@@ -68,12 +77,16 @@ const SignupForm = () => {
           </div>
         </div>
         <div className="signup__container-form-info">
-          <label className="signup__container-form-info-label">
+          <label
+            htmlFor="password"
+            className="signup__container-form-info-label"
+          >
             Mot de passe
           </label>
           <span className="required">*</span>
           <div className="signup__container-form-info-inputbox">
             <input
+              id="password"
               type="password"
               name="password"
               value={values.password}
