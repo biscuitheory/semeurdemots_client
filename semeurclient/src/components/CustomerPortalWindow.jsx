@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
+
+import Commandes from '../pages/customerPortal/Commandes';
+import DetailsCompte from '../pages/customerPortal/DetailsCompte';
 
 const CustomerPortalWindow = () => {
+    
+
   return (
-    <>
-      <p>Hello</p>
-    </>
+    <div className="customerportal__container-window">
+      {/* {href === '/commandes' && <Commandes />} */}
+      {/* <DetailsCompte /> */}
+    </div>
   );
 };
 

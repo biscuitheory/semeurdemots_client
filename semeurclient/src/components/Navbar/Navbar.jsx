@@ -39,7 +39,7 @@ const Navbar = () => {
     </nav>
   );
 
-  function DropdownMenu() {
+  function DropdownMenu({onClick}) {
     return (
       <ul className="navbar__container-list">
         <DropdownItem href="/">Accueil</DropdownItem>
@@ -54,9 +54,8 @@ const Navbar = () => {
   }
 
   function DropdownItem(props) {
-    console.log(props.href);
     return (
-      <Link to={props.href} className="navbar__container-list-item">
+      <Link to={props.href} className="navbar__container-list-item" onClick={() => setModalIsOpen(false)}>
         {props.children}
       </Link>
     );

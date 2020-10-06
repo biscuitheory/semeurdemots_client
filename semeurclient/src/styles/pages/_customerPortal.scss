@@ -1,15 +1,27 @@
 .customerportal__container {
-  @include media(desktop) {
     display: flex;
     flex-direction: row;
+    padding: 2em;
+
+  @include media(desktop) {
+    display: flex;
     justify-content: space-between;
     width: 100%;
   }
 
-  .customernavbar__container-list {
-    border: 1px solid black;
+  &-navbar {
+    // border: 1px solid black;
     color: $color--black;
     display: flex;
     flex-direction: column;
+    width: 50%;
+    line-height: 2.5em;
+  }
+
+  &-window {
+    width: 70%;
+    padding: 0 2em;
+    border: 1px solid black;
+    line-height: 2.5em;
   }
 }
