@@ -1,7 +1,6 @@
 import React, {useContext} from 'react';
 
 const MoyensPaiement = () => {
-    // const href = useContext(CustomerPortalNavContext);
   return (
     <>
       <h1>MoyensPaiement</h1>

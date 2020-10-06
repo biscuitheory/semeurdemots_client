@@ -46,18 +46,14 @@ function App() {
           <Navbar />
           <Switch>
             <Route exact path="/commander" component={Commander} />
-            <Route
-              state={state}
-              exact
-              path="/compte-client"
-              component={CustomerPortal}
-            />
+            <Route state={state} path="/compte-client">
+              <CustomerPortal />
+            </Route>
             <Route
               state={state}
               exact
               path="/compte-admin"
-              component={AdminPortal}
-            />
+            ></Route>
             <Route exact path="/panier" component={Cart} />
           </Switch>
         </Router>

@@ -39,7 +39,7 @@ const Navbar = () => {
     </nav>
   );
 
-  function DropdownMenu({onClick}) {
+  function DropdownMenu() {
     return (
       <ul className="navbar__container-list">
         <DropdownItem href="/">Accueil</DropdownItem>
