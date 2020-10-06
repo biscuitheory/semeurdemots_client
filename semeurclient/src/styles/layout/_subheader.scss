@@ -1,6 +1,7 @@
 .subheader__container {
+  width: 100%;
   background: $color--blue;
-  padding: 6em 0 4em 3em;
+  padding: 4em 0 2em 2em;
   color: #ffffff;
   @include media(desktop) {
     padding: 0 0 5em 3em;

@@ -4,8 +4,7 @@ import Modal from 'react-modal';
 import { Breakpoint } from 'react-socks';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
-import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 
 const Navbar = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
