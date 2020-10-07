@@ -38,7 +38,7 @@ const SignupForm = () => {
         admin: values.admin,
       });
       if (res) {
-        history.push('/');
+        history.push('/compte-admin');
       }
     } catch (err) {
       console.log('error from signup', err);

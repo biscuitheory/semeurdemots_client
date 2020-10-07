@@ -10,7 +10,7 @@ import CustomerPortal from './pages/CustomerPortal';
 import AdminPortal from './pages/AdminPortal';
 import Cart from './pages/Cart';
 
-import 'react-toastify/dist/ReactToastify.css'
+import 'react-toastify/dist/ReactToastify.css';
 import './styles/App.scss';
 
 toast.configure();
@@ -54,11 +54,9 @@ function App() {
             <Route state={state} path="/compte-client">
               <CustomerPortal />
             </Route>
-            <Route
-              state={state}
-              exact
-              path="/compte-admin"
-            ></Route>
+            <Route state={state} exact path="/compte-admin">
+              <AdminPortal />
+            </Route>
             <Route exact path="/panier" component={Cart} />
           </Switch>
         </Router>
