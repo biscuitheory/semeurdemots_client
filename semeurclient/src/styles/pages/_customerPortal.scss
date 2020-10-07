@@ -6,6 +6,7 @@
 
   @include media(desktop) {
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
     width: 100%;
     padding: 2em;
@@ -13,11 +14,12 @@
 
   &-navbar {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     border: 1px solid black;
     position: fixed;
     bottom: 0;
     color: $color--black;
+    padding: 0.2em;
     @include media(desktop) {
       width: 50%;
       line-height: 2.5em;
@@ -26,11 +28,22 @@
     &-item {
       display: flex;
       flex-direction: column;
+      align-items: center;
       width: auto;
-      border: 1px solid green;
+    //   border: 1px solid green;
+      @include media (desktop) {
+
+      }
+      &-icon {
+          font-size: 1.3em;
+      }
     
       span {
-          font-size: 1em;
+          text-align: center;
+          font-size: 0.8em;
+          @include media (desktop) {
+              font-size: 1em;
+          }
       }
     }
   }

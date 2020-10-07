@@ -1,6 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
 
 import useForm from './customedhooks/useForm';
 import validate from './validators/validateSignup';
@@ -12,6 +13,21 @@ const SignupForm = () => {
     submit,
     validate
   );
+
+  const notify = () =>
+    toast.success(
+      "Inscription bien reçue ! Pour activer votre compte, cliquez sur le lien d'activation dans l'email que nous venons de vous envoyer 😉",
+      {
+        position: 'top-center',
+        autoClose: 8000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      }
+    );
+
   const history = useHistory();
   async function submit() {
     try {
@@ -22,7 +38,7 @@ const SignupForm = () => {
         admin: values.admin,
       });
       if (res) {
-        history.push('/compte-client');
+        history.push('/');
       }
     } catch (err) {
       console.log('error from signup', err);
@@ -104,10 +120,15 @@ const SignupForm = () => {
             </p>
           </div>
         </div>
-        <button type="submit" className="signup__container-form-submitbutton">
+        <button
+          type="submit"
+          onClick={notify}
+          className="signup__container-form-submitbutton"
+        >
           Valider
         </button>
       </form>
+      <ToastContainer />
     </div>
   );
 };

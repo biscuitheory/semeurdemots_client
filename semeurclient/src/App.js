@@ -2,6 +2,7 @@ import React, { useReducer } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { BreakpointProvider } from 'react-socks';
 import { AuthContext } from './contexts/auth';
+import { toast } from 'react-toastify';
 
 import Navbar from './components/navbar/Navbar';
 import Commander from './pages/Commander';
@@ -9,7 +10,11 @@ import CustomerPortal from './pages/CustomerPortal';
 import AdminPortal from './pages/AdminPortal';
 import Cart from './pages/Cart';
 
+import 'react-toastify/dist/ReactToastify.css'
 import './styles/App.scss';
+
+toast.configure();
+
 const initialState = {
   isAuthenticated: !!localStorage.getItem('token'),
   token: localStorage.getItem('token') || {},
