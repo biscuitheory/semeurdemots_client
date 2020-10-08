@@ -1,19 +1,20 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '.././contexts/auth';
 
+import AdminPortalNavbar from '../components/navbar/AdminPortalNav';
+import AdminPortalWindow from '../components/AdminPortalWindow';
 import SubHeader from '../components/SubHeader';
-import SigninForm from '../components/SigninForm';
+import SigninForm from '../components/SigninFormAdmin';
 
 const AdminPortal = () => {
   const { state: authState } = useContext(AuthContext);
-  if (authState.isAuthenticated) {
+  if (authState.user.admin) {
     return (
       <>
         <SubHeader title="Compte administrateur" />
         <div className="adminportal__container">
-          {/* <CustomerPortalNavbar />
-              <CustomerPortalWindow /> */}
-              <h1>It's an admin !</h1>
+          <AdminPortalNavbar />
+          <AdminPortalWindow />
         </div>
       </>
     );

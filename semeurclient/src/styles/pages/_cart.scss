@@ -1,0 +1,42 @@
+.cart__container {
+  width: 100%;
+  border: 2px solid orange;
+
+  &-products {
+    display: flex;
+    flex-direction: column;
+    // justify-content: space-around;
+    // align-items: center;
+
+    &-box {
+      display: flex;
+      justify-content: space-around;
+    }
+
+    &-update {
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+
+  &-totalcart {
+    border: 1px solid $color--brinput;
+    margin: 1em;
+    padding: 1em;
+
+    &-shipping {
+      &-labels {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      p {
+        text-align: end;
+      }
+    }
+  }
+
+  &-confirm-button {
+      padding: 1em;
+  }
+}

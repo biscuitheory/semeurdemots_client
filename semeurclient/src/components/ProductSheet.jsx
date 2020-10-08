@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 
 import InputCount, { SubmitButton } from '../components/Misc';
 
@@ -6,6 +6,35 @@ import InputCount, { SubmitButton } from '../components/Misc';
 // console.log(API)
 
 const ProductSheet = ({ description, id, image, name, price, stock, type }) => {
+  let [cart, setCart] = useState([]);
+
+  let localCart = localStorage.getItem('cart');
+
+  useEffect(() => {
+    localCart = JSON.parse(localCart);
+
+    if (localCart) localStorage.setItem('cart', localCart);
+  }, []);
+
+  const addItem = (item) => {
+    let cartCopy = [...cart];
+
+    let { ID } = item;
+
+    let existingItem = cartCopy.find((cartItem) => cartItem.ID == ID);
+
+    if (existingItem) {
+      existingItem.quantity += item.quantity;
+    } else {
+      cartCopy.push(item);
+    }
+
+    setCart(cartCopy);
+
+    let cartString = JSON.stringify(cartCopy);
+    localStorage.setItem('cart', cartString);
+  };
+
   return (
     <div className="productsheet__container">
       <section className="productsheet__container-imgbox">
@@ -21,7 +50,7 @@ const ProductSheet = ({ description, id, image, name, price, stock, type }) => {
           En stock : {stock}
         </p>
         <InputCount />
-        <SubmitButton />
+        <SubmitButton onClick={() => addItem(id)}/>
         <p>Catégorie : <a>{type}</a></p>
       </section>
     </div>

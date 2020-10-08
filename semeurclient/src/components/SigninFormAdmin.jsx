@@ -8,7 +8,7 @@ import { AuthContext } from '../contexts/auth';
 
 const API = process.env.REACT_APP_API_URL;
 
-const SigninForm = () => {
+const SigninFormAdmin = () => {
   const { dispatch } = useContext(AuthContext);
   const { handleChange, handleSubmit, values, setValues, errors } = useForm(
     submit,
@@ -18,7 +18,7 @@ const SigninForm = () => {
 
   async function submit() {
     try {
-      const res = await axios.post(`${API}signin`, {
+      const res = await axios.post(`${API}signinadmin`, {
         emailOrUsername: values.emailOrUsername,
         password: values.password,
         admin: values.admin,
@@ -28,7 +28,7 @@ const SigninForm = () => {
           type: 'SIGNIN',
           payload: res,
         });
-        history.push('/compte-client');
+        history.push('/compte-admin');
         return;
       }
       throw res;
@@ -58,7 +58,7 @@ const SigninForm = () => {
             <input
               type="text"
               name="emailOrUsername"
-              value={values.emailOrUsername}
+              value={values.emailOrUsername || ''}
               onChange={handleChange}
               className="signin__container-form-info-input"
             />
@@ -94,4 +94,4 @@ const SigninForm = () => {
   );
 };
 
-export default SigninForm;
+export default SigninFormAdmin;

@@ -20,6 +20,7 @@ const Navbar = () => {
         <Modal
           isOpen={modalIsOpen}
           onRequestClose={() => setModalIsOpen(false)}
+          appElement={document.getElementById('root')}
           className="navbar__container-modal"
         >
           <FontAwesomeIcon

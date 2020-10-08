@@ -11,7 +11,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { faUserCircle } from '@fortawesome/free-regular-svg-icons';
 
-const CustomerPortalNavbar = () => {
+const AdminPortalNavbar = () => {
   const { dispatch } = useContext(AuthContext);
   const history = useHistory();
   const signOut = async (event) => {
@@ -25,52 +25,63 @@ const CustomerPortalNavbar = () => {
   return (
     <>
       <Breakpoint customQuery="(max-width: 1025px)">
-        <ul className="customerportal__container-navbar">
-          <Link to={`${url}`} className="customerportal__container-navbar-item">
+        <ul className="adminportal__container-navbar">
+          <Link to={`${url}`} className="adminportal__container-navbar-item">
             <FontAwesomeIcon
               icon={faSolarPanel}
-              className="customerportal__container-navbar-item-icon"
+              className="adminportal__container-navbar-item-icon"
             />
             <span>Tableau de bord</span>
           </Link>
           <Link
-            to={`${url}/suivi-commandes`}
-            className="customerportal__container-navbar-item"
+            to={`${url}/produits`}
+            className="adminportal__container-navbar-item"
           >
             <FontAwesomeIcon
               icon={faShoppingBag}
-              className="customerportal__container-navbar-item-icon"
+              className="adminportal__container-navbar-item-icon"
             />
-            <span>Suivi des commandes</span>
+            <span>Produits</span>
           </Link>
           <Link
-            to={`${url}/edit-compte`}
-            className="customerportal__container-navbar-item"
+            to={`${url}/commandes`}
+            className="adminportal__container-navbar-item"
+          >
+            <FontAwesomeIcon
+              icon={faShoppingBag}
+              className="adminportal__container-navbar-item-icon"
+            />
+            <span>Commandes</span>
+          </Link>
+          <Link
+            to={`${url}/clients`}
+            className="adminportal__container-navbar-item"
           >
             <FontAwesomeIcon
               icon={faUserCircle}
-              className="customerportal__container-navbar-item-icon"
+              className="adminportal__container-navbar-item-icon"
             />
-            <span>Informations personnelles</span>
+            <span>Clients</span>
           </Link>
           <Link
             to="/Déconnexion"
             onClick={signOut}
-            className="customerportal__container-navbar-item"
+            className="adminportal__container-navbar-item"
           >
             <FontAwesomeIcon
               icon={faPowerOff}
-              className="customerportal__container-navbar-item-icon"
+              className="adminportal__container-navbar-item-icon"
             />
             <span>Déconnexion</span>
           </Link>
         </ul>
       </Breakpoint>
       <Breakpoint customQuery="(min-width: 1025px)">
-        <ul className="customerportal__container-navbar">
+        <ul className="adminportal__container-navbar">
           <Link to={`${url}`}>Tableau de bord</Link>
-          <Link to={`${url}/suivi-commandes`}>Commandes</Link>
-          <Link to={`${url}/edit-compte`}>Détails du compte</Link>
+          <Link to={`${url}/produits`}>Produits</Link>
+          <Link to={`${url}/commandes`}>Commandes</Link>
+          <Link to={`${url}/clients`}>Clients</Link>
           <Link to="/Déconnexion" onClick={signOut}>
             Déconnexion
           </Link>
@@ -80,4 +91,4 @@ const CustomerPortalNavbar = () => {
   );
 };
 
-export default CustomerPortalNavbar;
+export default AdminPortalNavbar;

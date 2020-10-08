@@ -10,10 +10,10 @@ const CustomerPortalWindow = () => {
   return (
     <div className="customerportal__container-window">
       <Switch>
-        <Route exact path={`${url}/commandes`}>
+        <Route exact path={`${url}/suivi-commandes`}>
           <Commandes />
         </Route>
-        <Route exact path="/compte-client/edit-compte">
+        <Route exact path={`${url}/edit-compte`}>
           <DetailsCompte />
         </Route>
         <Route path={`${path}/compte-client`}>
