@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 const useForm = (callback, validate) => {
   const initialState = {
     username: '',
+    firstname: '',
+    lastname: '',
     email: '',
     password: '',
     admin: false,

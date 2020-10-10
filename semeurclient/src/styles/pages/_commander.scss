@@ -1,12 +1,18 @@
 .productsheet__container {
   display: flex;
-  flex-direction: row;
-  margin: 3em 3em 10em 3em;
-  // border: 1px solid orange;
+  flex-direction: column;
+  @include media(desktop) {
+    display: flex;
+    flex-direction: row;
+    margin: 3em 3em 10em 3em;
+    // border: 1px solid orange;
+  }
 
   &-imgbox {
-    // border: 1px solid black;
-    width: 50%;
+    @include media(desktop) {
+      // border: 1px solid black;
+      width: 50%;
+    }
 
     img {
       width: 100%;
@@ -14,12 +20,20 @@
   }
 
   &-infobox {
-    // border: 1px solid black;
-    width: 50%;
-    padding: 0 5em;
+    padding: 0 0.5em;
+    margin-bottom: 5em;
+
+    @include media(desktop) {
+      // border: 1px solid black;
+      width: 50%;
+      padding: 0 5em;
+    }
 
     p {
-      margin-bottom: 1em;
+      margin: 0 0.1em;
+      @include media(desktop) {
+        margin-bottom: 1em;
+      }
     }
 
     &-price {
@@ -30,6 +44,5 @@
     &-stock {
       color: #77a464;
     }
-
   }
 }
