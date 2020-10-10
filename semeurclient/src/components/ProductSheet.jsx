@@ -1,63 +1,30 @@
 import React, { useState, useEffect, useContext } from 'react';
 import CartContext from '../contexts/cart';
 
-import InputCount, { SubmitButton } from '../components/Misc';
+import InputCount from '../components/Misc';
 
 // const API = process.env.REACT_APP_API_URL;
 // console.log(API)
 
 const ProductSheet = ({ description, id, image, name, price, stock, type }) => {
+  
   // const { cartState, setCartState } = useContext(CartContext);
-  const { cartState, setCartState } = useContext(CartContext);
-  console.log('coucou', cartState);
-  let [copyCart, setCopyCart] = useState([]);
-  // let [cart, setCart] = useState([]);
-
-  // let localCart = localStorage.getItem('cart');
+  const [inputCount, setInputCount] = useState(1);
 
   useEffect(() => {
-    // localCart = JSON.parse(localCart);
-
-    // if (localCart) localStorage.setItem('cart', localCart);
-
-    copyCart = JSON.stringify([]);
-    localStorage.setItem('cart', copyCart);
-    setCartState(cartState);
+   
   }, []);
 
-  const addItem = (item) => {
-    // let cartCopy = [...cart];
-    // let { ID } = item;
-    // let existingItem = cartCopy.find((cartItem) => cartItem.ID == ID);
-    // if (existingItem) {
-    //   existingItem.quantity += item.quantity;
-    // } else {
-    //   cartCopy.push(item);
-    // }
-    // setCart(cartCopy);
-    // let cartString = JSON.stringify(cartCopy);
-    // localStorage.setItem('cart', cartString);
-    // let cartString = JSON.stringify([]);
-    // localStorage.setItem('cart', cartString);
+  const onInputCountChange = (count) => {
+    console.log('fer', count);
+    setInputCount(count);
+  };
 
-    // Methode 1 : avec localStorage
-    let cartStore = localStorage.getItem('cart');
-    copyCart += item;
-    setCopyCart(copyCart);
-    // let cartStore = JSON.parse(localStorage.getItem('cart'));
-    // console.log('titi', typeof cartStore)
-    // // cartStore.push(item)
-    // // cartStore += item
-    // localStorage.setItem('cart', cartStore);
-
-    // localStorage.setItem('cart', copyCart + cartStore);
-    localStorage.setItem('cart', copyCart);
-
-    // Methode 2 : useContext
-    console.log('def', cartState);
-    copyCart.push(item);
-    setCopyCart(copyCart);
-    setCartState(copyCart);
+  const addItem = (id, count) => {
+    let currentCart = localStorage.getItem('productID-' + id)
+    // '+' symbol transform a string to number
+    let totalCount = currentCart == null ? count : +count + (+currentCart)
+    localStorage.setItem('productID-' + id, totalCount);
   };
 
   return (
@@ -74,10 +41,10 @@ const ProductSheet = ({ description, id, image, name, price, stock, type }) => {
         <p className="productsheet__container-infobox-stock">
           En stock : {stock}
         </p>
-        <InputCount />
-        <SubmitButton onClick={() => addItem(id)} />
-        <button onClick={() => addItem(id)} type="submit">
-          Add me
+        <InputCount onChange={onInputCountChange} count={inputCount} />
+        {/* <SubmitButton onClick={() => addItem(id)} /> */}
+        <button onClick={() => addItem(id, inputCount)} type="submit">
+          Ajouter au panier
         </button>
         <p>
           Catégorie : <a>{type}</a>
