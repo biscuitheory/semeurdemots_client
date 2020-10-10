@@ -3,73 +3,31 @@ import SubHeader from '../components/SubHeader';
 
 const Cart = () => {
   let [cart, setCart] = useState([]);
+  const [test, setTest] = useState(123)
 
-  let localCart = localStorage.getItem('cart');
+  function allStorage() {
+    var archive = [],
+      keys = Object.keys(localStorage),
+      i = 0,
+      key;
+
+    for (; (key = keys[i]); i++) {
+      archive[key] = localStorage.getItem(key);
+    }
+    console.log('arc', archive);
+    setCart({...archive});
+    // console.log('hey', archive)
+  }
 
   useEffect(() => {
-    localCart = JSON.parse(localCart);
-
-    if (localCart) localStorage.setItem('cart', localCart);
+    allStorage()
+    // console.log('fiii', cart)
   }, []);
-
-  const addItem = (item) => {
-    let cartCopy = [...cart];
-
-    let { ID } = item;
-
-    let existingItem = cartCopy.find((cartItem) => cartItem.ID == ID);
-
-    if (existingItem) {
-      existingItem.quantity += item.quantity;
-    } else {
-      cartCopy.push(item);
-    }
-
-    setCart(cartCopy);
-
-    let cartString = JSON.stringify(cartCopy);
-    localStorage.setItem('cart', cartString);
-  };
-
-  const updateItem = (itemID, amount) => {
-    let cartCopy = [...cart];
-
-    let existingItem = cartCopy.find((cartItem) => cartItem.ID == itemID);
-
-    if (!existingItem) return;
-
-    existingItem.quantity += amount;
-
-    if (existingItem.quantity <= 0) {
-      cartCopy = cartCopy.filter((cartItem) => cartItem.ID != itemID);
-    }
-
-    setCart(cartCopy);
-
-    let cartString = JSON.stringify(cartCopy);
-    localStorage.setItem('cart', cartString);
-  };
-
-  const removeItem = (itemID) => {
-    let cartCopy = [...cart];
-
-    cartCopy = cartCopy.filter((cartItem) => cartItem.ID != itemID);
-
-    setCart(cartCopy);
-
-    let cartString = JSON.stringify(cartCopy);
-    localStorage.removeItem('cart', cartString);
-  };
-
-  // useEffect(() => {
-  //   localCart = JSON.parse(localCart);
-
-  //   if (localCart) localStorage.setItem('cart', localCart);
-  // }, []);
 
   return (
     <div className="cart__container">
       <SubHeader title="Panier" />
+      {console.log('ret', cart)}
       <div className="cart__container-products">
         <div className="cart__container-products-box">
           <div className="cart__container-products-delete">x</div>

@@ -1,6 +1,11 @@
 import React from 'react';
 
-export default function InputCount(){
+export default function InputCount({count, onChange}){
+
+  const handleChange = (event) => {
+    onChange(event.target.value);
+  }
+
   return (
     <input
       type="number"
@@ -10,6 +15,8 @@ export default function InputCount(){
       max="100"
       placeholder="0"
       className="input-count"
+      value={count}
+      onChange={handleChange}
     ></input>
   );
 };

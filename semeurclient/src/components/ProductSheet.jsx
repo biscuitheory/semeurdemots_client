@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import CartContext from '../contexts/cart';
 
 import InputCount from '../components/Misc';
 
@@ -6,34 +7,25 @@ import InputCount from '../components/Misc';
 // console.log(API)
 
 const ProductSheet = ({ description, id, image, name, price, stock, type }) => {
-  // let [cart, setCart] = useState([]);
+  
+  // const { cartState, setCartState } = useContext(CartContext);
+  const [inputCount, setInputCount] = useState(1);
 
-  // let localCart = localStorage.getItem('cart');
+  useEffect(() => {
+   
+  }, []);
 
-  // useEffect(() => {
-  //   localCart = JSON.parse(localCart);
+  const onInputCountChange = (count) => {
+    console.log('fer', count);
+    setInputCount(count);
+  };
 
-  //   if (localCart) localStorage.setItem('cart', localCart);
-  // }, []);
-
-  // const addItem = (item) => {
-  //   let cartCopy = [...cart];
-
-  //   let { ID } = item;
-
-  //   let existingItem = cartCopy.find((cartItem) => cartItem.ID == ID);
-
-  //   if (existingItem) {
-  //     existingItem.quantity += item.quantity;
-  //   } else {
-  //     cartCopy.push(item);
-  //   }
-
-  //   setCart(cartCopy);
-
-  //   let cartString = JSON.stringify(cartCopy);
-  //   localStorage.setItem('cart', cartString);
-  // };
+  const addItem = (id, count) => {
+    let currentCart = localStorage.getItem('productID-' + id)
+    // '+' symbol transform a string to number
+    let totalCount = currentCart == null ? count : +count + (+currentCart)
+    localStorage.setItem('productID-' + id, totalCount);
+  };
 
   return (
     <div className="productsheet__container">
@@ -49,11 +41,15 @@ const ProductSheet = ({ description, id, image, name, price, stock, type }) => {
         <p className="productsheet__container-infobox-stock">
           En stock : {stock}
         </p>
-        <InputCount />
-        <button className="submit-button">Ajouter au panier</button>
+        <InputCount onChange={onInputCountChange} count={inputCount} />
+        {/* <SubmitButton onClick={() => addItem(id)} /> */}
+        <button onClick={() => addItem(id, inputCount)} type="submit">
+          Ajouter au panier
+        </button>
         <p>
           Catégorie : <a>{type}</a>
         </p>
+        <p>id {id}</p>
       </section>
     </div>
   );

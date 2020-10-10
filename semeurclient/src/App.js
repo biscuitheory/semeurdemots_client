@@ -1,7 +1,8 @@
-import React, { useReducer, useEffect } from 'react';
+import React, { useReducer, useEffect, useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { BreakpointProvider } from 'react-socks';
 import { AuthContext } from './contexts/auth';
+import CartContext from './contexts/cart';
 import { toast } from 'react-toastify';
 
 import Navbar from './components/navbar/Navbar';
@@ -55,6 +56,7 @@ const reducer = (state, action) => {
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const [cartState, setCartState] = useState([]);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -81,14 +83,16 @@ function App() {
         <Router>
           <Navbar />
           <Switch>
-            <Route exact path="/commander" component={Commander} />
-            <Route state={state} path="/compte-client">
-              <CustomerPortal />
-            </Route>
-            <Route state={state} path="/compte-admin">
-              <AdminPortal />
-            </Route>
-            <Route exact path="/panier" component={Cart} />
+            <CartContext.Provider value={{ cartState, setCartState }}>
+              <Route exact path="/commander" component={Commander} />
+              <Route state={state} path="/compte-client">
+                <CustomerPortal />
+              </Route>
+              <Route state={state} path="/compte-admin">
+                <AdminPortal />
+              </Route>
+              <Route exact path="/panier" component={Cart} />
+            </CartContext.Provider>
           </Switch>
         </Router>
       </BreakpointProvider>
