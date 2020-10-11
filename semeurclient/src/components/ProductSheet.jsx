@@ -1,14 +1,9 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import CartContext from '../contexts/cart';
 
 import InputCount from '../components/Misc';
 
-// const API = process.env.REACT_APP_API_URL;
-// console.log(API)
-
 const ProductSheet = ({ description, id, image, name, price, stock, type }) => {
-  
-  // const { cartState, setCartState } = useContext(CartContext);
   const [inputCount, setInputCount] = useState(1);
 
   useEffect(() => {
@@ -16,7 +11,7 @@ const ProductSheet = ({ description, id, image, name, price, stock, type }) => {
   }, []);
 
   const onInputCountChange = (count) => {
-    console.log('fer', count);
+    // console.log('fer', count);
     setInputCount(count);
   };
 

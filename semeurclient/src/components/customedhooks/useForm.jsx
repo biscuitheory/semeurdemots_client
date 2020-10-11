@@ -1,12 +1,16 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { AuthContext } from '../../contexts/auth';
 
 const useForm = (callback, validate) => {
+  const { state: authState } = useContext(AuthContext);
   const initialState = {
-    username: '',
-    firstname: '',
-    lastname: '',
-    email: '',
+    username: '' ? '' : authState.user.username,
+    firstname: '' ? '' : authState.user.firstname,
+    lastname: '' ? '' : authState.user.lastname,
+    email: '' ? '' : authState.user.email,
     password: '',
+    newpassword: '',
+    newpasswordbis: '',
     admin: false,
     isSubmitting: false,
     errorMessage: null,

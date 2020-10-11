@@ -3,7 +3,7 @@ import SubHeader from '../components/SubHeader';
 
 const Cart = () => {
   let [cart, setCart] = useState([]);
-  const [test, setTest] = useState(123)
+  // const [test, setTest] = useState(123)
 
   function allStorage() {
     var archive = [],

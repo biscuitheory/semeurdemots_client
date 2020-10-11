@@ -1,4 +1,4 @@
-input[type="number"] {
+input[type='number'] {
   font-size: 17px;
   width: 3em;
   height: 2.2em;
@@ -16,10 +16,9 @@ input[type="number"] {
   padding: 0.4em 1em;
 }
 
-.required {
-  color: #FF0000;
-  font-size: 1.2em;
-  margin-left: 0.5em;
+.password-toggle-icon {
+  position: absolute;
+  z-index: 99;
+  margin-right: 0.5em;
+  cursor: pointer;
 }
-
-
