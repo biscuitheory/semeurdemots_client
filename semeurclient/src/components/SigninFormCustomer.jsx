@@ -15,7 +15,6 @@ const SigninFormCustomer = () => {
     validate
   );
   const [redirect, setRedirect] = useState(false);
-  // const history = useHistory();
 
   async function submit() {
     try {
@@ -24,6 +23,7 @@ const SigninFormCustomer = () => {
         password: values.password,
         admin: values.admin,
       });
+      // console.log('res ', res);
       if (res.status === 200) {
         dispatch({
           type: 'SIGNIN',

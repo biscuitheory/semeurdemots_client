@@ -42,7 +42,6 @@ const reducer = (state, action) => {
         isAuthenticated: false,
         token: null,
       };
-
     case 'LOAD_USER':
       return {
         ...state,
@@ -71,7 +70,7 @@ function App() {
           type: 'LOAD_USER',
           payload: user,
         });
-        console.log(user);
+        // console.log(user);
       }
     };
     fetchUser();

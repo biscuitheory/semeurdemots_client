@@ -17,7 +17,7 @@ const ProductSheet = ({ description, id, image, name, price, stock, type }) => {
 
   const addItem = (id, count) => {
     let currentCart = localStorage.getItem('productID-' + id)
-    // '+' symbol transform a string to number
+
     let totalCount = currentCart == null ? count : +count + (+currentCart)
     localStorage.setItem('productID-' + id, totalCount);
   };

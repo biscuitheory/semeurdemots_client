@@ -1,4 +1,4 @@
-export default function validateCustomer(values) {
+export default function validateCustomer(values, authState) {
   const errors = {};
 
   if (!values.firstname) {
@@ -24,22 +24,20 @@ export default function validateCustomer(values) {
   } else if (!/\S+@\S+\.\S+/.test(values.email)) {
     errors.email = 'Veuillez insérer un e-mail valide.';
   }
-  if (!values.password) {
-    errors.password = 'Un mot de passe est obligatoire.';
-  } else if (values.password.length < 8) {
-    errors.password = 'Le mot de passe doit contenir au moins 8 caractères.';
-  }
-  if (!values.newpassword) {
-    errors.newpassword = 'Un mot de passe est obligatoire.';
-  } else if (values.newpassword.length < 8) {
-    errors.newpassword =
-      'Le nouveau mot de passe doit contenir au moins 8 caractères.';
-  }
-  if (!values.newpasswordbis) {
-    errors.newpasswordbis = 'Un mot de passe est obligatoire.'
-  } else if (values.newpasswordbis != values.newpassword) {
-    errors.newpasswordbis = 'Les mots de passe ne sont pas identiques.'
-  }
+//   if (!values.password) {
+//     errors.password = 'Un mot de passe est obligatoire.';
+//   }
+//   if (!values.newpassword) {
+//     errors.newpassword = 'Un mot de passe est obligatoire.';
+//   } else if (values.newpassword.length < 8) {
+//     errors.newpassword =
+//       'Le nouveau mot de passe doit contenir au moins 8 caractères.';
+//   }
+//   if (!values.newpasswordbis) {
+//     errors.newpasswordbis = 'Un mot de passe est obligatoire.';
+//   } else if (values.newpasswordbis != values.newpassword) {
+//     errors.newpasswordbis = 'Les mots de passe ne sont pas identiques.';
+//   }
 
   return errors;
 }

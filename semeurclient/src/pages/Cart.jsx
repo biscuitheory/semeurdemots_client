@@ -14,7 +14,7 @@ const Cart = () => {
     for (; (key = keys[i]); i++) {
       archive[key] = localStorage.getItem(key);
     }
-    console.log('arc', archive);
+    // console.log('arc', archive);
     setCart({...archive});
     // console.log('hey', archive)
   }
@@ -27,7 +27,9 @@ const Cart = () => {
   return (
     <div className="cart__container">
       <SubHeader title="Panier" />
-      {console.log('ret', cart)}
+      {/* {console.log('ret', cart)} */}
+
+      {}
       <div className="cart__container-products">
         <div className="cart__container-products-box">
           <div className="cart__container-products-delete">x</div>

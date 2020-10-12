@@ -1,9 +1,10 @@
 import React, { useState, useContext } from 'react';
-import { AuthContext } from '../../contexts/auth';
+import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 
 import useForm from '../../components/customedhooks/useForm';
 import validate from '../../components/validators/validateEditCustomer';
+import { AuthContext } from '../../contexts/auth';
 import usePasswordToggle from '../../components/customedhooks/usePasswordToggle';
 
 const API = process.env.REACT_APP_API_URL;
@@ -13,31 +14,43 @@ const DetailsCompte = () => {
   const [NewPasswordInputType, NewToggleIcon] = usePasswordToggle();
   const [NewPasswordInputTypeBis, NewToggleIconBis] = usePasswordToggle();
 
-  const { state: authState } = useContext(AuthContext);
-  const { handleChange, handleSubmit, values, errors } = useForm(
+  const { state: authState, dispatch } = useContext(AuthContext);
+  const { handleChange, handleSubmit, values, setValues, errors } = useForm(
     submit,
     validate
   );
 
+  const [redirect, setRedirect] = useState(false);
+
+  // console.log(values);
+
   async function submit() {
     try {
-      const res = await axios.put(`${API}users/${values.id}`, {
-        firstname: values.firstname,
-        lastname: values.lastname,
-        username: values.username,
-        password: values.password,
-        admin: values.admin,
-      });
+      const res = await axios.put(
+        `${API}users/`,
+        {
+          firstname: values.firstname,
+          lastname: values.lastname,
+          username: values.username,
+          password: values.password,
+          admin: values.admin,
+        },
+        { headers: { Authorization: `Bearer ${authState.token}` } }
+      );
+      // console.log('res ', values);
       if (res) {
-        console.log('res from details compte', res);
+        console.log('Submitted Succesfully');
+        console.log(res);
+        setRedirect(true);
       }
+      throw res;
     } catch (err) {
       console.log('error from details compte', err);
-      // setValues({
-      //   ...values,
-      //   isSubmitting: false,
-      //   errorMessage: error.message,
-      // });
+      setValues({
+        ...values,
+        isSubmitting: false,
+        // errorMessage: error.message,
+      });
     }
   }
 
@@ -46,19 +59,18 @@ const DetailsCompte = () => {
       <form
         onSubmit={handleSubmit}
         noValidate
-        method="PUT"
-        action={`${API}users/${values.id}`}
         className="detailscompte__container-form"
       >
-        <span className="detailscompte__container-form-names">
+        <section className="detailscompte__container-form-names">
           <span className="detailscompte__container-form-firstname">
             <label htmlFor="firstname">Prénom</label>
             <span className="required">*</span>
             <input
               type="text"
               name="firstname"
+              value={values.firstname || ''}
+              onChange={handleChange}
               id="firstname"
-              placeholder="Prénom"
             ></input>
           </span>
           <span className="detailscompte__container-form-lastname">
@@ -67,13 +79,14 @@ const DetailsCompte = () => {
             <input
               type="text"
               name="lastname"
+              value={values.lastname || ''}
               id="lastname"
-              placeholder="Nom"
+              // placeholder="Nom"
               onChange={handleChange}
             ></input>
           </span>
-        </span>
-        <span className="detailscompte__container-form-otherinfo">
+        </section>
+        <section className="detailscompte__container-form-otherinfo">
           <label htmlFor="username">
             Nom d'utilisateur<span className="required">*</span>
           </label>
@@ -81,7 +94,7 @@ const DetailsCompte = () => {
             type="text"
             name="username"
             id="username"
-            value={values.username}
+            value={values.username || ''}
             onChange={handleChange}
           ></input>
           <label htmlFor="email">
@@ -91,53 +104,103 @@ const DetailsCompte = () => {
             type="email"
             name="email"
             id="email"
-            value={values.email}
+            value={values.email || ''}
             onChange={handleChange}
           ></input>
-        </span>
-        <div className="detailscompte__container-form-passwordupdate">
-          <p>Changement du mot de passe</p>
-          <label htmlFor="password">
-            Mot de passe actuel<span className="required">*</span>
-          </label>
-          <span className="detailscompte__container-form-passwordupdate-inputbox">
+        </section>
+        <section className="detailscompte__container-form-addresses">
+          <div className="detailscompte__container-form-addresses-facturation">
+          <p>Mes adresses</p>
+            <label htmlFor="address">
+              Adresse<span className="required">*</span>
+            </label>
             <input
-              type={PasswordInputType}
-              name="password"
-              id="password"
-              value={values.password}
+              type="text"
+              name="address"
+              id="address"
+              value={values.address || ''}
               onChange={handleChange}
             ></input>
-            <span className="password-toggle-icon">{ToggleIcon}</span>
-          </span>
-          {errors.password && <p className="error">{errors.password}</p>}
-          <label htmlFor="newpassword">
-            Nouveau mot de passe<span className="required">*</span>
-          </label>
-          <span className="detailscompte__container-form-passwordupdate-inputbox">
+            <label htmlFor="zipcode">
+              Code postal<span className="required">*</span>
+            </label>
             <input
-              type={NewPasswordInputType}
-              name="newpassword"
-              id="newpassword"
+              type="text"
+              name="zipcode"
+              id="zipcode"
+              value={values.zipcode || ''}
               onChange={handleChange}
             ></input>
-            <span className="password-toggle-icon">{NewToggleIcon}</span>
-          </span>
-          {errors.newpassword && <p className="error">{errors.newpassword}</p>}
-          <label htmlFor="newpasswordbis">
-            Confirmer le mot de passe<span className="required">*</span>
-          </label>
-          <span className="detailscompte__container-form-passwordupdate-inputbox">
+            <label htmlFor="city">
+              Ville<span className="required">*</span>
+            </label>
             <input
-              type={NewPasswordInputTypeBis}
-              name="newpasswordbis"
-              id="newpasswordbis"
+              type="text"
+              name="city"
+              id="city"
+              value={values.city || ''}
               onChange={handleChange}
             ></input>
-            <span className="password-toggle-icon">{NewToggleIconBis}</span>
-          </span>
-          {errors.newpasswordbis && <p className="error">{errors.newpasswordbis}</p>}
-        </div>
+            <label htmlFor="country">
+              Pays<span className="required">*</span>
+            </label>
+            <input
+              type="text"
+              name="country"
+              id="country"
+              value={values.country || ''}
+              onChange={handleChange}
+            ></input>
+          </div>
+          <div className="detailscompte__container-form-addresses-livraison"></div>
+        </section>
+        {/* <div className="detailscompte__container-form-passwordupdate">
+            <p>Changement du mot de passe</p>
+            <label htmlFor="password">
+              Mot de passe actuel<span className="required">*</span>
+            </label>
+            <span className="detailscompte__container-form-passwordupdate-inputbox">
+              <input
+                type={PasswordInputType}
+                name="password"
+                id="password"
+                value={values.password}
+                // onChange={handleChange}
+              ></input>
+              <span className="password-toggle-icon">{ToggleIcon}</span>
+            </span>
+            {errors.password && <p className="error">{errors.password}</p>}
+            <label htmlFor="newpassword">
+              Nouveau mot de passe<span className="required">*</span>
+            </label>
+            <span className="detailscompte__container-form-passwordupdate-inputbox">
+              <input
+                type={NewPasswordInputType}
+                name="newpassword"
+                id="newpassword"
+                // onChange={handleChange}
+              ></input>
+              <span className="password-toggle-icon">{NewToggleIcon}</span>
+            </span>
+            {errors.newpassword && (
+              <p className="error">{errors.newpassword}</p>
+            )}
+            <label htmlFor="newpasswordbis">
+              Confirmer le mot de passe<span className="required">*</span>
+            </label>
+            <span className="detailscompte__container-form-passwordupdate-inputbox">
+              <input
+                type={NewPasswordInputTypeBis}
+                name="newpasswordbis"
+                id="newpasswordbis"
+                // onChange={handleChange}
+              ></input>
+              <span className="password-toggle-icon">{NewToggleIconBis}</span>
+            </span>
+            {errors.newpasswordbis && (
+              <p className="error">{errors.newpasswordbis}</p>
+            )}
+          </div> */}
         <button type="submit" className="submit-button">
           Enregister les modifications
         </button>
