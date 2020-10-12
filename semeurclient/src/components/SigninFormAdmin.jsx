@@ -10,9 +10,20 @@ const API = process.env.REACT_APP_API_URL;
 
 const SigninFormAdmin = () => {
   const { dispatch } = useContext(AuthContext);
+
+  const initialState = {
+    username: '',
+    email: '',
+    password: '',
+    admin: false,
+    // isSubmitting: false,
+    // errorMessage: null,
+  };
+
   const { handleChange, handleSubmit, values, setValues, errors } = useForm(
-    submit,
-    validate
+    initialState,
+    validate,
+    submit
   );
   const history = useHistory();
 
@@ -35,7 +46,6 @@ const SigninFormAdmin = () => {
     } catch (error) {
       setValues({
         ...values,
-        isSubmitting: false,
         errorMessage: error.message,
       });
     }
@@ -50,7 +60,10 @@ const SigninFormAdmin = () => {
         className="signin__container-form"
       >
         <div className="signin__container-form-info">
-          <label htmlFor="emailOrUsername" className="signin__container-form-info-label">
+          <label
+            htmlFor="emailOrUsername"
+            className="signin__container-form-info-label"
+          >
             Nom d'utilisateur ou Email
           </label>
           <span className="required">*</span>
@@ -68,7 +81,10 @@ const SigninFormAdmin = () => {
           </div>
         </div>
         <div className="signin__container-form-info">
-          <label htmlFor="password" className="signin__container-form-info-label">
+          <label
+            htmlFor="password"
+            className="signin__container-form-info-label"
+          >
             Mot de passe
           </label>
           <span className="required">*</span>
@@ -83,10 +99,7 @@ const SigninFormAdmin = () => {
             {errors.password && <p className="error">{errors.password}</p>}
           </div>
         </div>
-        <button
-          type="submit"
-          className="signin__container-form-submitbutton"
-        >
+        <button type="submit" className="signin__container-form-submitbutton">
           Valider
         </button>
       </form>

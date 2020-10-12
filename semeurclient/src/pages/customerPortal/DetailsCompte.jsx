@@ -15,9 +15,29 @@ const DetailsCompte = () => {
   const [NewPasswordInputTypeBis, NewToggleIconBis] = usePasswordToggle();
 
   const { state: authState, dispatch } = useContext(AuthContext);
+
+  const initialState = {
+    username: '' ? '' : authState.user.username,
+    firstname: '' ? '' : authState.user.firstname,
+    lastname: '' ? '' : authState.user.lastname,
+    phone: '' ? '' : authState.user.phone,
+    email: '' ? '' : authState.user.email,
+    address: '' ? '' : authState.user.address,
+    zipcode: '' ? '' : authState.user.zipcode,
+    city: '' ? '' : authState.user.city,
+    country: '' ? '' : authState.user.country,
+    // password: '',
+    // newpassword: '',
+    // newpasswordbis: '',
+    admin: false,
+    isSubmitting: false,
+    // errorMessage: null,
+  };
+
   const { handleChange, handleSubmit, values, setValues, errors } = useForm(
-    submit,
-    validate
+    initialState,
+    validate,
+    submit
   );
 
   const [redirect, setRedirect] = useState(false);
@@ -26,13 +46,19 @@ const DetailsCompte = () => {
 
   async function submit() {
     try {
-      const res = await axios.put(
+      const res = await axios.patch(
         `${API}users/`,
         {
           firstname: values.firstname,
           lastname: values.lastname,
           username: values.username,
-          password: values.password,
+          phone: values.phone,
+          email: values.email,
+          address: values.address,
+          zipcode: values.zipcode,
+          city: values.city,
+          country: values.country,
+          // password: values.password,
           admin: values.admin,
         },
         { headers: { Authorization: `Bearer ${authState.token}` } }
@@ -41,7 +67,8 @@ const DetailsCompte = () => {
       if (res) {
         console.log('Submitted Succesfully');
         console.log(res);
-        setRedirect(true);
+        
+        // setRedirect(true);
       }
       throw res;
     } catch (err) {
@@ -72,6 +99,7 @@ const DetailsCompte = () => {
               onChange={handleChange}
               id="firstname"
             ></input>
+            {errors.firstname && <p className="error">{errors.firstname}</p>}
           </span>
           <span className="detailscompte__container-form-lastname">
             <label htmlFor="lastname">Nom</label>
@@ -84,6 +112,7 @@ const DetailsCompte = () => {
               // placeholder="Nom"
               onChange={handleChange}
             ></input>
+            {errors.lastname && <p className="error">{errors.lastname}</p>}
           </span>
         </section>
         <section className="detailscompte__container-form-otherinfo">
@@ -97,6 +126,18 @@ const DetailsCompte = () => {
             value={values.username || ''}
             onChange={handleChange}
           ></input>
+          {errors.username && <p className="error">{errors.username}</p>}
+          <label htmlFor="phone">
+            Téléphone<span className="required">*</span>
+          </label>
+          <input
+            type="text"
+            name="phone"
+            id="phone"
+            value={values.phone || ''}
+            onChange={handleChange}
+          ></input>
+          {errors.phone && <p className="error">{errors.phone}</p>}
           <label htmlFor="email">
             Email<span className="required">*</span>
           </label>
@@ -107,10 +148,11 @@ const DetailsCompte = () => {
             value={values.email || ''}
             onChange={handleChange}
           ></input>
+          {errors.email && <p className="error">{errors.email}</p>}
         </section>
         <section className="detailscompte__container-form-addresses">
           <div className="detailscompte__container-form-addresses-facturation">
-          <p>Mes adresses</p>
+            <p>Mes adresses</p>
             <label htmlFor="address">
               Adresse<span className="required">*</span>
             </label>
@@ -121,6 +163,7 @@ const DetailsCompte = () => {
               value={values.address || ''}
               onChange={handleChange}
             ></input>
+            {errors.address && <p className="error">{errors.address}</p>}
             <label htmlFor="zipcode">
               Code postal<span className="required">*</span>
             </label>
@@ -131,6 +174,7 @@ const DetailsCompte = () => {
               value={values.zipcode || ''}
               onChange={handleChange}
             ></input>
+            {errors.zipcode && <p className="error">{errors.zipcode}</p>}
             <label htmlFor="city">
               Ville<span className="required">*</span>
             </label>
@@ -141,6 +185,7 @@ const DetailsCompte = () => {
               value={values.city || ''}
               onChange={handleChange}
             ></input>
+            {errors.city && <p className="error">{errors.city}</p>}
             <label htmlFor="country">
               Pays<span className="required">*</span>
             </label>
@@ -151,26 +196,27 @@ const DetailsCompte = () => {
               value={values.country || ''}
               onChange={handleChange}
             ></input>
+            {errors.country && <p className="error">{errors.country}</p>}
           </div>
           <div className="detailscompte__container-form-addresses-livraison"></div>
         </section>
         {/* <div className="detailscompte__container-form-passwordupdate">
-            <p>Changement du mot de passe</p>
-            <label htmlFor="password">
-              Mot de passe actuel<span className="required">*</span>
-            </label>
-            <span className="detailscompte__container-form-passwordupdate-inputbox">
-              <input
-                type={PasswordInputType}
-                name="password"
-                id="password"
-                value={values.password}
-                // onChange={handleChange}
-              ></input>
-              <span className="password-toggle-icon">{ToggleIcon}</span>
-            </span>
-            {errors.password && <p className="error">{errors.password}</p>}
-            <label htmlFor="newpassword">
+          <p>Changement du mot de passe</p>
+          <label htmlFor="password">
+            Mot de passe actuel<span className="required">*</span>
+          </label>
+          <span className="detailscompte__container-form-passwordupdate-inputbox">
+            <input
+              type={PasswordInputType}
+              name="password"
+              id="password"
+              value={values.password}
+              onChange={handleChange}
+            ></input>
+            <span className="password-toggle-icon">{ToggleIcon}</span>
+          </span>
+          {errors.password && <p className="error">{errors.password}</p>} */}
+          {/* <label htmlFor="newpassword">
               Nouveau mot de passe<span className="required">*</span>
             </label>
             <span className="detailscompte__container-form-passwordupdate-inputbox">
@@ -199,8 +245,8 @@ const DetailsCompte = () => {
             </span>
             {errors.newpasswordbis && (
               <p className="error">{errors.newpasswordbis}</p>
-            )}
-          </div> */}
+            )} */}
+        {/* </div> */}
         <button type="submit" className="submit-button">
           Enregister les modifications
         </button>

@@ -1,0 +1,47 @@
+.adminportal__container {
+  &-customers-container {
+    // border: 1px solid $color--brinput;
+
+    &-header {
+      border: 1px solid black;
+    }
+
+    &-main {
+      //     width: auto;
+      //   border: 1px solid $color--brinput;
+      &-table {
+        font-size: 0.8em;
+        scroll-behavior: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        // width: auto;
+        // border: 1px solid $color--brinput;
+        border-collapse: collapse;
+
+        thead,
+        tbody {
+          width: auto;
+        }
+
+        th {
+          background: $color--bgtable;
+        }
+
+        &-regular {
+          min-width: 10em;
+          max-width: auto;
+          padding: 1em;
+          border: 0.2px solid $color--brinput;
+        }
+
+        &-email {
+          min-width: 20em;
+          max-width: 25em;
+          padding: 1em;
+        }
+      }
+    }
+  }
+}

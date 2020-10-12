@@ -10,12 +10,21 @@ const API = process.env.REACT_APP_API_URL;
 
 const SigninFormCustomer = () => {
   const { dispatch } = useContext(AuthContext);
-  const { handleChange, handleSubmit, values, setValues, errors } = useForm(
-    submit,
-    validate
-  );
   const [redirect, setRedirect] = useState(false);
 
+  const initialState = {
+    username: '',
+    email: '',
+    password: '',
+    admin: false
+  };
+
+  const { handleChange, handleSubmit, values, setValues, errors } = useForm(
+    initialState,
+    validate,
+    submit
+  );
+  
   async function submit() {
     try {
       const res = await axios.post(`${API}signincustomer`, {
@@ -36,7 +45,6 @@ const SigninFormCustomer = () => {
     } catch (error) {
       setValues({
         ...values,
-        isSubmitting: false,
         errorMessage: error.message,
       });
     }

@@ -1,4 +1,4 @@
-export default function validateCustomer(values, authState) {
+export default function validateEditCustomer(values) {
   const errors = {};
 
   if (!values.firstname) {
@@ -27,6 +27,37 @@ export default function validateCustomer(values, authState) {
 //   if (!values.password) {
 //     errors.password = 'Un mot de passe est obligatoire.';
 //   }
+  if (!values.phone) {
+    errors.phone = "Un numéro de téléphone est obligatoire.";
+  } else if (typeof values.phone !== 'string') {
+    errors.phone =
+      "Veuillez utiliser des caractères valides pour saisir votre nom d'utilisateur.";
+  }
+  if (!values.address) {
+    errors.address = "Une adresse est obligatoire.";
+  } else if (typeof values.address !== 'string') {
+    errors.address =
+      "Veuillez utiliser des caractères valides pour saisir votre nom d'utilisateur.";
+  }
+  if (!values.zipcode) {
+    errors.zipcode = "Un code postal est obligatoire.";
+  } else if (typeof values.zipcode !== 'string') {
+    errors.zipcode =
+      "Veuillez utiliser des caractères valides pour saisir votre nom d'utilisateur.";
+  }
+  if (!values.city) {
+    errors.city = "Un nom de ville est obligatoire.";
+  } else if (typeof values.city !== 'string') {
+    errors.city =
+      "Veuillez utiliser des caractères valides pour saisir votre nom d'utilisateur.";
+  }
+  if (!values.country) {
+    errors.country = "Un nom de pays est obligatoire.";
+  } else if (typeof values.country !== 'string') {
+    errors.country =
+      "Veuillez utiliser des caractères valides pour saisir votre nom d'utilisateur.";
+  }
+
 //   if (!values.newpassword) {
 //     errors.newpassword = 'Un mot de passe est obligatoire.';
 //   } else if (values.newpassword.length < 8) {
