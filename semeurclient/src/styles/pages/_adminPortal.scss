@@ -1,4 +1,24 @@
 .adminportal__container {
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   width: 100%;
+//   height: 100%;
+
+//   @include media(desktop) {
+//     display: flex;
+//     flex-direction: row;
+//     justify-content: space-between;
+//     align-items: flex-start;
+//     width: 100%;
+//     padding: 2em;
+//     border: 1px solid green;
+//   }
+  &-window {
+    width: 100%;
+    height: 100vh;
+    padding: 0;
+  }
   &-customers-container {
     // border: 1px solid $color--brinput;
 
@@ -16,8 +36,6 @@
         flex-direction: column;
         justify-content: center;
         align-items: flex-start;
-        // width: auto;
-        // border: 1px solid $color--brinput;
         border-collapse: collapse;
 
         thead,
