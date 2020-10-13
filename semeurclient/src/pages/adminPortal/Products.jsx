@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Modal from 'react-modal';
 
 import AddProductForm from '../../components/AddProductForm';
-import { useEffect } from 'react';
+import EditProductForm from '../../components/EditProductForm';
 
 const API = process.env.REACT_APP_API_URL;
 
@@ -114,7 +114,15 @@ const ProductTableRow = ({
               >
                 ✕
               </button>
-              <AddProductForm />
+              <EditProductForm
+                id={id}
+                name={name}
+                type={type}
+                price={price}
+                stock={stock}
+                description={description}
+                image={image}
+              />
             </Modal>
           </td>
           <td className="adminportal__container-customers-container-main-table-regular">

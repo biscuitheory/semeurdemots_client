@@ -19,7 +19,7 @@ const useForm = (initialState, validate, callback) => {
     setValues({
       ...values,
     });
-
+  
     setErrors(validate(values));
     setIsSubmitting(true);
   };
