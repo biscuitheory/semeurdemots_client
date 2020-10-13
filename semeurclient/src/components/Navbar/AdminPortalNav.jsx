@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link, useRouteMatch, useHistory } from 'react-router-dom';
 import { AuthContext } from '../../contexts/auth';
 import { Breakpoint } from 'react-socks';
@@ -12,6 +12,8 @@ import {
 import { faUserCircle } from '@fortawesome/free-regular-svg-icons';
 
 const AdminPortalNavbar = () => {
+  // const [isVisible, setIsVisible] = useState(true);
+
   const { dispatch } = useContext(AuthContext);
   const history = useHistory();
   const signOut = async (event) => {
@@ -25,6 +27,7 @@ const AdminPortalNavbar = () => {
   return (
     <>
       <Breakpoint customQuery="(max-width: 1025px)">
+        {/* <button onClick={() => setIsVisible(false)} className="customerportal__container-navbutton">open</button> */}
         <ul className="adminportal__container-navbar">
           <Link to={`${url}`} className="adminportal__container-navbar-item">
             <FontAwesomeIcon

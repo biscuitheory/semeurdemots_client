@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useState, useEffect } from 'react';
 
 const API = process.env.REACT_APP_API_URL;
 
@@ -11,7 +10,7 @@ const Customers = () => {
     const fetchUsers = async () => {
       const res = await axios.get(`${API}users`);
       setUsers(res.data);
-      console.log('from customers ', res.data);
+      // console.log('from customers ', res.data);
     };
     fetchUsers();
   }, []);

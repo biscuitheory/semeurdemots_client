@@ -1,4 +1,4 @@
-export default function validateEditProduct(values) {
+export default function validatePostProduct(values) {
   const errors = {};
 
   if (!values.name) {
@@ -20,7 +20,7 @@ export default function validateEditProduct(values) {
       'Veuillez utiliser des caractères valides pour saisir le prix.';
   }
   if (!values.stock) {
-    errors.stock = 'Un prix est obligatoire.';
+    errors.stock = 'Un nombre de stock est obligatoire.';
   } else if (typeof values.stock !== 'string') {
     errors.stock =
       'Veuillez utiliser des caractères valides pour saisir le stock.';

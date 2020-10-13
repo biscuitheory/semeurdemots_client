@@ -14,7 +14,6 @@ const CustomerPortal = () => {
       <>
         <SubHeader title="Compte client" />
         <div className="customerportal__container">
-          <button className="customerportal__container-navbutton">navnav</button>
           <CustomerPortalNavbar />
           <CustomerPortalWindow />
         </div>
