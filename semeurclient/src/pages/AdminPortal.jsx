@@ -13,6 +13,8 @@ const AdminPortal = () => {
       <>
         <SubHeader title="Compte administrateur" />
         <div className="adminportal__container">
+          <button className="customerportal__container-navbutton">navnav
+          </button>
           <AdminPortalNavbar />
           <AdminPortalWindow />
         </div>

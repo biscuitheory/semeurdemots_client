@@ -7,7 +7,7 @@ const useForm = (initialState, validate, callback) => {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    
+
     setValues({
       ...values,
       [name]: value,
@@ -17,16 +17,15 @@ const useForm = (initialState, validate, callback) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     setValues({
-      ...values
+      ...values,
     });
-    
+
     setErrors(validate(values));
     setIsSubmitting(true);
   };
 
   useEffect(() => {
     if (Object.keys(errors).length === 0 && isSubmitting) {
-      
       callback();
     }
   }, [errors, isSubmitting]);

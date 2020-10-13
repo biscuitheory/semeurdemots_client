@@ -30,8 +30,6 @@ const DetailsCompte = () => {
     // newpassword: '',
     // newpasswordbis: '',
     admin: false,
-    isSubmitting: false,
-    // errorMessage: null,
   };
 
   const { handleChange, handleSubmit, values, setValues, errors } = useForm(
