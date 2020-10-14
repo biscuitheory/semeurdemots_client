@@ -25,7 +25,7 @@ const CustomerPortalNavbar = () => {
   return (
     <>
       <Breakpoint customQuery="(max-width: 1025px)">
-        <button className="customerportal__container-navbutton">navnav</button>
+        {/* <button className="customerportal__container-navbutton">navnav</button> */}
         <ul className="customerportal__container-navbar">
           <Link to={`${url}`} className="customerportal__container-navbar-item">
             <FontAwesomeIcon

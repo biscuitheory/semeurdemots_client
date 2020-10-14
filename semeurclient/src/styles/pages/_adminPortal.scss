@@ -1,34 +1,40 @@
 .adminportal__container {
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   width: 100%;
-//   height: 100%;
+  //   display: flex;
+  //   flex-direction: column;
+  //   align-items: center;
+  //   width: 100%;
+  //   height: 100%;
 
-//   @include media(desktop) {
-//     display: flex;
-//     flex-direction: row;
-//     justify-content: space-between;
-//     align-items: flex-start;
-//     width: 100%;
-//     padding: 2em;
-//     border: 1px solid green;
-//   }
+  //   @include media(desktop) {
+  //     display: flex;
+  //     flex-direction: row;
+  //     justify-content: space-between;
+  //     align-items: flex-start;
+  //     width: 100%;
+  //     padding: 2em;
+  //     border: 1px solid green;
+  //   }
   &-window {
+    border: 1px solid red;
     width: 100%;
-    height: 100vh;
+    height: 100%;
     padding: 0;
+    overflow: auto;
+    @include media(desktop) {
+    //   padding: 0em 0 0 0;
+    }
   }
   &-customers-container {
     // border: 1px solid $color--brinput;
 
     &-header {
-      border: 1px solid black;
+      border: 1px solid orange;
+      background-color: orange;
     }
 
     &-main {
       //     width: auto;
-      //   border: 1px solid $color--brinput;
+        
       &-table {
         font-size: 0.8em;
         scroll-behavior: auto;
@@ -60,6 +66,14 @@
           padding: 1em;
         }
       }
+    }
+  }
+
+  &-products-container {
+
+    &-main {
+        // border: 1px solid green;
+        overflow: auto;
     }
   }
 }

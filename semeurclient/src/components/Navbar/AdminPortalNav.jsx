@@ -6,6 +6,7 @@ import { Breakpoint } from 'react-socks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faSolarPanel,
+  faBook,
   faShoppingBag,
   faPowerOff,
 } from '@fortawesome/free-solid-svg-icons';
@@ -31,17 +32,17 @@ const AdminPortalNavbar = () => {
         <ul className="adminportal__container-navbar">
           <Link to={`${url}`} className="adminportal__container-navbar-item">
             <FontAwesomeIcon
-              icon={faSolarPanel}
+              icon={faSolarPanel} 
               className="adminportal__container-navbar-item-icon"
             />
-            <span>Tableau de bord</span>
+            <span>Dashbord</span>
           </Link>
           <Link
             to={`${url}/produits`}
             className="adminportal__container-navbar-item"
           >
             <FontAwesomeIcon
-              icon={faShoppingBag}
+              icon={faBook}
               className="adminportal__container-navbar-item-icon"
             />
             <span>Produits</span>
