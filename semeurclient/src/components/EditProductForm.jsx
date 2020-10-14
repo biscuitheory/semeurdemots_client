@@ -16,9 +16,12 @@ const EditProductForm = ({
   stock,
   description,
   image,
+  isOpen,
+  onRequestClose,
 }) => {
   const { state: authState, dispatch } = useContext(AuthContext);
   const [redirect, setRedirect] = useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const initialState = {
     id: '' ? '' : id,
@@ -175,7 +178,12 @@ const EditProductForm = ({
             ></input>
             {errors.image && <p className="error">{errors.image}</p>}
           </div>
-          <button type="submit" className="submit-button">
+          <button
+            type="submit"
+            title="close modal"
+            onClick={() => setModalIsOpen(false)}
+            className="submit-button"
+          >
             Enregistrer
           </button>
         </form>

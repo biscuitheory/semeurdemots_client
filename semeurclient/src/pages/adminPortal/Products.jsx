@@ -122,6 +122,8 @@ const ProductTableRow = ({
                 stock={stock}
                 description={description}
                 image={image}
+                isOpen
+                onRequestClose
               />
             </Modal>
           </td>

@@ -28,10 +28,13 @@
 
     input {
       margin: 1.5em 0;
-      width: 30em;
+      width: 100%;
       height: 3.5em;
       border: 1px solid $color--brinput;
       background: $color--bginput;
+      @include media(desktop) {
+     
+      }
     }
 
     &-info-disclaimerbox {
