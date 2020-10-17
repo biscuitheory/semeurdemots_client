@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import CartContext from '../contexts/cart';
+// import CartContext from '../contexts/cart';
 
 import InputCount from '../components/Misc';
 
 const ProductSheet = ({ description, id, image, name, price, stock, type }) => {
   const [inputCount, setInputCount] = useState(1);
 
-  useEffect(() => {
-   
-  }, []);
+  // useEffect(() => {
+
+  // }, []);
 
   const onInputCountChange = (count) => {
     // console.log('fer', count);
@@ -16,10 +16,11 @@ const ProductSheet = ({ description, id, image, name, price, stock, type }) => {
   };
 
   const addItem = (id, count) => {
-    let currentCart = localStorage.getItem('productID-' + id)
+    let currentCart = localStorage.getItem(id);
 
-    let totalCount = currentCart == null ? count : +count + (+currentCart)
-    localStorage.setItem('productID-' + id, totalCount);
+    let totalCount = currentCart == null ? count : +count + +currentCart;
+    // localStorage.setItem('product_id' + id, totalCount);
+    localStorage.setItem(id, totalCount);
   };
 
   return (
@@ -38,7 +39,11 @@ const ProductSheet = ({ description, id, image, name, price, stock, type }) => {
         </p>
         <InputCount onChange={onInputCountChange} count={inputCount} />
         {/* <SubmitButton onClick={() => addItem(id)} /> */}
-        <button onClick={() => addItem(id, inputCount)} type="submit">
+        <button
+          onClick={() => addItem(id, inputCount)}
+          type="submit"
+          className="submit-button"
+        >
           Ajouter au panier
         </button>
         <p>

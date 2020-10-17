@@ -7,10 +7,53 @@
     flex-direction: column;
     // justify-content: space-around;
     // align-items: center;
+    padding: 1em;
+    border: 1px solid green;
+
+    p {
+      font-size: 1em;
+    }
 
     &-box {
       display: flex;
       justify-content: space-around;
+
+      border: 1px solid orange;
+
+      &-delete {
+        border: 1px solid brown;
+      }
+
+      &-img {
+        border: 1px solid brown;
+        width: 5em;
+      }
+
+      &-name {
+        border: 1px solid brown;
+      }
+
+      &-price {
+        border: 1px solid brown;
+      }
+
+      &-quantity {
+        width: auto;
+        border: 1px solid brown;
+        h5 {
+          width: 5em;
+        }
+        input {
+          width: 3em;
+        }
+      }
+
+      &-subtotal {
+        border: 1px solid brown;
+        h5 {
+          width: auto;
+        }
+      }
     }
 
     &-update {
@@ -37,6 +80,6 @@
   }
 
   &-confirm-button {
-      padding: 1em;
+    padding: 1em;
   }
 }

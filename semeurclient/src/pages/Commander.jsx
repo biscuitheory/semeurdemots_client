@@ -13,7 +13,7 @@ const Commander = () => {
     const fetchProducts = async () => {
       const res = await axios(`${API}products`);
       setProducts(res.data);
-      console.log(res.data);
+      // console.log(res.data);
     };
     fetchProducts();
   }, []);
@@ -22,6 +22,7 @@ const Commander = () => {
     <>
       <SubHeader title="Commander"/>
       <div>
+        {console.log(products)}
         {products.map((product, i) => (
           <ProductSheet key={i} {...product} />
         ))}

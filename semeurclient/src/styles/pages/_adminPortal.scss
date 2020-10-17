@@ -21,7 +21,7 @@
     padding: 0;
     overflow: auto;
     @include media(desktop) {
-    //   padding: 0em 0 0 0;
+      //   padding: 0em 0 0 0;
     }
   }
   &-customers-container {
@@ -33,8 +33,6 @@
     }
 
     &-main {
-      //     width: auto;
-        
       &-table {
         font-size: 0.8em;
         scroll-behavior: auto;
@@ -43,6 +41,9 @@
         justify-content: center;
         align-items: flex-start;
         border-collapse: collapse;
+        @include media(desktop) {
+          font-size: 0.8em;
+        }
 
         thead,
         tbody {
@@ -53,11 +54,25 @@
           background: $color--bgtable;
         }
 
+        &-small {
+          min-width: 5em;
+          padding: 1em;
+          border: 0.2px solid $color--brinput;
+        }
+
         &-regular {
           min-width: 10em;
           max-width: auto;
           padding: 1em;
           border: 0.2px solid $color--brinput;
+        }
+
+        &-large {
+          min-width: 20em;
+          max-width: 25em;
+          padding: 1em;
+          border: 0.2px solid $color--brinput;
+          overflow: auto;
         }
 
         &-email {
@@ -70,10 +85,17 @@
   }
 
   &-products-container {
-
     &-main {
-        // border: 1px solid green;
-        overflow: auto;
+      border: 1px solid $color--brinput;
+
+      overflow: auto;
+
+      &-table {
+        font-size: 0.8em;
+        @include media(desktop) {
+            
+        }
+      }
     }
   }
 }

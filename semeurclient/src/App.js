@@ -10,6 +10,7 @@ import Commander from './pages/Commander';
 import CustomerPortal from './pages/CustomerPortal';
 import AdminPortal from './pages/AdminPortal';
 import Cart from './pages/Cart';
+import ErrorPage from './pages/ErrorPage';
 
 import 'react-toastify/dist/ReactToastify.css';
 import './styles/App.scss';
@@ -91,6 +92,7 @@ function App() {
                 <AdminPortal />
               </Route>
               <Route exact path="/panier" component={Cart} />
+              <Route path="/*" component={ErrorPage} />
             </CartContext.Provider>
           </Switch>
         </Router>

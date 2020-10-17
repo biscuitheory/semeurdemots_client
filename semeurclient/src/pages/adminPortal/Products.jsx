@@ -49,7 +49,7 @@ const Products = () => {
         <table className="adminportal__container-products-container-main-table">
           <thead>
             <tr className="adminportal__container-products-container-main-table-regular">
-              <th className="adminportal__container-products-container-main-table-regular">
+              <th className="adminportal__container-products-container-main-table-small">
                 Id
               </th>
               <th className="adminportal__container-products-container-main-table-regular">
@@ -64,7 +64,7 @@ const Products = () => {
               <th className="adminportal__container-products-container-main-table-regular">
                 Stock
               </th>
-              <th className="adminportal__container-products-container-main-table-email">
+              <th className="adminportal__container-products-container-main-table-large">
                 Description
               </th>
               <th className="adminportal__container-products-container-main-table-regular">
@@ -95,7 +95,7 @@ const ProductTableRow = ({
     <>
       <tbody>
         <tr className="adminportal__container-customers-container-main-table-regular">
-          <td className="adminportal__container-customers-container-main-table-regular">
+          <td className="adminportal__container-customers-container-main-table-small">
             {id}
           </td>
           <td className="adminportal__container-customers-container-main-table-regular">
@@ -136,7 +136,7 @@ const ProductTableRow = ({
           <td className="adminportal__container-customers-container-main-table-regular">
             {stock}
           </td>
-          <td className="adminportal__container-customers-container-main-table-email">
+          <td className="adminportal__container-customers-container-main-table-large">
             {description}
           </td>
           <td className="adminportal__container-customers-container-main-table-regular">
