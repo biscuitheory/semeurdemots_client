@@ -14,28 +14,29 @@ const Cart = () => {
 
     // Transform Localstorage object to array of its keys
     let keys = Object.keys(localStorage);
-    console.log('keyss', keys)
+    console.log('keyss', keys);
 
     let values = Object.values(localStorage);
-    console.log('valuess', values)
+    console.log('valuess', values);
 
-  
     // fetchProducts : function qui filtre ma requete de tous les produits
     const fetchProducts = async () => {
       // fetch tous les produit
-      const res = await axios.get(`${API}products`);
-      const filterProducts = [];
+      const res = await axios.post(`${API}cart`, { keys, values });
+      // const filterProducts = [];
 
-      if (res.data) { // quand ma requete a fini 
-        keys.forEach((item) => {
-          res.data.forEach((element) => {
-            if (element.id == item) {
-              filterProducts.push(element);
-            }
-          });
-        });
-      }
-      setProducts(filterProducts);
+      // if (res.data) { // quand ma requete a fini
+      //   keys.forEach((item) => {
+      //     res.data.forEach((element) => {
+      //       if (element.id == item) {
+      //         filterProducts.push(element);
+      //       }
+      //     });
+      //   });
+      // }
+      // setProducts(filterProducts);
+      setProducts(res.data);
+      // console.log('wow', res.data)
     };
     fetchProducts();
   }
@@ -50,7 +51,9 @@ const Cart = () => {
       {console.log('produit', products)}
       {/* {console.log('fiii', cart)} */}
 
-      {/* {Object.entries(cart).map((i, cart))(<CartProductRow key={i} {...cart} />)} */}
+      {products.map((product, i) => (
+        <CartProductRow key={i} {...product} />
+      ))}
 
       <div className="cart__container-totalcart">
         <div className="cart__container-totalcart-subtotall">
@@ -75,24 +78,25 @@ const Cart = () => {
   );
 };
 
-function CartProductRow({ productID }) {
-  console.log('this is ', productID);
+function CartProductRow({ dataValues, quantity }) {
+  // console.log('this is ', productID);
   return (
     <div className="cart__container-products">
       <div className="cart__container-products-box">
         <div className="cart__container-products-box-delete">x</div>
-        <div className="cart__container-products-box-img"></div>
+        {/* <div className="cart__container-products-box-img"></div> */}
+        <img src={dataValues.image} alt="product" className="cart__container-products-box-img"></img>
         <div className="cart__container-products-box-name">
           <h5>Produit:</h5>
-          <p>Poisson rouge</p>
+          <p>{dataValues.name}</p>
         </div>
         <div className="cart__container-products-box-price">
           <h5>Prix:</h5>
-          <p>22.00€</p>
+          <p>{dataValues.price}</p>
         </div>
         <div className="cart__container-products-box-quantity">
           <h5>Quantité:</h5>
-          <input></input>
+          <input value={dataValues.id}></input>
         </div>
         <div className="cart__container-products-box-subtotal">
           <h5>Sous-total:</h5>
