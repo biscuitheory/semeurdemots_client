@@ -7,15 +7,92 @@
     flex-direction: column;
     // justify-content: space-around;
     // align-items: center;
+    padding: 1em 0;
+    border: 1px solid green;
+    @include media(desktop) {
+      padding: 1em;
+    }
+
+    p {
+      font-size: 1em;
+    }
 
     &-box {
       display: flex;
-      justify-content: space-around;
+      flex-direction: row;
+      justify-content: space-between;
+      // display: grid;
+      // grid-template-columns: 2em 5em 6em 4em 5em 5em;
+      font-size: 0.7em;
+      border: 1px solid orange;
+      @include media(desktop) {
+        font-size: 1.2em;
+        // grid-template-columns: 5em 5em 5em 5em 5em 5em;
+      }
+
+      &-delete {
+        padding-left: 0.5em;
+        border: 1px solid brown;
+      }
+
+      &-img {
+        border: 1px solid brown;
+        width: 5em;
+        @include media (desktop) {
+          width: 15em;
+        }
+      }
+
+      &-name {
+        padding: 0 0.5em;
+        width: 7em;
+        border: 1px solid brown;
+        @include media (desktop) {
+          width: 15em;
+        }
+      }
+
+      &-price {
+        padding-left: 0.5em;
+        width: 4em;
+        border: 1px solid brown;
+        @include media (desktop) {
+          width: 5em;
+        }
+      }
+
+      &-quantity {
+        width: 6em;
+        padding-left: 0.5em;
+        width: auto;
+        border: 1px solid brown;
+        @include media (desktop) {
+          width: 8em;
+        }
+        h5 {
+          width: 5em;
+        }
+        input {
+          width: 3em;
+        }
+      }
+
+      &-subtotal {
+        padding-left: 0.5em;
+        border: 1px solid brown;
+        @include media (desktop) {
+          width: 10em;
+        }
+        h5 {
+          width: auto;
+        }
+      }
     }
 
     &-update {
       display: flex;
       justify-content: flex-end;
+      
     }
   }
 
@@ -37,6 +114,6 @@
   }
 
   &-confirm-button {
-      padding: 1em;
+    padding: 1em;
   }
 }

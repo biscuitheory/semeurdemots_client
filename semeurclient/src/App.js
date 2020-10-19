@@ -10,6 +10,8 @@ import Commander from './pages/Commander';
 import CustomerPortal from './pages/CustomerPortal';
 import AdminPortal from './pages/AdminPortal';
 import Cart from './pages/Cart';
+import ErrorPage from './pages/ErrorPage';
+import Footer from './components/Footer';
 
 import 'react-toastify/dist/ReactToastify.css';
 import './styles/App.scss';
@@ -92,7 +94,9 @@ function App() {
               </Route>
               <Route exact path="/panier" component={Cart} />
             </CartContext.Provider>
+            <Route path="/*" component={ErrorPage} />
           </Switch>
+          <Footer />
         </Router>
       </BreakpointProvider>
     </AuthContext.Provider>
