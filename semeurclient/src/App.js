@@ -83,8 +83,8 @@ function App() {
       <BreakpointProvider>
         <Router>
           <Navbar />
-          <Switch>
-            <CartContext.Provider value={{ cartState, setCartState }}>
+          <CartContext.Provider value={{ cartState, setCartState }}>
+            <Switch>
               <Route exact path="/commander" component={Commander} />
               <Route state={state} path="/compte-client">
                 <CustomerPortal />
@@ -93,9 +93,9 @@ function App() {
                 <AdminPortal />
               </Route>
               <Route exact path="/panier" component={Cart} />
-            </CartContext.Provider>
-            <Route path="/*" component={ErrorPage} />
-          </Switch>
+              <Route path="*" component={ErrorPage} />
+            </Switch>
+          </CartContext.Provider>
           <Footer />
         </Router>
       </BreakpointProvider>
