@@ -103,9 +103,9 @@ function CartProductRow({ dataValues, quantity }) {
           <p>22.00€</p>
         </div>
       </div>
-      <div className="cart__container-products-update">
+      {/* <div className="cart__container-products-update">
         <button>Mettre à jour le panier</button>
-      </div>
+      </div> */}
     </div>
   );
 }
