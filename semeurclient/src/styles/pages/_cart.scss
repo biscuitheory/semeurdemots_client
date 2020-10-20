@@ -1,12 +1,24 @@
 .cart__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
   width: 100%;
-  border: 2px solid orange;
+  @include media(desktop) {
+  }
+
+  .subheader__container {
+    margin-bottom: 2em;
+    @include media(desktop) {
+      margin-bottom: 5em;
+    }
+  }
 
   &-products {
     display: flex;
     flex-direction: column;
-    // justify-content: space-around;
-    // align-items: center;
+    justify-content: space-around;
+    width: 100%;
     padding: 1em 0;
     border: 1px solid green;
     @include media(desktop) {
@@ -20,9 +32,7 @@
     &-box {
       display: flex;
       flex-direction: row;
-      justify-content: space-between;
-      // display: grid;
-      // grid-template-columns: 2em 5em 6em 4em 5em 5em;
+      justify-content: space-around;
       font-size: 0.7em;
       border: 1px solid orange;
       @include media(desktop) {
@@ -31,8 +41,11 @@
       }
 
       &-delete {
-        padding-left: 0.5em;
         border: 1px solid brown;
+        width: 1em;
+        @include media(desktop) {
+          width: 0;
+        }
       }
 
       &-img {
@@ -44,7 +57,6 @@
       }
 
       &-name {
-        padding: 0 0.5em;
         width: 7em;
         border: 1px solid brown;
         @include media(desktop) {
@@ -53,7 +65,6 @@
       }
 
       &-price {
-        padding-left: 0.5em;
         width: 4em;
         border: 1px solid brown;
         @include media(desktop) {
@@ -63,7 +74,7 @@
 
       &-quantity {
         width: 6em;
-        padding-left: 0.5em;
+
         width: auto;
         border: 1px solid brown;
         @include media(desktop) {
@@ -78,7 +89,6 @@
       }
 
       &-subtotal {
-        padding-left: 0.5em;
         border: 1px solid brown;
         @include media(desktop) {
           width: 10em;
@@ -96,6 +106,7 @@
   }
 
   &-totalcart {
+    margin: 2em 1em;
     @include media(desktop) {
       display: flex;
       flex-direction: column;
@@ -105,50 +116,64 @@
     }
 
     &-title {
+      font-size: 1.3em;
+      margin-bottom: 0.5em;
+      @include media(desktop) {
+        font-size: 1.8em;
+      }
     }
 
     &-box {
       border: 1px solid $color--brinput;
-      margin: 1em;
       padding: 1em;
-
-      &-subtotal, &-shipping, &-total {
+      @include media(desktop) {
+        margin: 1em;
+      }
+      &-subtotal,
+      &-shipping,
+      &-total {
         @include media(desktop) {
           display: flex;
           font-size: 1.3em;
         }
 
-        p {
+        h5 {
+          margin-top: 0.5em;
+          font-size: 1em;
           @include media(desktop) {
-            margin-left: 5em;
+            margin-top: 0.3em;
+          }
+        }
+
+        p {
+          font-size: 0.8em;
+          @include media(desktop) {
+            margin: 0.5em 0 0 5em;
+            border: 1px solid orange;
           }
         }
       }
 
-      // &-shipping {
-      //   display: flex;
-
-      //   p {
-      //     margin-left: 5em;
-      //   }
-
-      //   &-label {
-      //   }
-      // }
-
       &-total {
-        border: 1px solid blue;
+        @include media(desktop) {
+          border: 1px solid blue;
+        }
 
         p {
-          margin-left: 7.3em;
+          @include media(desktop) {
+            margin-left: 8em;
+          }
         }
       }
     }
   }
 
   &-confirm-button {
-    margin: 1em 0 0 51%;
-    padding: 1em;
-    width: 50em;
+    width: 80%;
+    @include media(desktop) {
+      margin: 1em 0 0 50%;
+      padding: 1em;
+      width: 50%;
+    }
   }
 }
