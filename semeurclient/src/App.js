@@ -10,6 +10,7 @@ import Commander from './pages/Commander';
 import CustomerPortal from './pages/CustomerPortal';
 import AdminPortal from './pages/AdminPortal';
 import Cart from './pages/Cart';
+import Checkout from './pages/Checkout';
 import ErrorPage from './pages/ErrorPage';
 import Footer from './components/Footer';
 
@@ -93,6 +94,7 @@ function App() {
                 <AdminPortal />
               </Route>
               <Route exact path="/panier" component={Cart} />
+              <Route exact path="/checkout" component={Checkout} />
               <Route path="*" component={ErrorPage} />
             </Switch>
           </CartContext.Provider>

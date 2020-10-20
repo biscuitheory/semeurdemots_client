@@ -13,8 +13,14 @@ $color--bgtable: #f3f3f3;
     }
   }
 
-  @if $breakpoint == tablet {
-    @media only screen and (max-width: 1024px) {
+  @if $breakpoint == sm-tablet {
+    @media only screen and (min-width: 769px) and (max-width: 979px) {
+      @content;
+    }
+  }
+
+  @if $breakpoint == lg-tablet {
+    @media only screen and (min-width: 980px) and (max-width: 1024px) and (max-height: 1366px)  {
       @content;
     }
   }
