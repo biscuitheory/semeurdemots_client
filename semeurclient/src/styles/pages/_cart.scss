@@ -38,8 +38,8 @@
       &-img {
         border: 1px solid brown;
         width: 5em;
-        @include media (desktop) {
-          width: 15em;
+        @include media(desktop) {
+          width: 10em;
         }
       }
 
@@ -47,7 +47,7 @@
         padding: 0 0.5em;
         width: 7em;
         border: 1px solid brown;
-        @include media (desktop) {
+        @include media(desktop) {
           width: 15em;
         }
       }
@@ -56,7 +56,7 @@
         padding-left: 0.5em;
         width: 4em;
         border: 1px solid brown;
-        @include media (desktop) {
+        @include media(desktop) {
           width: 5em;
         }
       }
@@ -66,7 +66,7 @@
         padding-left: 0.5em;
         width: auto;
         border: 1px solid brown;
-        @include media (desktop) {
+        @include media(desktop) {
           width: 8em;
         }
         h5 {
@@ -80,7 +80,7 @@
       &-subtotal {
         padding-left: 0.5em;
         border: 1px solid brown;
-        @include media (desktop) {
+        @include media(desktop) {
           width: 10em;
         }
         h5 {
@@ -92,28 +92,63 @@
     &-update {
       display: flex;
       justify-content: flex-end;
-      
     }
   }
 
   &-totalcart {
-    border: 1px solid $color--brinput;
-    margin: 1em;
-    padding: 1em;
+    @include media(desktop) {
+      display: flex;
+      flex-direction: column;
+      margin: 2em 0 0 50%;
+      width: 50%;
+      border: 1px solid green;
+    }
 
-    &-shipping {
-      &-labels {
-        display: flex;
-        justify-content: space-between;
+    &-title {
+    }
+
+    &-box {
+      border: 1px solid $color--brinput;
+      margin: 1em;
+      padding: 1em;
+
+      &-subtotal, &-shipping, &-total {
+        @include media(desktop) {
+          display: flex;
+          font-size: 1.3em;
+        }
+
+        p {
+          @include media(desktop) {
+            margin-left: 5em;
+          }
+        }
       }
 
-      p {
-        text-align: end;
+      // &-shipping {
+      //   display: flex;
+
+      //   p {
+      //     margin-left: 5em;
+      //   }
+
+      //   &-label {
+      //   }
+      // }
+
+      &-total {
+        border: 1px solid blue;
+
+        p {
+          margin-left: 7.3em;
+        }
       }
     }
   }
 
   &-confirm-button {
+    margin: 1em 0 0 51%;
     padding: 1em;
+    width: 50em;
   }
 }
