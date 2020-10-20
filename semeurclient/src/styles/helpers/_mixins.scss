@@ -8,13 +8,13 @@ $color--bgtable: #f3f3f3;
 
 @mixin media($breakpoint) {
   @if $breakpoint == phone {
-    @media only screen and (max-width: 768px) {
+    @media only screen and (max-width: 767px) {
       @content;
     }
   }
 
   @if $breakpoint == sm-tablet {
-    @media only screen and (min-width: 769px) and (max-width: 979px) {
+    @media only screen and (min-width: 768px) and (max-width: 979px) {
       @content;
     }
   }

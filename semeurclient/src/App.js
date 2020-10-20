@@ -94,7 +94,7 @@ function App() {
                 <AdminPortal />
               </Route>
               <Route exact path="/panier" component={Cart} />
-              <Route exact path="/checkout" component={Checkout} />
+              <Route state={state} exact path="/checkout" component={Checkout} />
               <Route path="*" component={ErrorPage} />
             </Switch>
           </CartContext.Provider>

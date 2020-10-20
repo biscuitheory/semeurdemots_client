@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import SubHeader from '../components/SubHeader';
 import axios from 'axios';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import InputCount from '../components/Misc';
 
 const API = process.env.REACT_APP_API_URL;
 
@@ -69,9 +71,7 @@ const Cart = () => {
             className="cart__container-products-box"
             style={{ alignItems: 'center' }}
           >
-            <div className="cart__container-products-box-delete">
-              <FontAwesomeIcon icon={faTrashAlt} />
-            </div>
+            <div className="cart__container-products-box-delete"></div>
             <div className="cart__container-products-box-img">
               <h5>Produit:</h5>
             </div>
@@ -117,21 +117,53 @@ const Cart = () => {
             </div>
           </div>
         </div>
-
-        <button className="cart__container-confirm-button submit-button">
-          Valider la commande
-        </button>
+        <Link to="/checkout" className="cart__container-totalcart-confirm-button">
+          <button type="submit" className="submit-button">
+            Valider la commande
+          </button>
+        </Link>
       </div>
     );
   }
 };
 
 function CartProductRow({ dataValues, quantity }) {
+  const [inputCount, setInputCount] = useState(dataValues.id);
+
+  const onInputCountChange = (count) => {
+    // console.log('fer', count);
+    setInputCount(count);
+  };
+
+  useEffect(() => {}, []);
+
+  const addItem = (id, count) => {
+    let currentCart = localStorage.getItem(dataValues.id);
+
+    let totalCount = currentCart == null ? count : +count + +currentCart;
+    // localStorage.setItem('product_id' + id, totalCount);
+    localStorage.setItem(dataValues.id, totalCount);
+  };
+
+  const removeItem = (id, count) => {
+    let currentCart = localStorage.getItem(dataValues.id);
+    console.log('this is id ', dataValues.id);
+
+    let totalCount = currentCart == null ? count : +count + +currentCart;
+
+    localStorage.removeItem(dataValues.id, totalCount);
+  };
   // console.log('this is ', productID);
   return (
     <div className="cart__container-products">
       <div className="cart__container-products-box">
-        <div className="cart__container-products-box-delete">x</div>
+        <button
+          onClick={() => removeItem()}
+          type="submit"
+          className="cart__container-products-box-delete"
+        >
+          <FontAwesomeIcon icon={faTrashAlt} />
+        </button>
         {/* <div className="cart__container-products-box-img"></div> */}
         <img
           src={dataValues.image}
@@ -145,7 +177,7 @@ function CartProductRow({ dataValues, quantity }) {
           <p>{dataValues.price} €</p>
         </div>
         <div className="cart__container-products-box-quantity">
-          <input value={dataValues.id}></input>
+          <InputCount onChange={onInputCountChange} count={inputCount} />
         </div>
         <div className="cart__container-products-box-subtotal">
           <p>{dataValues.price * dataValues.id} €</p>

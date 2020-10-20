@@ -27,7 +27,7 @@
       width: 100%;
 
       a {
-          padding-right: 1em;
+        padding-right: 1em;
         font-size: 1.1em;
         font-weight: 500;
       }
@@ -40,6 +40,12 @@
       width: 60%;
       text-align: center;
       margin-left: 2em;
+    }
+
+    a {
+      cursor: pointer;
+      text-decoration: none;
+      color: $color--black;
     }
   }
 

@@ -33,7 +33,7 @@
     @include media(desktop) {
       display: flex;
       flex-direction: column;
-      // justify-content: flex-start;
+      margin: 0 5em;
       width: 12em;
       line-height: 2.5em;
       border: 1px solid yellow;

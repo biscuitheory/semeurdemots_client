@@ -20,7 +20,6 @@
     justify-content: space-around;
     width: 100%;
     padding: 1em 0;
-    border: 1px solid green;
     @include media(desktop) {
       padding: 1em;
     }
@@ -34,22 +33,25 @@
       flex-direction: row;
       justify-content: space-around;
       font-size: 0.7em;
-      border: 1px solid orange;
+      border: 1px solid $color--brinput;
       @include media(desktop) {
         font-size: 1.2em;
         // grid-template-columns: 5em 5em 5em 5em 5em 5em;
       }
 
       &-delete {
-        border: 1px solid brown;
+        border: none;
+        background: none;
+        cursor: pointer;
         width: 1em;
+        height: 2em;
         @include media(desktop) {
-          width: 0;
+      
         }
       }
 
       &-img {
-        border: 1px solid brown;
+        // border: 1px solid brown;
         width: 5em;
         @include media(desktop) {
           width: 10em;
@@ -58,7 +60,7 @@
 
       &-name {
         width: 7em;
-        border: 1px solid brown;
+        // border: 1px solid brown;
         @include media(desktop) {
           width: 15em;
         }
@@ -66,7 +68,7 @@
 
       &-price {
         width: 4em;
-        border: 1px solid brown;
+        // border: 1px solid brown;
         @include media(desktop) {
           width: 5em;
         }
@@ -74,9 +76,7 @@
 
       &-quantity {
         width: 6em;
-
-        width: auto;
-        border: 1px solid brown;
+        // border: 1px solid brown;
         @include media(desktop) {
           width: 8em;
         }
@@ -89,7 +89,7 @@
       }
 
       &-subtotal {
-        border: 1px solid brown;
+        // border: 1px solid brown;
         @include media(desktop) {
           width: 10em;
         }
@@ -112,7 +112,7 @@
       flex-direction: column;
       margin: 2em 0 0 50%;
       width: 50%;
-      border: 1px solid green;
+      // border: 1px solid green;
     }
 
     &-title {
@@ -149,14 +149,14 @@
           font-size: 0.8em;
           @include media(desktop) {
             margin: 0.5em 0 0 5em;
-            border: 1px solid orange;
+            // border: 1px solid orange;
           }
         }
       }
 
       &-total {
         @include media(desktop) {
-          border: 1px solid blue;
+          // border: 1px solid blue;
         }
 
         p {
@@ -166,14 +166,27 @@
         }
       }
     }
-  }
 
-  &-confirm-button {
-    width: 80%;
-    @include media(desktop) {
-      margin: 1em 0 0 50%;
-      padding: 1em;
-      width: 50%;
+    &-confirm-button {
+      cursor: pointer;
+      @include media(phone) {
+        width: 80%;
+      }
+      @include media(sm-tablet) {
+        width: 55%;
+      }
+      @include media(lg-tablet) {
+        width: 40%;
+      }
+      @include media(desktop) {
+        margin: 1em 0 2em 50%;
+        width: 48%;
+      }
+      button {
+        width: 100%;
+      }
     }
   }
+
+  
 }

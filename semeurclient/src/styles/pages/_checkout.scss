@@ -1,0 +1,128 @@
+.checkout__container {
+  width: 100%;
+  padding-top: 3em;
+  @include media(desktop) {
+    padding-top: 0;
+  }
+
+  &-forms {
+    @include media(desktop) {
+      padding: 2em 2em;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+    }
+  }
+
+  input,
+  label {
+    width: 100%;
+    height: 3.5em;
+  }
+
+  &-billing {
+    border: 1px solid pink;
+  }
+
+  &-form {
+    display: flex;
+    flex-direction: column;
+    margin: 2em 1em;
+    @include media(desktop) {
+      margin: 2em 3em;
+    }
+
+    h2 {
+      padding: 1em 0;
+      font-size: 1.5em;
+      @include media(desktop) {
+      }
+    }
+
+    &-names {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      width: 100%;
+      @include media(sm-tablet) {
+        justify-content: space-between;
+      }
+      @include media(lg-tablet) {
+        justify-content: space-between;
+        width: 35em;
+      }
+      @include media(desktop) {
+        justify-content: space-between;
+        width: 35em;
+      }
+    }
+    &-firstname {
+      margin-right: 1em;
+      @include media(sm-tablet) {
+        width: 50%;
+      }
+      @include media(lg-tablet) {
+        width: 50%;
+      }
+      @include media(desktop) {
+        width: 50%;
+      }
+    }
+
+    &-lastname {
+      @include media(sm-tablet) {
+        width: 50%;
+      }
+      @include media(lg-tablet) {
+        width: 50%;
+      }
+      @include media(desktop) {
+        width: 50%;
+      }
+    }
+
+    &-otherinfo {
+      display: flex;
+      flex-direction: column;
+      label {
+        padding-top: 1em;
+      }
+      @include media(lg-tablet) {
+        width: 35em;
+      }
+      @include media(desktop) {
+        width: 35em;
+      }
+    }
+
+    &-billing {
+      display: flex;
+      flex-direction: column;
+
+      // input,
+      // label {
+      //   width: 98%;
+      // }
+
+      label {
+        padding-top: 1em;
+      }
+
+      &-facturation,
+      &-inputbox {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-end;
+        padding-right: 0.5em;
+
+        p {
+          font-size: 0.9em;
+          font-weight: 700;
+          text-align: center;
+        }
+      }
+    }
+  }
+}

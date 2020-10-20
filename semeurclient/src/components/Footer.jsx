@@ -14,7 +14,7 @@ const Footer = () => {
         <a>Contact</a>
       </section>
       <div className="footer__container-title">
-        <h2>Semeur de mots</h2>
+        <a href="/"><h2>Semeur de mots</h2></a>
       </div>
       <section className="footer__container-social">
         <a href="https://www.facebook.com/semeurdemotsOfficiel " target="_blank"><FontAwesomeIcon icon={faFacebookF} /></a>

@@ -61,7 +61,7 @@
   //     &-icon {
   //       font-size: 1.3em;
   //       @include media(desktop) {
-         
+
   //         margin-right: 0.5em;
   //         border: 1px solid red;
   //       }
@@ -99,6 +99,10 @@
 
 .detailscompte__container {
   width: 100%;
+  padding-top: 3em;
+  @include media(desktop) {
+    padding-top: 0;
+  }
 
   input,
   label {
@@ -109,21 +113,61 @@
   &-form {
     display: flex;
     flex-direction: column;
-    // border: 1px solid red;
+    @include media(desktop) {
+    }
     &-names {
       display: flex;
       flex-direction: row;
-      justify-content: space-between;
+      justify-content: flex-start;
       width: 100%;
+      @include media(sm-tablet) {
+        justify-content: space-between;
+      }
+      @include media(lg-tablet) {
+        justify-content: space-between;
+        width: 35em;
+      }
+      @include media(desktop) {
+        justify-content: space-between;
+        width: 35em;
+      }
     }
     &-firstname {
       margin-right: 1em;
+      @include media(sm-tablet) {
+        width: 50%;
+      }
+      @include media(lg-tablet) {
+        width: 50%;
+      }
+      @include media(desktop) {
+        width: 50%;
+      }
     }
+
+    &-lastname {
+      @include media(sm-tablet) {
+        width: 50%;
+      }
+      @include media(lg-tablet) {
+        width: 50%;
+      }
+      @include media(desktop) {
+        width: 50%;
+      }
+    }
+
     &-otherinfo {
       display: flex;
       flex-direction: column;
       label {
         padding-top: 1em;
+      }
+      @include media(lg-tablet) {
+        width: 35em;
+      }
+      @include media(desktop) {
+        width: 35em;
       }
     }
 
