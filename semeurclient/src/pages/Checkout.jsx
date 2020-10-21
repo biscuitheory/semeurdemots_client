@@ -12,6 +12,7 @@ const API = process.env.REACT_APP_API_URL;
 const Checkout = () => {
   const { state: authState, dispatch } = useContext(AuthContext);
   const [isVisible, setIsVisible] = useState(false);
+  const [isCards, setIsCards] = useState(true);
 
   const initialState = {
     firstname: '' ? '' : authState.user.firstname,
@@ -348,11 +349,11 @@ const Checkout = () => {
         </table>
         <div className="checkout__container-recap-payment">
           <div className="checkout__container-recap-payment-paypal">
-            <input type="radio" id="pay-paypal"></input>
+            <input type="radio" name="payment" id="pay-paypal" value="Paypal" onClick={() => setIsCards(false)}></input>
             <label htmlFor="pay-paypal">Paypal</label>
           </div>
           <div className="checkout__container-recap-payment-cards">
-            <input type="radio" id="pay-cards"></input>
+            <input type="radio" name="payment" id="pay-cards" value="Cards" onClick={() => setIsCards(true)} checked={isCards}></input>
             <label htmlFor="pay-cards">Cartes de paiement</label>
           </div>
           <div className="checkout__container-recap-payment-validation">
@@ -369,9 +370,11 @@ const Checkout = () => {
                 <span className="required">*</span>
               </label>
             </span>
-            <div className="checkout__container-recap-payment-validation-confirm">
-                <button type="submit" className="submit-button">Commander</button>
-            </div>
+            {isCards ? (<div className="checkout__container-recap-payment-validation-confirm">
+                <button type="submit" className="submit-button">Régler par carte</button>
+            </div>): (<div className="checkout__container-recap-payment-validation-confirm">
+                <button type="submit" className="submit-button">Régler via Paypal</button>
+            </div>)}
           </div>
         </div>
       </section>

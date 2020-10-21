@@ -168,7 +168,6 @@
     }
 
     &-confirm-button {
-      cursor: pointer;
       @include media(phone) {
         width: 80%;
       }
