@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
@@ -11,9 +11,9 @@ const API = process.env.REACT_APP_API_URL;
 
 const Checkout = () => {
   const { state: authState, dispatch } = useContext(AuthContext);
+  const [isVisible, setIsVisible] = useState(false);
 
   const initialState = {
-    username: '' ? '' : authState.user.username,
     firstname: '' ? '' : authState.user.firstname,
     lastname: '' ? '' : authState.user.lastname,
     phone: '' ? '' : authState.user.phone,
@@ -78,11 +78,11 @@ const Checkout = () => {
         <form
           onSubmit={handleSubmit}
           noValidate
-          className="checkout__container-billing-form"
+          className="checkout__container-form-billing"
         >
           <h2>Détails de facturation</h2>
           <section className="checkout__container-form-names">
-            <span className="checkout__container-form-firstname">
+            <span className="checkout__container-form-names-firstname">
               <label htmlFor="firstname">Prénom</label>
               <span className="required">*</span>
               <input
@@ -94,7 +94,7 @@ const Checkout = () => {
               ></input>
               {errors.firstname && <p className="error">{errors.firstname}</p>}
             </span>
-            <span className="checkout__container-form-lastname">
+            <span className="checkout__container-form-names-lastname">
               <label htmlFor="lastname">Nom</label>
               <span className="required">*</span>
               <input
@@ -176,117 +176,186 @@ const Checkout = () => {
             ></input>
             {errors.country && <p className="error">{errors.country}</p>}
           </section>
-          <button type="submit" className="submit-button">
+          {/* <button type="submit" className="submit-button">
             Enregister les modifications
-          </button>
+          </button> */}
         </form>
-        <form>
-          <div className="checkout__container-form-shipping">
-            <h2>Expédier à une adresse différente ?</h2>
-            <section className="checkout__container-form-names">
-              <span className="checkout__container-form-firstname">
-                <label htmlFor="firstname">Prénom</label>
-                <span className="required">*</span>
+        <form className="checkout__container-form-shipping">
+          {isVisible ? (
+            <>
+              <span className="checkout__container-form-shipping-title">
+                <input
+                  type="checkbox"
+                  id="shipping-address-form"
+                  name="shipping-address"
+                  onClick={() => setIsVisible(false)}
+                ></input>
+                <label htmlFor="shipping-address-form">
+                  <h2>Expédier à une adresse différente ?</h2>
+                </label>
+              </span>
+              <section className="checkout__container-form-names">
+                <span className="checkout__container-form-names-firstname">
+                  <label htmlFor="firstname">Prénom</label>
+                  <span className="required">*</span>
+                  <input
+                    type="text"
+                    name="firstname"
+                    // value={authState.user.firstname || ''}
+                    onChange={handleChange}
+                    id="firstname"
+                  ></input>
+                  {errors.firstname && (
+                    <p className="error">{errors.firstname}</p>
+                  )}
+                </span>
+                <span className="checkout__container-form-names-lastname">
+                  <label htmlFor="lastname">Nom</label>
+                  <span className="required">*</span>
+                  <input
+                    type="text"
+                    name="lastname"
+                    // value={authState.user.lastname || ''}
+                    id="lastname"
+                    // placeholder="Nom"
+                    onChange={handleChange}
+                  ></input>
+                  {errors.lastname && (
+                    <p className="error">{errors.lastname}</p>
+                  )}
+                </span>
+              </section>
+              <section className="checkout__container-form-otherinfo">
+                <label htmlFor="phone">
+                  Téléphone<span className="required">*</span>
+                </label>
                 <input
                   type="text"
-                  name="firstname"
-                  // value={authState.user.firstname || ''}
+                  name="phone"
+                  id="phone"
+                  //   value={authState.user.phone || ''}
                   onChange={handleChange}
-                  id="firstname"
                 ></input>
-                {errors.firstname && (
-                  <p className="error">{errors.firstname}</p>
-                )}
-              </span>
-              <span className="checkout__container-form-lastname">
-                <label htmlFor="lastname">Nom</label>
-                <span className="required">*</span>
+                {errors.phone && <p className="error">{errors.phone}</p>}
+                <label htmlFor="email">
+                  Email<span className="required">*</span>
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  //   value={authState.user.email || ''}
+                  onChange={handleChange}
+                ></input>
+                {errors.email && <p className="error">{errors.email}</p>}
+                <label htmlFor="address">
+                  Adresse<span className="required">*</span>
+                </label>
                 <input
                   type="text"
-                  name="lastname"
-                  // value={authState.user.lastname || ''}
-                  id="lastname"
-                  // placeholder="Nom"
+                  name="address"
+                  id="address"
+                  //   value={authState.user.address || ''}
                   onChange={handleChange}
                 ></input>
-                {errors.lastname && <p className="error">{errors.lastname}</p>}
+                {errors.address && <p className="error">{errors.address}</p>}
+                <label htmlFor="zipcode">
+                  Code postal<span className="required">*</span>
+                </label>
+                <input
+                  type="text"
+                  name="zipcode"
+                  id="zipcode"
+                  //   value={authState.user.zipcode || ''}
+                  onChange={handleChange}
+                ></input>
+                {errors.zipcode && <p className="error">{errors.zipcode}</p>}
+                <label htmlFor="city">
+                  Ville<span className="required">*</span>
+                </label>
+                <input
+                  type="text"
+                  name="city"
+                  id="city"
+                  //   value={authState.user.city || ''}
+                  onChange={handleChange}
+                ></input>
+                {errors.city && <p className="error">{errors.city}</p>}
+                <label htmlFor="country">
+                  Pays<span className="required">*</span>
+                </label>
+                <input
+                  type="text"
+                  name="country"
+                  id="country"
+                  //   value={authState.user.country || ''}
+                  onChange={handleChange}
+                ></input>
+                {errors.country && <p className="error">{errors.country}</p>}
+              </section>
+            </>
+          ) : (
+            <>
+              <span className="checkout__container-form-shipping-title">
+                <input
+                  type="checkbox"
+                  id="shipping-address-form"
+                  name="shipping-address"
+                  onClick={() => setIsVisible(true)}
+                ></input>
+                <label for="shipping-address-form">
+                  <h2>Expédier à une adresse différente ?</h2>
+                </label>
               </span>
-            </section>
-            <section className="checkout__container-form-otherinfo">
-              <label htmlFor="phone">
-                Téléphone<span className="required">*</span>
-              </label>
-              <input
-                type="text"
-                name="phone"
-                id="phone"
-                //   value={authState.user.phone || ''}
-                onChange={handleChange}
-              ></input>
-              {errors.phone && <p className="error">{errors.phone}</p>}
-              <label htmlFor="email">
-                Email<span className="required">*</span>
-              </label>
-              <input
-                type="email"
-                name="email"
-                id="email"
-                //   value={authState.user.email || ''}
-                onChange={handleChange}
-              ></input>
-              {errors.email && <p className="error">{errors.email}</p>}
-              <label htmlFor="address">
-                Adresse<span className="required">*</span>
-              </label>
-              <input
-                type="text"
-                name="address"
-                id="address"
-                //   value={authState.user.address || ''}
-                onChange={handleChange}
-              ></input>
-              {errors.address && <p className="error">{errors.address}</p>}
-              <label htmlFor="zipcode">
-                Code postal<span className="required">*</span>
-              </label>
-              <input
-                type="text"
-                name="zipcode"
-                id="zipcode"
-                //   value={authState.user.zipcode || ''}
-                onChange={handleChange}
-              ></input>
-              {errors.zipcode && <p className="error">{errors.zipcode}</p>}
-              <label htmlFor="city">
-                Ville<span className="required">*</span>
-              </label>
-              <input
-                type="text"
-                name="city"
-                id="city"
-                //   value={authState.user.city || ''}
-                onChange={handleChange}
-              ></input>
-              {errors.city && <p className="error">{errors.city}</p>}
-              <label htmlFor="country">
-                Pays<span className="required">*</span>
-              </label>
-              <input
-                type="text"
-                name="country"
-                id="country"
-                //   value={authState.user.country || ''}
-                onChange={handleChange}
-              ></input>
-              {errors.country && <p className="error">{errors.country}</p>}
-            </section>
-            {/* <Link href="/checkout"> */}
-              <button className="submit-button">
-                Enregister les modifications
-              </button>
-            {/* </Link> */}
+            </>
+          )}
+          {/* <Link href="/checkout"> */}
+          {/* <button className="submit-button">
+              Enregister les modifications
+            </button> */}
+          {/* </Link> */}
+        </form>
+      </section>
+      <section className="checkout__container-recap">
+        <div className="checkout__container-recap-header">
+          <h2>Votre commande</h2>
+        </div>
+        <table className="checkout__container-recap-table">
+          <thead>
+            <tr>
+              <th>Produit</th>
+              <th>Sous-total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Poisson rouge</td>
+              <td>8.00 €</td>
+            </tr>
+            <tr>
+              <td>Sous-total</td>
+              <td>8.00 €</td>
+            </tr>
+            <tr>
+              <td>Expédition</td>
+              <td>Forfait</td>
+            </tr>
+            <tr>
+              <td>Total</td>
+              <td>8.00 €</td>
+            </tr>
+          </tbody>
+        </table>
+        <div className="checkout__container-recap-payment">
+          <div className="checkout__container-recap-payment-paypal">
+            <input type="radio" id="pay-paypal"></input>
+            <label htmlFor="pay-paypal">Paypal</label>
           </div>
-        </form>
+          <div className="checkout__container-recap-payment-cards">
+            <input type="radio" id="pay-cards"></input>
+            <label htmlFor="pay-cards">Cartes de paiement</label>
+          </div>
+        </div>
       </section>
     </div>
   );

@@ -16,12 +16,8 @@
 
   input,
   label {
-    width: 100%;
     height: 3.5em;
-  }
-
-  &-billing {
-    border: 1px solid pink;
+    width: 100%;
   }
 
   &-form {
@@ -30,6 +26,35 @@
     margin: 2em 1em;
     @include media(desktop) {
       margin: 2em 3em;
+    }
+
+    &-billing {
+      display: flex;
+      flex-direction: column;
+      margin: 2em 0;
+      border: 1px solid pink;
+    }
+
+    &-shipping {
+      margin: 2em 0;
+      border: 1px solid pink;
+
+      &-title {
+        border: 1px solid green;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        width: 40em;
+        @include media(desktop) {
+        }
+
+        input {
+          height: 1em;
+          width: 2em;
+          margin-right: 1em;
+        }
+      }
     }
 
     h2 {
@@ -55,29 +80,30 @@
         justify-content: space-between;
         width: 35em;
       }
-    }
-    &-firstname {
-      margin-right: 1em;
-      @include media(sm-tablet) {
-        width: 50%;
-      }
-      @include media(lg-tablet) {
-        width: 50%;
-      }
-      @include media(desktop) {
-        width: 50%;
-      }
-    }
 
-    &-lastname {
-      @include media(sm-tablet) {
-        width: 50%;
+      &-firstname {
+        margin-right: 1em;
+        @include media(sm-tablet) {
+          width: 50%;
+        }
+        @include media(lg-tablet) {
+          width: 50%;
+        }
+        @include media(desktop) {
+          width: 50%;
+        }
       }
-      @include media(lg-tablet) {
-        width: 50%;
-      }
-      @include media(desktop) {
-        width: 50%;
+
+      &-lastname {
+        @include media(sm-tablet) {
+          width: 50%;
+        }
+        @include media(lg-tablet) {
+          width: 50%;
+        }
+        @include media(desktop) {
+          width: 50%;
+        }
       }
     }
 
@@ -91,37 +117,7 @@
         width: 35em;
       }
       @include media(desktop) {
-        width: 35em;
-      }
-    }
-
-    &-billing {
-      display: flex;
-      flex-direction: column;
-
-      // input,
-      // label {
-      //   width: 98%;
-      // }
-
-      label {
-        padding-top: 1em;
-      }
-
-      &-facturation,
-      &-inputbox {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: flex-end;
-        padding-right: 0.5em;
-
-        p {
-          font-size: 0.9em;
-          font-weight: 700;
-          text-align: center;
-        }
+        width: 40em;
       }
     }
   }
