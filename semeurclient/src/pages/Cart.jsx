@@ -27,7 +27,9 @@ const Cart = () => {
     // fetchProducts : function qui filtre ma requete de tous les produits
     const fetchProducts = async () => {
       // fetch tous les produit
-      const res = await axios.post(`${API}cart`, { keys, values });
+      // const res = await axios.post(`${API}cart`, { keys, values });
+      // const res = await axios.post(`${API}cart`, { keys });
+      const res = await axios.post(`${API}cart`, { localStorage });
       // const filterProducts = [];
 
       // if (res.data) { // quand ma requete a fini
@@ -127,8 +129,8 @@ const Cart = () => {
   }
 };
 
-function CartProductRow({ dataValues, quantity }) {
-  const [inputCount, setInputCount] = useState(dataValues.id);
+function CartProductRow({ name, price, image, quantity }) {
+  const [inputCount, setInputCount] = useState(quantity);
 
   const onInputCountChange = (count) => {
     // console.log('fer', count);
@@ -138,20 +140,20 @@ function CartProductRow({ dataValues, quantity }) {
   useEffect(() => {}, []);
 
   const addItem = (id, count) => {
-    let currentCart = localStorage.getItem(dataValues.id);
+    let currentCart = localStorage.getItem(id);
 
     let totalCount = currentCart == null ? count : +count + +currentCart;
     // localStorage.setItem('product_id' + id, totalCount);
-    localStorage.setItem(dataValues.id, totalCount);
+    localStorage.setItem(id, totalCount);
   };
 
   const removeItem = (id, count) => {
-    let currentCart = localStorage.getItem(dataValues.id);
-    console.log('this is id ', dataValues.id);
+    let currentCart = localStorage.getItem(id);
+    console.log('this is id ', id);
 
     let totalCount = currentCart == null ? count : +count + +currentCart;
 
-    localStorage.removeItem(dataValues.id, totalCount);
+    localStorage.removeItem(id, totalCount);
   };
   // console.log('this is ', productID);
   return (
@@ -166,21 +168,21 @@ function CartProductRow({ dataValues, quantity }) {
         </button>
         {/* <div className="cart__container-products-box-img"></div> */}
         <img
-          src={dataValues.image}
+          src={image}
           alt="product"
           className="cart__container-products-box-img"
         ></img>
         <div className="cart__container-products-box-name">
-          <p>{dataValues.name}</p>
+          <p>{name}</p>
         </div>
         <div className="cart__container-products-box-price">
-          <p>{dataValues.price} €</p>
+          <p>{price} €</p>
         </div>
         <div className="cart__container-products-box-quantity">
           <InputCount onChange={onInputCountChange} count={inputCount} />
         </div>
         <div className="cart__container-products-box-subtotal">
-          <p>{dataValues.price * dataValues.id} €</p>
+          <p>{price * quantity} €</p>
         </div>
       </div>
       {/* <div className="cart__container-products-update">
