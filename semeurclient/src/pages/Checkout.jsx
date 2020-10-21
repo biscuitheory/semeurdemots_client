@@ -355,6 +355,24 @@ const Checkout = () => {
             <input type="radio" id="pay-cards"></input>
             <label htmlFor="pay-cards">Cartes de paiement</label>
           </div>
+          <div className="checkout__container-recap-payment-validation">
+            <p>
+              Vos données personnelles seront utilisées pour le traitement de
+              votre commande, vous accompagner au cours de votre visite du site
+              web, et pour d’autres raisons décrites dans notre{' '}
+              <Link to="/">politique de confidentialité</Link>.
+            </p>
+            <span className="checkout__container-recap-payment-validation-sign">
+              <input type="checkbox" id="order-sign"></input>
+              <label htmlFor="order-sign">
+                J’ai lu et j’accepte les <Link to="/">conditions générales</Link>
+              </label>
+              <span className="required">*</span>
+            </span>
+            <div>
+                <button type="submit" className="submit-button">Commander</button>
+            </div>
+          </div>
         </div>
       </section>
     </div>
