@@ -322,9 +322,9 @@ const Checkout = () => {
         </div>
         <table className="checkout__container-recap-table">
           <thead>
-            <tr>
-              <th>Produit</th>
-              <th>Sous-total</th>
+            <tr className="checkout__container-recap-table-important">
+              <th className="checkout__container-recap-table-lg">Produit</th>
+              <th className="checkout__container-recap-table-sm">Sous-total</th>
             </tr>
           </thead>
           <tbody>
@@ -332,16 +332,16 @@ const Checkout = () => {
               <td>Poisson rouge</td>
               <td>8.00 €</td>
             </tr>
-            <tr>
-              <td>Sous-total</td>
+            <tr className="checkout__container-recap-table-important">
+              <td className="checkout__container-recap-table-lg">Sous-total</td>
               <td>8.00 €</td>
             </tr>
-            <tr>
-              <td>Expédition</td>
+            <tr className="checkout__container-recap-table-important">
+              <td className="checkout__container-recap-table-lg">Expédition</td>
               <td>Forfait</td>
             </tr>
-            <tr>
-              <td>Total</td>
+            <tr className="checkout__container-recap-table-important">
+              <td className="checkout__container-recap-table-lg">Total</td>
               <td>8.00 €</td>
             </tr>
           </tbody>
@@ -366,10 +366,10 @@ const Checkout = () => {
               <input type="checkbox" id="order-sign"></input>
               <label htmlFor="order-sign">
                 J’ai lu et j’accepte les <Link to="/">conditions générales</Link>
+                <span className="required">*</span>
               </label>
-              <span className="required">*</span>
             </span>
-            <div>
+            <div className="checkout__container-recap-payment-validation-confirm">
                 <button type="submit" className="submit-button">Commander</button>
             </div>
           </div>

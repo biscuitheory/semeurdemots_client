@@ -6,6 +6,7 @@
   }
 
   &-forms {
+    padding: 0 0.5em;
     @include media(desktop) {
       padding: 2em 2em;
       display: flex;
@@ -18,6 +19,14 @@
   label {
     height: 3.5em;
     width: 100%;
+  }
+
+  h2 {
+    padding: 1em 0;
+    font-size: 1.3em;
+    @include media(desktop) {
+      font-size: 1.5em;
+    }
   }
 
   &-form {
@@ -40,13 +49,16 @@
       border: 1px solid pink;
 
       &-title {
-        border: 1px solid green;
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
-        width: 40em;
+        width: 100%;
+        font-size: 1em;
+        margin: 1em 0 3em 0;
         @include media(desktop) {
+          width: 40em;
+          margin: 1em 0 0 0;
         }
 
         input {
@@ -54,13 +66,12 @@
           width: 2em;
           margin-right: 1em;
         }
-      }
-    }
 
-    h2 {
-      padding: 1em 0;
-      font-size: 1.5em;
-      @include media(desktop) {
+        label {
+          h2 {
+            padding: 0.4em 0;
+          }
+        }
       }
     }
 
@@ -118,6 +129,107 @@
       }
       @include media(desktop) {
         width: 40em;
+      }
+    }
+  }
+
+  &-recap {
+    margin: 0 0.5em;
+    padding: 0 0.5em;
+
+    &-header {
+      border-bottom: 1px solid $color--brinput;
+    }
+
+    &-table {
+      border: 1px solid $color--brinput;
+      width: 100%;
+
+      th {
+        border-bottom: 1px solid $color--brinput;
+        text-align: start;
+      }
+
+      th,
+      td {
+        padding: 1em;
+      }
+
+      &-important {
+        font-weight: 600;
+      }
+
+      &-lg,
+      &-sm {
+        background: $color--bgtable;
+      }
+
+      &-lg {
+        width: 70%;
+      }
+    }
+
+    &-payment {
+      background: $color--bgtable;
+      display: flex;
+      flex-direction: column;
+      margin: 1em 0;
+      padding: 0 0.5em;
+      @include media(desktop) {
+        padding: 1em 1.5em;
+      }
+
+      &-paypal,
+      &-cards {
+        display: flex;
+        flex-direction: row;
+
+        input {
+          width: 1em;
+        }
+        label {
+          display: flex;
+          align-items: center;
+          width: 100%;
+          padding: 0 1em;
+        }
+      }
+
+      &-validation {
+        padding: 1em 0;
+        text-align: justify;
+        p {
+          font-size: 1em;
+        }
+
+        &-sign {
+          display: flex;
+          flex-direction: row;
+          margin: 1em 0;
+
+          input {
+            width: 1em;
+          }
+          label {
+            width: 100%;
+            padding: 1em 1em 0 1em;
+            line-height: 1.3em;
+          }
+        }
+
+        &-confirm {
+          margin: 1em 0;
+          button {
+            width: 100%;
+          }
+          @include media(desktop) {
+            display: flex;
+            justify-content: flex-end;
+            button {
+              width: 20em;
+            }
+          }
+        }
       }
     }
   }
