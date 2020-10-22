@@ -4,7 +4,7 @@ import { AuthContext } from '.././contexts/auth';
 import SubHeader from '../components/SubHeader';
 import SigninForm from '../components/SigninFormCustomer';
 import SignupForm from '../components/SignupForm';
-import CustomerPortalNavbar from '../components/navbar/CustomerPortalNav';
+import CustomerPortalNavbar from '../components/Navbar/CustomerPortalNav';
 import CustomerPortalWindow from '../components/CustomerPortalWindow';
 
 const CustomerPortal = () => {

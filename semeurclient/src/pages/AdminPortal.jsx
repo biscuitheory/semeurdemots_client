@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '.././contexts/auth';
 
-import AdminPortalNavbar from '../components/navbar/AdminPortalNav';
+import AdminPortalNavbar from '../components/Navbar/AdminPortalNav';
 import AdminPortalWindow from '../components/AdminPortalWindow';
 import SubHeader from '../components/SubHeader';
 import SigninForm from '../components/SigninFormAdmin';

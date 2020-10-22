@@ -4,13 +4,16 @@ import { BreakpointProvider } from 'react-socks';
 import { AuthContext } from './contexts/auth';
 import CartContext from './contexts/cart';
 import { toast } from 'react-toastify';
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
 
-import Navbar from './components/navbar/Navbar';
+import Navbar from './components/Navbar/Navbar';
 import Commander from './pages/Commander';
 import CustomerPortal from './pages/CustomerPortal';
 import AdminPortal from './pages/AdminPortal';
 import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
+import Payment from './pages/Payment';
 import ErrorPage from './pages/ErrorPage';
 import Footer from './components/Footer';
 
@@ -21,6 +24,8 @@ import axios from 'axios';
 const API = process.env.REACT_APP_API_URL;
 
 toast.configure();
+
+const promise = loadStripe(`${process.env.STRIPE_PUBLIC_KEY}`)
 
 const initialState = {
   isAuthenticated: false,
@@ -95,6 +100,7 @@ function App() {
               </Route>
               <Route exact path="/panier" component={Cart} />
               <Route state={state} exact path="/checkout" component={Checkout} />
+              <Elements stripe={promise}><Route exact path="/payment" component={Payment}/></Elements>
               <Route path="*" component={ErrorPage} />
             </Switch>
           </CartContext.Provider>

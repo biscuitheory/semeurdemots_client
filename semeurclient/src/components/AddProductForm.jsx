@@ -52,7 +52,7 @@ const AddProductForm = () => {
       }
       throw res;
     } catch (err) {
-      console.log('error from details compte', err);
+      console.log('error from add product form', err);
       setValues({
         ...values,
         isSubmitting: false,

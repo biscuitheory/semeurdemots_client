@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
 // import CartContext from '../contexts/cart';
 
 import InputCount from '../components/Misc';
@@ -23,6 +24,20 @@ const ProductSheet = ({ description, id, image, name, price, stock, type }) => {
     localStorage.setItem(id, totalCount);
   };
 
+  const notify = () =>
+    toast.success(
+      `${inputCount} x ${name} mis dans votre panier 🛒`,
+      {
+        position: 'bottom-center',
+        autoClose: 8000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      }
+    );
+
   return (
     <div className="productsheet__container">
       <section className="productsheet__container-imgbox">
@@ -40,7 +55,7 @@ const ProductSheet = ({ description, id, image, name, price, stock, type }) => {
         <InputCount onChange={onInputCountChange} count={inputCount} />
         {/* <SubmitButton onClick={() => addItem(id)} /> */}
         <button
-          onClick={() => addItem(id, inputCount)}
+          onClick={() => addItem(id, inputCount), notify}
           type="submit"
           className="submit-button"
         >
@@ -51,6 +66,7 @@ const ProductSheet = ({ description, id, image, name, price, stock, type }) => {
         </p>
         <p>id {id}</p>
       </section>
+      <ToastContainer />
     </div>
   );
 };
