@@ -25,7 +25,8 @@ const API = process.env.REACT_APP_API_URL;
 
 toast.configure();
 
-const promise = loadStripe(`${process.env.STRIPE_PUBLIC_KEY}`)
+const promise = loadStripe('pk_test_51HelQOIJvJvnr1bf1jK6WiUYzTKzfcObILTJgzsBiNdPWMQjYHI5u9vLI1a6Z3fIloN6G1ofLPxnt5bKiHsH49qY00F2BR4hWG');
+
 
 const initialState = {
   isAuthenticated: false,

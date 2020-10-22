@@ -21,9 +21,9 @@ const Payment = () => {
     useEffect(() => {
       // Create PaymentIntent as soon as the page loads
       const fetchProducts = async () => {
-          const res = await axios(`${API}payment`);
+          const res = await axios.post(`${API}payment`);
           setClientSecret(res.data.clientSecret)
-          console.log(res.data.clientSecret);
+          // console.log(res.data.clientSecret);
       };          
       fetchProducts();          
     }, []);
@@ -50,7 +50,7 @@ const Payment = () => {
       // Listen for changes in the CardElement
       // and display any errors as the customer types their card details
       setDisabled(event.empty);
-      setError(event.error ? event.error.message : "La carte n'est pas valide");
+      setError(event.error ? event.error.message : "Veuillez saisir une carte valide");
     };
 
     const handleSubmit = async ev => {
