@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import {
     CardElement,
@@ -17,13 +18,14 @@ const Payment = () => {
     const [email, setEmail] = useState('');
     const stripe = useStripe();
     const elements = useElements();
+    const [redirect, setRedirect] = useState(false);
 
     useEffect(() => {
       // Create PaymentIntent as soon as the page loads
       const fetchProducts = async () => {
-          const res = await axios(`${API}payment`);
+          const res = await axios.post(`${API}payment`);
           setClientSecret(res.data.clientSecret)
-          console.log(res.data.clientSecret);
+          // console.log(res.data.clientSecret);
       };          
       fetchProducts();          
     }, []);
@@ -50,7 +52,7 @@ const Payment = () => {
       // Listen for changes in the CardElement
       // and display any errors as the customer types their card details
       setDisabled(event.empty);
-      setError(event.error ? event.error.message : "La carte n'est pas valide");
+      setError(event.error ? event.error.message : "Veuillez renseigner une carte valide");
     };
 
     const handleSubmit = async ev => {
@@ -69,10 +71,13 @@ const Payment = () => {
         setError(null);
         setProcessing(false);
         setSucceeded(true);
+        setRedirect(true);
       }
     };
 
-
+    if (redirect) {
+      return <Redirect to="/confirmation-commande" />;
+    } else {
     return (
     <div className="payment__container">
       <form className="payment__container-form" id="payment-form" onSubmit={handleSubmit}>
@@ -114,7 +119,7 @@ const Payment = () => {
     </form>
     </div>
     )
-
+  }
 }
 
 export default Payment;

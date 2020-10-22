@@ -14,6 +14,7 @@ import AdminPortal from './pages/AdminPortal';
 import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
 import Payment from './pages/Payment';
+import OrderConfirmation from './pages/OrderConfirmation';
 import ErrorPage from './pages/ErrorPage';
 import Footer from './components/Footer';
 
@@ -25,7 +26,7 @@ const API = process.env.REACT_APP_API_URL;
 
 toast.configure();
 
-const promise = loadStripe(`${process.env.STRIPE_PUBLIC_KEY}`)
+const promise = loadStripe('pk_test_51HelQOIJvJvnr1bf1jK6WiUYzTKzfcObILTJgzsBiNdPWMQjYHI5u9vLI1a6Z3fIloN6G1ofLPxnt5bKiHsH49qY00F2BR4hWG');
 
 const initialState = {
   isAuthenticated: false,
@@ -100,7 +101,8 @@ function App() {
               </Route>
               <Route exact path="/panier" component={Cart} />
               <Route state={state} exact path="/checkout" component={Checkout} />
-              <Elements stripe={promise}><Route exact path="/payment" component={Payment}/></Elements>
+              <Elements stripe={promise}><Route exact path="/payment" component={Payment}/>
+              <Route exact path="/confirmation-commande" component={OrderConfirmation}/></Elements>
               <Route path="*" component={ErrorPage} />
             </Switch>
           </CartContext.Provider>
