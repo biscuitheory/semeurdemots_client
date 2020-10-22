@@ -129,7 +129,7 @@ const Cart = () => {
   }
 };
 
-function CartProductRow({ name, price, image, quantity }) {
+function CartProductRow({ id, name, price, image, quantity }) {
   const [inputCount, setInputCount] = useState(quantity);
 
   const onInputCountChange = (count) => {
@@ -160,7 +160,7 @@ function CartProductRow({ name, price, image, quantity }) {
     <div className="cart__container-products">
       <div className="cart__container-products-box">
         <button
-          onClick={() => removeItem()}
+          onClick={() => removeItem(id, inputCount)}
           type="submit"
           className="cart__container-products-box-delete"
         >

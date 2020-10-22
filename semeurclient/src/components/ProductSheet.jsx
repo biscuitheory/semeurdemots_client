@@ -16,6 +16,8 @@ const ProductSheet = ({ description, id, image, name, price, stock, type }) => {
     setInputCount(count);
   };
 
+  console.log('this is ls ', localStorage)
+
   const addItem = (id, count) => {
     let currentCart = localStorage.getItem(id);
 
@@ -55,7 +57,11 @@ const ProductSheet = ({ description, id, image, name, price, stock, type }) => {
         <InputCount onChange={onInputCountChange} count={inputCount} />
         {/* <SubmitButton onClick={() => addItem(id)} /> */}
         <button
-          onClick={() => addItem(id, inputCount), notify}
+          // onClick={() => addItem(id, inputCount), notify}
+          onClick={() => {
+            addItem(id, inputCount)
+            notify()
+          }}
           type="submit"
           className="submit-button"
         >
