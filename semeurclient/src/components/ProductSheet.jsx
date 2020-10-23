@@ -16,8 +16,6 @@ const ProductSheet = ({ description, id, image, name, price, stock, type }) => {
     setInputCount(count);
   };
 
-  console.log('this is ls ', localStorage)
-
   const addItem = (id, count) => {
     let currentCart = localStorage.getItem(id);
 

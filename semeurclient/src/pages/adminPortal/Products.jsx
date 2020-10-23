@@ -24,25 +24,27 @@ const Products = () => {
   return (
     <div className="adminportal__container-products-container">
       <section className="adminportal__container-products-container-header">
-        <h5>Products</h5>
+        <h2>Tous les produits</h2>
       </section>
       <div className="adminportal__container-products-container-addproduct-container">
-        <button type="button" onClick={() => setModalIsOpen(true)}>
+        <button type="button" className="submit-button" onClick={() => setModalIsOpen(true)}>
           Ajouter un produit
         </button>
         <Modal
           isOpen={modalIsOpen}
           onRequestClose={() => setModalIsOpen(false)}
+          className="Modal"
+          overlayClassName="Overlay"
         >
           <button
             type="button"
-            className="crossbtn"
+            className="cross-button"
             title="close modal"
             onClick={() => setModalIsOpen(false)}
           >
             ✕
           </button>
-          <AddProductForm />
+          <AddProductForm modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen}/>
         </Modal>
       </div>
       <main className="adminportal__container-products-container-main">
@@ -99,16 +101,18 @@ const ProductTableRow = ({
             {id}
           </td>
           <td className="adminportal__container-customers-container-main-table-regular">
-            <button type="button" onClick={() => setModalIsOpen(true)}>
+            <button className="edit-item" type="button" onClick={() => setModalIsOpen(true)}>
               {name}
             </button>
             <Modal
               isOpen={modalIsOpen}
               onRequestClose={() => setModalIsOpen(false)}
+              className="Modal"
+              overlayClassName="Overlay"
             >
               <button
                 type="button"
-                className="crossbtn"
+                className="cross-button"
                 title="close modal"
                 onClick={() => setModalIsOpen(false)}
               >
@@ -122,8 +126,7 @@ const ProductTableRow = ({
                 stock={stock}
                 description={description}
                 image={image}
-                isOpen
-                onRequestClose
+                modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen}
               />
             </Modal>
           </td>

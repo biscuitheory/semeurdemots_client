@@ -5,13 +5,14 @@ import axios from 'axios';
 import useForm from './customedhooks/useForm';
 import validate from './validators/validatePostProduct';
 import { AuthContext } from '../contexts/auth';
+import { useEffect } from 'react';
 
 const API = process.env.REACT_APP_API_URL;
 
-const AddProductForm = () => {
-  const { state: authState, dispatch } = useContext(AuthContext);
+const AddProductForm = ({modalIsOpen, setModalIsOpen}) => {
+  const { state: authState } = useContext(AuthContext);
   const [redirect, setRedirect] = useState(false);
-
+  
   const initialState = {
     // id: '',
     name: '',
@@ -48,11 +49,12 @@ const AddProductForm = () => {
       if (res) {
         console.log('Submitted Succesfully');
         console.log(res);
-        setRedirect(true);
+        setModalIsOpen(false)
+        // setRedirect(true);
       }
-      throw res;
+      // throw res;
     } catch (err) {
-      console.log('error from add product form', err);
+      console.log('error from details compte', err);
       setValues({
         ...values,
         isSubmitting: false,
@@ -60,15 +62,17 @@ const AddProductForm = () => {
       });
     }
   }
+
+
   if (redirect) {
     return <Redirect to="/compte-admin/produits" />;
   } else {
     return (
-      <div className="addproduct_container">
+      <div className="addproduct__container">
         <form
           onSubmit={handleSubmit}
           noValidate
-          className="addproduct_container-form"
+          className="addproduct__container-form"
         >
           {/* <div className="addproduct_container-form-id">
           <label htmlFor="product_id">ID du produit</label>
@@ -80,7 +84,7 @@ const AddProductForm = () => {
             placeholder="ID du produit"
           ></input>
         </div> */}
-          <div className="addproduct_container-form-type">
+          <div className="addproduct__container-form-name">
             {/* <label>ID du produit</label> */}
             <input
               type="text"
@@ -92,21 +96,23 @@ const AddProductForm = () => {
             ></input>
             {errors.name && <p className="error">{errors.name}</p>}
           </div>
-          <div>
-            <div className="addproduct_container-form-type-option">
-              {/* <label htmlFor="product_type">Type de produit</label> */}
+          <div className="addproduct__container-form-type">
+            <span className="addproduct__container-form-type-title">
               <p>Type de produit</p>
+            </span>
+            <div className="addproduct__container-form-type-options">
+            <div className="addproduct__container-form-type-option">
+              {/* <label htmlFor="product_type">Type de produit</label> */}
               <input
                 type="radio"
                 name="type"
                 id="product_book"
                 onChange={handleChange}
-                className="addproduct_container-form-type-"
                 value="Livre"
               ></input>
               <label htmlFor="type">Livre</label>
             </div>
-            <div className="addproduct_container-form-type-option">
+            <div className="addproduct__container-form-type-option">
               <input
                 type="radio"
                 name="type"
@@ -116,9 +122,10 @@ const AddProductForm = () => {
               ></input>
               <label htmlFor="type">Produit dérivé</label>
             </div>
+            </div>
             {/* {errors.type && <p className="error">{errors.type}</p>} */}
           </div>
-          <div>
+          <div className="addproduct__container-form-price">
             <label htmlFor="product_price">Prix</label>
             <input
               type="text"
@@ -130,7 +137,7 @@ const AddProductForm = () => {
             ></input>
             {errors.price && <p className="error">{errors.price}</p>}
           </div>
-          <div>
+          <div className="addproduct__container-form-stock">
             <label htmlFor="product_stock">Stock</label>
             <input
               type="text"
@@ -142,22 +149,24 @@ const AddProductForm = () => {
             ></input>
             {errors.stock && <p className="error">{errors.stock}</p>}
           </div>
-          <div>
+          <div className="addproduct__container-form-description">
             <label htmlFor="product_description">Description</label>
-            <input
+            <textarea
               type="text"
+              rows="10"
+              cols="30"
               name="description"
               id="product_description"
               onChange={handleChange}
               placeholder="Description"
               value={values.description}
-            ></input>
+            ></textarea>
             {errors.description && (
               <p className="error">{errors.description}</p>
             )}
           </div>
-          <div>
-            <label htmlFor="product_image">Image</label>
+          <div className="addproduct__container-form-image">
+            <label htmlFor="product_image">Image URL</label>
             <input
               type="text"
               name="image"
@@ -168,7 +177,9 @@ const AddProductForm = () => {
             ></input>
             {errors.image && <p className="error">{errors.image}</p>}
           </div>
-          <button type="submit" className="submit-button">
+          <button type="submit"
+          // onClick={() => setModalIsOpen(false)}
+          className="submit-button">
             Enregistrer
           </button>
         </form>

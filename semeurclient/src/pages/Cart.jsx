@@ -10,7 +10,7 @@ import InputCount from '../components/Misc';
 const API = process.env.REACT_APP_API_URL;
 
 const Cart = () => {
-  let [cart, setCart] = useState([]);
+  // let [cart, setCart] = useState([]);
   let [products, setProducts] = useState([]);
   // const [test, setTest] = useState(123)
 
@@ -61,8 +61,7 @@ const Cart = () => {
         </div>
       </div>
     );
-  }
-  {
+  } else {
     return (
       <div className="cart__container">
         <SubHeader title="Panier" className="subheader__container" />

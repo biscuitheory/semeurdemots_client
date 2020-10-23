@@ -8,6 +8,7 @@ import SigninForm from '../components/SigninFormAdmin';
 
 const AdminPortal = () => {
   const { state: authState } = useContext(AuthContext);
+  
   if (authState.user.admin) {
     return (
       <>

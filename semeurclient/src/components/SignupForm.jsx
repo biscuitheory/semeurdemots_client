@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Redirect } from 'react-router-dom';
+// import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 
@@ -36,7 +36,7 @@ const SignupForm = () => {
       }
     );
 
-  const [redirect, setRedirect] = useState(false);
+  // const [redirect, setRedirect] = useState(false);
 
   async function submit() {
     try {
@@ -48,7 +48,7 @@ const SignupForm = () => {
       });
 
       if (res.status === 201) {
-        setRedirect(true);
+        // setRedirect(true);
       }
     } catch (err) {
       console.log('error from signup', err);
@@ -59,9 +59,9 @@ const SignupForm = () => {
     }
   }
 
-  if (redirect) {
-    return <Redirect to="/mon-compte" />;
-  } else {
+  // if (redirect) {
+  //   return <Redirect to="/mon-compte" />;
+  // } else {
     return (
       <div className="signup__container">
         <h2>Créer un compte client</h2>
@@ -149,7 +149,7 @@ const SignupForm = () => {
         <ToastContainer />
       </div>
     );
-  }
+  // }
 };
 
 export default SignupForm;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
 
-import AdminPortal from '../pages/AdminPortal';
+import Dashboard from '../pages/adminPortal/Dashboard';
 import Products from '../pages/adminPortal/Products';
 import Orders from '../pages/adminPortal/Orders';
 import Customers from '../pages/adminPortal/Customers';
@@ -20,11 +20,12 @@ const AdminPortalWindow = () => {
         <Route exact path={`${url}/clients`}>
           <Customers />
         </Route>
+        <Dashboard />
         <Route path={`${path}/compte-admin`}>
-          <AdminPortal />
+          <Dashboard />
         </Route>
       </Switch>
-    </div>
+     </div>
   );
 };
 

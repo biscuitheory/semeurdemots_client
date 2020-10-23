@@ -1,20 +1,20 @@
 import React, { useState, useContext } from 'react';
-import { Redirect } from 'react-router-dom';
+// import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 
 import useForm from '../../components/customedhooks/useForm';
 import validate from '../../components/validators/validateEditCustomer';
 import { AuthContext } from '../../contexts/auth';
-import usePasswordToggle from '../../components/customedhooks/usePasswordToggle';
+// import usePasswordToggle from '../../components/customedhooks/usePasswordToggle';
 
 const API = process.env.REACT_APP_API_URL;
 
 const DetailsCompte = () => {
-  const [PasswordInputType, ToggleIcon] = usePasswordToggle();
-  const [NewPasswordInputType, NewToggleIcon] = usePasswordToggle();
-  const [NewPasswordInputTypeBis, NewToggleIconBis] = usePasswordToggle();
+  // const [PasswordInputType, ToggleIcon] = usePasswordToggle();
+  // const [NewPasswordInputType, NewToggleIcon] = usePasswordToggle();
+  // const [NewPasswordInputTypeBis, NewToggleIconBis] = usePasswordToggle();
 
-  const { state: authState, dispatch } = useContext(AuthContext);
+  const { state: authState } = useContext(AuthContext);
 
   const initialState = {
     username: '' ? '' : authState.user.username,
@@ -38,7 +38,7 @@ const DetailsCompte = () => {
     submit
   );
 
-  const [redirect, setRedirect] = useState(false);
+  // const [redirect, setRedirect] = useState(false);
 
   // console.log(values);
 

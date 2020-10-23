@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Redirect } from 'react-router-dom';
+// import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 
 import useForm from './customedhooks/useForm';
@@ -16,12 +16,11 @@ const EditProductForm = ({
   stock,
   description,
   image,
-  isOpen,
-  onRequestClose,
+  modalIsOpen, setModalIsOpen
 }) => {
-  const { state: authState, dispatch } = useContext(AuthContext);
-  const [redirect, setRedirect] = useState(false);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const { state: authState } = useContext(AuthContext);
+  // const [redirect, setRedirect] = useState(false);
+  // const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const initialState = {
     id: '' ? '' : id,
@@ -58,9 +57,10 @@ const EditProductForm = ({
       if (res) {
         console.log('Submitted Succesfully');
         console.log(res);
-        setRedirect(true);
+        setModalIsOpen(false)
+        // setRedirect(true);
       }
-      throw res;
+      // throw res;
     } catch (err) {
       console.log('error from details compte', err);
       setValues({
@@ -70,17 +70,17 @@ const EditProductForm = ({
       });
     }
   }
-  if (redirect) {
-    return <Redirect to="/compte-admin/produits" />;
-  } else {
+  // if (redirect) {
+  //   return <Redirect to="/compte-admin/produits" />;
+  // } else {
     return (
-      <div className="addproduct_container">
+      <div className="editproduct__container">
         <form
           onSubmit={handleSubmit}
           noValidate
-          className="addproduct_container-form"
+          className="editproduct__container-form"
         >
-          <div className="addproduct_container-form-id">
+          <div className="editproduct__container-form-id">
             <label htmlFor="product_id">ID du produit</label>
             <input
               type="number"
@@ -90,7 +90,7 @@ const EditProductForm = ({
               value={values.id || ''}
             ></input>
           </div>
-          <div className="addproduct_container-form-type">
+          <div className="editproduct__container-form-name">
             {/* <label>ID du produit</label> */}
             <input
               type="text"
@@ -102,21 +102,23 @@ const EditProductForm = ({
             ></input>
             {errors.name && <p className="error">{errors.name}</p>}
           </div>
-          <div>
-            <div className="addproduct_container-form-type-option">
-              {/* <label htmlFor="product_type">Type de produit</label> */}
+          <div className="editproduct__container-form-type">
+          <span className="addproduct__container-form-type-title">
               <p>Type de produit</p>
+            </span>
+            <div className="editproduct__container-form-type-options">
+            <div className="editproduct__container-form-type-option">
+              {/* <label htmlFor="product_type">Type de produit</label> */}
               <input
                 type="radio"
                 name="type"
                 id="product_book"
                 onChange={handleChange}
-                className="addproduct_container-form-type-"
                 value="Livre"
               ></input>
               <label htmlFor="type">Livre</label>
             </div>
-            <div className="addproduct_container-form-type-option">
+            <div className="editproduct__container-form-type-option">
               <input
                 type="radio"
                 name="type"
@@ -127,8 +129,9 @@ const EditProductForm = ({
               <label htmlFor="type">Produit dérivé</label>
             </div>
             {/* {errors.type && <p className="error">{errors.type}</p>} */}
+            </div>
           </div>
-          <div>
+          <div className="editproduct__container-form-price">
             <label htmlFor="product_price">Prix</label>
             <input
               type="text"
@@ -140,7 +143,7 @@ const EditProductForm = ({
             ></input>
             {errors.price && <p className="error">{errors.price}</p>}
           </div>
-          <div>
+          <div className="editproduct__container-form-stock">
             <label htmlFor="product_stock">Stock</label>
             <input
               type="text"
@@ -152,21 +155,23 @@ const EditProductForm = ({
             ></input>
             {errors.stock && <p className="error">{errors.stock}</p>}
           </div>
-          <div>
+          <div className="editproduct__container-form-description">
             <label htmlFor="product_description">Description</label>
-            <input
+            <textarea
               type="text"
+              rows="5"
+              cols="30"
               name="description"
               id="product_description"
               onChange={handleChange}
               placeholder="Description"
               value={values.description || ''}
-            ></input>
+            ></textarea>
             {errors.description && (
               <p className="error">{errors.description}</p>
             )}
           </div>
-          <div>
+          <div className="editproduct__container-form-image">
             <label htmlFor="product_image">Image</label>
             <input
               type="text"
@@ -181,7 +186,7 @@ const EditProductForm = ({
           <button
             type="submit"
             title="close modal"
-            onClick={() => setModalIsOpen(false)}
+            // onClick={() => setModalIsOpen(false)}
             className="submit-button"
           >
             Enregistrer
@@ -189,7 +194,7 @@ const EditProductForm = ({
         </form>
       </div>
     );
-  }
+  // }
 };
 
 export default EditProductForm;

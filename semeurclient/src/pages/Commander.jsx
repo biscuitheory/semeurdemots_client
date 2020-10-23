@@ -22,7 +22,7 @@ const Commander = () => {
     <>
       <SubHeader title="Commander"/>
       <div>
-        {console.log(products)}
+        {/* {console.log(products)} */}
         {products.map((product, i) => (
           <ProductSheet key={i} {...product} />
         ))}
