@@ -1,4 +1,4 @@
-export default function validateEditCustomer(values) {
+export default function validateCustomerAddress(values) {
   const errors = {};
 
   if (!values.firstname) {

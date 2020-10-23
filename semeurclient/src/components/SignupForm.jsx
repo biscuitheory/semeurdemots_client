@@ -3,12 +3,15 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 
+import usePasswordToggle from './customedhooks/usePasswordToggle';
 import useForm from './customedhooks/useForm';
 import validate from './validators/validateSignup';
 
 const API = process.env.REACT_APP_API_URL;
 
 const SignupForm = () => {
+  const [PasswordInputType, ToggleIcon] = usePasswordToggle();
+
   const initialState = {
     username: '',
     email: '',
@@ -121,14 +124,16 @@ const SignupForm = () => {
             <div className="signup__container-form-info-inputbox">
               <input
                 id="password"
-                type="password"
+                type={PasswordInputType}
                 name="password"
                 value={values.password}
                 onChange={handleChange}
                 className="signup__container-form-info-input"
               />
+                <span className="password-toggle-icon">{ToggleIcon}</span>
+              </div>
               {errors.password && <p className="error">{errors.password}</p>}
-            </div>
+        
             <div className="signup__container-form-info-disclaimerbox">
               <p>
                 Vos données personnelles seront utilisées pour vous accompagner

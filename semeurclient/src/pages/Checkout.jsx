@@ -13,6 +13,9 @@ const Checkout = () => {
   const { state: authState, dispatch } = useContext(AuthContext);
   const [isVisible, setIsVisible] = useState(false);
   const [isCards, setIsCards] = useState(true);
+  const [succeeded, setSucceeded] = useState(false);
+  const [processing, setProcessing] = useState('');
+  const [disabled, setDisabled] = useState(true);
 
   const initialState = {
     firstname: '' ? '' : authState.user.firstname,
@@ -23,9 +26,6 @@ const Checkout = () => {
     zipcode: '' ? '' : authState.user.zipcode,
     city: '' ? '' : authState.user.city,
     country: '' ? '' : authState.user.country,
-    // password: '',
-    // newpassword: '',
-    // newpasswordbis: '',
     admin: false,
   };
 
@@ -49,7 +49,6 @@ const Checkout = () => {
           zipcode: values.zipcode,
           city: values.city,
           country: values.country,
-          // password: values.password,
           admin: values.admin,
         },
         { headers: { Authorization: `Bearer ${authState.token}` } }
@@ -89,7 +88,7 @@ const Checkout = () => {
               <input
                 type="text"
                 name="firstname"
-                value={authState.user.firstname || ''}
+                value={values.firstname || ''}
                 onChange={handleChange}
                 id="firstname"
               ></input>
@@ -373,7 +372,9 @@ const Checkout = () => {
             {isCards ? (<div className="checkout__container-recap-payment-validation-confirm">
                 <button type="submit" className="submit-button">Régler par carte</button>
             </div>): (<div className="checkout__container-recap-payment-validation-confirm">
-                <button type="submit" className="submit-button">Régler via Paypal</button>
+                <button type="submit" 
+                disabled={processing || disabled || succeeded}
+                className="submit-button">Régler via Paypal</button>
             </div>)}
           </div>
         </div>

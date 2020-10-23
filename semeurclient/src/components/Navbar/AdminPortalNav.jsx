@@ -27,15 +27,15 @@ const AdminPortalNavbar = () => {
   let { url } = useRouteMatch();
   return (
     <>
-      <Breakpoint customQuery="(max-width: 1025px)">
+      {/* <Breakpoint customQuery="(max-width: 1025px)"> */}
         {/* <button onClick={() => setIsVisible(false)} className="customerportal__container-navbutton">open</button> */}
         <ul className="adminportal__container-navbar">
           <Link to={`${url}`} className="adminportal__container-navbar-item">
             <FontAwesomeIcon
-              icon={faSolarPanel} 
+              icon={faSolarPanel} style={{fontSize:"0.97em"}} 
               className="adminportal__container-navbar-item-icon"
             />
-            <span>Dashbord</span>
+            <span>Dashboard</span>
           </Link>
           <Link
             to={`${url}/produits`}
@@ -79,9 +79,9 @@ const AdminPortalNavbar = () => {
             <span>Déconnexion</span>
           </Link>
         </ul>
-      </Breakpoint>
-      <Breakpoint customQuery="(min-width: 1025px)">
-        <ul className="adminportal__container-navbar">
+      {/* </Breakpoint>
+      <Breakpoint customQuery="(min-width: 1025px)"> */}
+        {/* <ul className="adminportal__container-navbar">
           <Link to={`${url}`}>Tableau de bord</Link>
           <Link to={`${url}/produits`}>Produits</Link>
           <Link to={`${url}/commandes`}>Commandes</Link>
@@ -89,8 +89,8 @@ const AdminPortalNavbar = () => {
           <Link to="/Déconnexion" onClick={signOut}>
             Déconnexion
           </Link>
-        </ul>
-      </Breakpoint>
+        </ul> */}
+      {/* </Breakpoint> */}
     </>
   );
 };

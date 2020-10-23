@@ -33,14 +33,22 @@
       border: 1px solid $color--brinput;
       background: $color--bginput;
       @include media(desktop) {
-     
       }
     }
 
-    &-info-disclaimerbox {
-      p {
-        font-size: 1em;
-        padding: 0.5em 0 1em 0;
+    &-info {
+      &-inputbox {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-end;
+      }
+
+      &-disclaimerbox {
+        p {
+          font-size: 1em;
+          padding: 0.5em 0 1em 0;
+        }
       }
     }
 

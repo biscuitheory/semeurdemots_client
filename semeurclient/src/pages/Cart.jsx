@@ -100,7 +100,7 @@ const Cart = () => {
           <div className="cart__container-totalcart-box">
             <div className="cart__container-totalcart-box-subtotal">
               <h5>Sous-total:</h5>
-              <p>{}€</p>
+              <p>{products.map(product => product.price * product.quantity)} €</p>
             </div>
             <div className="cart__container-totalcart-box-shipping">
               <h5>Expédition:</h5>
@@ -114,7 +114,7 @@ const Cart = () => {
             </div>
             <div className="cart__container-totalcart-box-total">
               <h5>TOTAL</h5>
-              <p>22.00€</p>
+              <p>{products.map(product => product.price * product.quantity)} €</p>
             </div>
           </div>
         </div>

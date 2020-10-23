@@ -5,11 +5,13 @@ import axios from 'axios';
 import useForm from './customedhooks/useForm';
 import validate from './validators/validateSignin';
 import { AuthContext } from '../contexts/auth';
+import usePasswordToggle from './customedhooks/usePasswordToggle';
 
 const API = process.env.REACT_APP_API_URL;
 
 const SigninFormCustomer = () => {
   const { dispatch } = useContext(AuthContext);
+  const [PasswordInputType, ToggleIcon] = usePasswordToggle();
   const [redirect, setRedirect] = useState(false);
 
   const initialState = {
@@ -91,14 +93,16 @@ const SigninFormCustomer = () => {
             <span className="required">*</span>
             <div className="signin__container-form-info-inputbox">
               <input
-                type="password"
+                type={PasswordInputType}
                 name="password"
                 value={values.password}
                 onChange={handleChange}
                 className="signin__container-form-info-input"
               />
+              <span className="password-toggle-icon">{ToggleIcon}</span>
+              </div>
               {errors.password && <p className="error">{errors.password}</p>}
-            </div>
+           
           </div>
           <button type="submit" className="signin__container-form-submitbutton">
             Valider

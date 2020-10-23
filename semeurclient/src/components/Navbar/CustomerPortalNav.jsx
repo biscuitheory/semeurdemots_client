@@ -32,7 +32,7 @@ const CustomerPortalNavbar = () => {
               icon={faSolarPanel}
               className="customerportal__container-navbar-item-icon"
             />
-            <span>Tableau de bord</span>
+            <span>Dashboard</span>
           </Link>
           <Link
             to={`${url}/suivi-commandes`}

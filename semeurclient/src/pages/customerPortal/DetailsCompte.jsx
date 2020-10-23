@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 // import { Redirect } from 'react-router-dom';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
 
 import useForm from '../../components/customedhooks/useForm';
 import validate from '../../components/validators/validateEditCustomer';
@@ -13,6 +14,20 @@ const DetailsCompte = () => {
   // const [PasswordInputType, ToggleIcon] = usePasswordToggle();
   // const [NewPasswordInputType, NewToggleIcon] = usePasswordToggle();
   // const [NewPasswordInputTypeBis, NewToggleIconBis] = usePasswordToggle();
+
+  const notify = () =>
+  toast.success(
+    "Les modifications ont bien été prises en compte 😉",
+    {
+      position: 'bottom-center',
+      autoClose: 8000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    }
+  );
 
   const { state: authState } = useContext(AuthContext);
 
@@ -245,10 +260,13 @@ const DetailsCompte = () => {
               <p className="error">{errors.newpasswordbis}</p>
             )} */}
         {/* </div> */}
-        <button type="submit" className="submit-button">
+        <button type="submit" 
+        onClick={notify}
+        className="submit-button">
           Enregister les modifications
         </button>
       </form>
+      <ToastContainer />
     </div>
   );
 };

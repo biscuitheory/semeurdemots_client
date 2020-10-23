@@ -134,7 +134,7 @@ const ProductTableRow = ({
             {type}
           </td>
           <td className="adminportal__container-customers-container-main-table-regular">
-            {price}
+            {price} €
           </td>
           <td className="adminportal__container-customers-container-main-table-regular">
             {stock}
