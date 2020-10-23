@@ -36,7 +36,7 @@ const Payment = () => {
           color: "#444444",
           fontFamily: 'Poppins, sans-serif',
           fontSmoothing: "antialiased",
-          fontSize: "16px",
+          fontSize: "1em",
           "::placeholder": {
             color: "#444444"
           }
@@ -81,42 +81,42 @@ const Payment = () => {
     return (
     <div className="payment__container">
       <form className="payment__container-form" id="payment-form" onSubmit={handleSubmit}>
-      <input
-        type="text"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="Enter email address"
-      />
-      <CardElement id="card-element" options={cardStyle} onChange={handleChange} />
-      <button
-        disabled={processing || disabled || succeeded}
-        id="submit"
-      >
-        <span id="button-text">
-          {processing ? (
-            <div className="spinner" id="spinner"></div>
-          ) : (
-            "Pay"
-          )}
-        </span>
-      </button>
-      {/* Show any error that happens when processing the payment */}
-      {error && (
-        <div className="card-error" role="alert">
-          {error}
-        </div>
-      )}
-      {/* Show a success message upon completion */}
-      <p className={succeeded ? "result-message" : "result-message hidden"}>
-        Payment succeeded, see the result in your
-        <a
-          href={`https://dashboard.stripe.com/test/payments`}
+        <input
+          type="text"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Saisir adresse email"
+        />
+        <CardElement id="card-element" options={cardStyle} onChange={handleChange} />
+        <button
+          disabled={processing || disabled || succeeded}
+          id="submit"
         >
-          {" "}
-          Stripe dashboard.
-        </a> Refresh the page to pay again.
-      </p>
-    </form>
+          <span id="button-text">
+            {processing ? (
+              <div className="spinner" id="spinner"></div>
+            ) : (
+              "Valider"
+            )}
+          </span>
+        </button>
+        {/* Show any error that happens when processing the payment */}
+        {error && (
+          <div className="card-error" role="alert">
+            {error}
+          </div>
+        )}
+        {/* Show a success message upon completion */}
+        <p className={succeeded ? "result-message" : "result-message hidden"}>
+          Payment succeeded, see the result in your
+          <a
+            href={`https://dashboard.stripe.com/test/payments`}
+          >
+            {" "}
+            Stripe dashboard.
+          </a> Refresh the page to pay again.
+        </p>
+      </form>
     </div>
     )
   }

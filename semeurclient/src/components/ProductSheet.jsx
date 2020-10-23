@@ -68,7 +68,7 @@ const ProductSheet = ({ description, id, image, name, price, stock, type }) => {
           Ajouter au panier
         </button>
         <p>
-          Catégorie : <a>{type}</a>
+          Catégorie : {type}
         </p>
         <p>id {id}</p>
       </section>
