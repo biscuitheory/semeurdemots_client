@@ -66,6 +66,20 @@ function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [cartState, setCartState] = useState([]);
 
+  function allStorage() {
+    console.log('storage from App');
+    // console.log('storage', localStorage);
+    // fetchProducts : function qui filtre ma requete de tous les produits
+    const fetchProducts = async () => {
+     
+      const res = await axios.post(`${API}cart`, { localStorage });
+      if (res.data) {
+        setCartState(res.data)
+      }
+    };
+    fetchProducts();
+  }
+
   useEffect(() => {
     const fetchUser = async () => {
       let token = localStorage.getItem('token');
@@ -83,6 +97,8 @@ function App() {
       }
     };
     fetchUser();
+
+    allStorage();
   }, []);
 
   return (

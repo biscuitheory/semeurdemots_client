@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import SubHeader from '../components/SubHeader';
 import axios from 'axios';
@@ -6,6 +6,7 @@ import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import InputCount from '../components/Misc';
+// import CartContext from '../contexts/cart';
 
 const API = process.env.REACT_APP_API_URL;
 
@@ -13,9 +14,15 @@ const Cart = () => {
   // let [cart, setCart] = useState([]);
   let [products, setProducts] = useState([]);
   // const [test, setTest] = useState(123)
+ 
+  // METHODE 1: useCoontext + pas refraiche
+  // let products = useContext(CartContext).cartState
+  // console.log('rara', products)
 
+  // METHODE 2: call api + refraiche + doublon App
   function allStorage() {
-    console.log('storage', localStorage);
+    console.log('storage from Cart');
+    // console.log('storage', localStorage);
     // fetchProducts : function qui filtre ma requete de tous les produits
     const fetchProducts = async () => {
      
@@ -28,7 +35,7 @@ const Cart = () => {
   }
 
   const total = (allProducts) => {
-    let totalMemo = 0;
+    let totalMemo = 0; // accumulator
     allProducts.map(product => 
       totalMemo += parseFloat(product.price) * parseFloat(product.quantity)
       // équivaut: totalMemo = totalMemo +  parseFloat(product.price) * parseFloat(product.quantity)
