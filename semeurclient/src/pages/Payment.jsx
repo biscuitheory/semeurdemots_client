@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import {
@@ -7,9 +7,17 @@ import {
     useElements
   } from "@stripe/react-stripe-js";
 
+  import { AuthContext } from '../contexts/auth';
+  import CartContext from '../contexts/cart';
+  import totalCart from '../services/totalCart';
+
   const API = process.env.REACT_APP_API_URL;
 
 const Payment = () => {
+  const { state: authState } = useContext(AuthContext);
+  // let products = useContext(CartContext).cartState;
+  let products = useContext(CartContext).cartState;
+
     const [succeeded, setSucceeded] = useState(false);
     const [error, setError] = useState(null);
     const [processing, setProcessing] = useState('');
@@ -20,15 +28,42 @@ const Payment = () => {
     const elements = useElements();
     const [redirect, setRedirect] = useState(false);
 
+    const CreatePayment = async () => {
+        let amount = totalCart(products)
+        console.log('toto', products)
+        if(products.length != 0) {
+          try {
+            const res = await axios.post(`${API}payment`, {amount});
+            if(res.data) {
+              setClientSecret(res.data.clientSecret)
+            }
+          } catch (error) {
+            console.log(error)
+          }
+        }
+        // let amount = totalCart(products)
+        // console.log('toto', products)
+        // const res = await axios.post(`${API}payment`, {amount});
+        // setClientSecret(res.data.clientSecret)
+      
+      // console.log(res.data.clientSecret);
+  };          
+  // CreatePayment(amount); 
+
     useEffect(() => {
       // Create PaymentIntent as soon as the page loads
-      const fetchProducts = async () => {
-          const res = await axios.post(`${API}payment`);
-          setClientSecret(res.data.clientSecret)
-          // console.log(res.data.clientSecret);
-      };          
-      fetchProducts();          
-    }, []);
+      // let amount = totalCart(products);
+      // console.log('toto', products)
+      // const CreatePayment = async () => {
+      //     const res = await axios.post(`${API}payment`, {amount});
+      //     setClientSecret(res.data.clientSecret)
+      //     // console.log(res.data.clientSecret);
+      // };          
+      // CreatePayment(amount);     
+
+        CreatePayment();
+    
+    }, [products]);
 
     const cardStyle = {
       style: {
@@ -81,9 +116,10 @@ const Payment = () => {
     return (
     <div className="payment__container">
       <form className="payment__container-form" id="payment-form" onSubmit={handleSubmit}>
+        <p>Règlement d'un montant de {totalCart(products)}€</p>
         <input
           type="text"
-          value={email}
+          value={authState.user.email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Saisir adresse email"
         />

@@ -55,7 +55,7 @@ const DetailsCompte = () => {
 
   // const [redirect, setRedirect] = useState(false);
 
-  // console.log(values);
+  console.log('from details compte', values);
 
   async function submit() {
     try {

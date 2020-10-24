@@ -6,11 +6,16 @@ import SubHeader from '../components/SubHeader';
 import useForm from '../components/customedhooks/useForm';
 import validate from '../components/validators/validateCustomerAddress';
 import { AuthContext } from '../contexts/auth';
+import CartContext from '../contexts/cart';
+import totalCart from '../services/totalCart';
 
 const API = process.env.REACT_APP_API_URL;
 
 const Checkout = () => {
   const { state: authState, dispatch } = useContext(AuthContext);
+  let products = useContext(CartContext).cartState;
+  // const [redirect, setRedirect] = useState(false);
+  // console.log('lerara ', products)
   const [isVisible, setIsVisible] = useState(false);
   const [isCards, setIsCards] = useState(true);
   const [succeeded, setSucceeded] = useState(false);
@@ -35,6 +40,9 @@ const Checkout = () => {
     submit
   );
 
+  // console.log('from useForm', values)
+
+  // pour MAJ données facturation utilisateur 
   async function submit() {
     try {
       const res = await axios.patch(
@@ -42,7 +50,6 @@ const Checkout = () => {
         {
           firstname: values.firstname,
           lastname: values.lastname,
-          username: values.username,
           phone: values.phone,
           email: values.email,
           address: values.address,
@@ -57,8 +64,6 @@ const Checkout = () => {
       if (res) {
         console.log('Submitted Succesfully');
         console.log(res);
-
-        // setRedirect(true);
       }
       throw res;
     } catch (err) {
@@ -71,6 +76,12 @@ const Checkout = () => {
     }
   }
 
+  // dois envoyer données livraison vers table orders => context shippingInfo, à récupérer dans page de confirmation
+
+  
+// if (redirect) {
+//     return <Redirect to="/payment" />
+//   } else {
   return (
     <div className="checkout__container">
       <SubHeader title="Livraison et Facturation" />
@@ -100,7 +111,7 @@ const Checkout = () => {
               <input
                 type="text"
                 name="lastname"
-                value={authState.user.lastname || ''}
+                value={values.lastname || ''}
                 id="lastname"
                 // placeholder="Nom"
                 onChange={handleChange}
@@ -116,7 +127,7 @@ const Checkout = () => {
               type="text"
               name="phone"
               id="phone"
-              value={authState.user.phone || ''}
+              value={values.phone || ''}
               onChange={handleChange}
             ></input>
             {errors.phone && <p className="error">{errors.phone}</p>}
@@ -127,7 +138,7 @@ const Checkout = () => {
               type="email"
               name="email"
               id="email"
-              value={authState.user.email || ''}
+              value={values.email || ''}
               onChange={handleChange}
             ></input>
             {errors.email && <p className="error">{errors.email}</p>}
@@ -138,7 +149,7 @@ const Checkout = () => {
               type="text"
               name="address"
               id="address"
-              value={authState.user.address || ''}
+              value={values.address || ''}
               onChange={handleChange}
             ></input>
             {errors.address && <p className="error">{errors.address}</p>}
@@ -149,7 +160,7 @@ const Checkout = () => {
               type="text"
               name="zipcode"
               id="zipcode"
-              value={authState.user.zipcode || ''}
+              value={values.zipcode || ''}
               onChange={handleChange}
             ></input>
             {errors.zipcode && <p className="error">{errors.zipcode}</p>}
@@ -160,7 +171,7 @@ const Checkout = () => {
               type="text"
               name="city"
               id="city"
-              value={authState.user.city || ''}
+              value={values.city || ''}
               onChange={handleChange}
             ></input>
             {errors.city && <p className="error">{errors.city}</p>}
@@ -171,14 +182,16 @@ const Checkout = () => {
               type="text"
               name="country"
               id="country"
-              value={authState.user.country || ''}
+              value={values.country || ''}
               onChange={handleChange}
             ></input>
             {errors.country && <p className="error">{errors.country}</p>}
           </section>
-          {/* <button type="submit" className="submit-button">
+          <Link to="/payment">
+          <button type="submit" className="submit-button">
             Enregister les modifications
-          </button> */}
+          </button>
+          </Link>
         </form>
         <form className="checkout__container-form-shipping">
           {isVisible ? (
@@ -187,7 +200,7 @@ const Checkout = () => {
                 <input
                   type="checkbox"
                   id="shipping-address-form"
-                  name="shipping-address"
+                  name="shipping-form"
                   onClick={() => setIsVisible(false)}
                 ></input>
                 <label htmlFor="shipping-address-form">
@@ -196,29 +209,29 @@ const Checkout = () => {
               </span>
               <section className="checkout__container-form-names">
                 <span className="checkout__container-form-names-firstname">
-                  <label htmlFor="firstname">Prénom</label>
+                  <label htmlFor="shipping-firstname">Prénom</label>
                   <span className="required">*</span>
                   <input
                     type="text"
-                    name="firstname"
+                    name="shipping-firstname"
                     // value={authState.user.firstname || ''}
-                    onChange={handleChange}
-                    id="firstname"
+                    // onChange={handleChange}
+                    id="shipping-firstname"
                   ></input>
                   {errors.firstname && (
                     <p className="error">{errors.firstname}</p>
                   )}
                 </span>
                 <span className="checkout__container-form-names-lastname">
-                  <label htmlFor="lastname">Nom</label>
+                  <label htmlFor="shipping-lastname">Nom</label>
                   <span className="required">*</span>
                   <input
                     type="text"
-                    name="lastname"
+                    name="shipping-lastname"
                     // value={authState.user.lastname || ''}
-                    id="lastname"
+                    id="shipping-lastname"
                     // placeholder="Nom"
-                    onChange={handleChange}
+                    // onChange={handleChange}
                   ></input>
                   {errors.lastname && (
                     <p className="error">{errors.lastname}</p>
@@ -226,37 +239,37 @@ const Checkout = () => {
                 </span>
               </section>
               <section className="checkout__container-form-otherinfo">
-                <label htmlFor="phone">
+                <label htmlFor="shipping-phone">
                   Téléphone<span className="required">*</span>
                 </label>
                 <input
                   type="text"
-                  name="phone"
-                  id="phone"
+                  name="shipping-phone"
+                  id="shipping-phone"
                   //   value={authState.user.phone || ''}
-                  onChange={handleChange}
+                  // onChange={handleChange}
                 ></input>
                 {errors.phone && <p className="error">{errors.phone}</p>}
-                <label htmlFor="email">
+                <label htmlFor="shipping-email">
                   Email<span className="required">*</span>
                 </label>
                 <input
                   type="email"
-                  name="email"
-                  id="email"
+                  name="shipping-email"
+                  id="shipping-email"
                   //   value={authState.user.email || ''}
-                  onChange={handleChange}
+                  // onChange={handleChange}
                 ></input>
                 {errors.email && <p className="error">{errors.email}</p>}
-                <label htmlFor="address">
+                <label htmlFor="shipping-address">
                   Adresse<span className="required">*</span>
                 </label>
                 <input
                   type="text"
-                  name="address"
-                  id="address"
+                  name="shipping-address"
+                  id="shipping-address"
                   //   value={authState.user.address || ''}
-                  onChange={handleChange}
+                  // onChange={handleChange}
                 ></input>
                 {errors.address && <p className="error">{errors.address}</p>}
                 <label htmlFor="zipcode">
@@ -264,32 +277,32 @@ const Checkout = () => {
                 </label>
                 <input
                   type="text"
-                  name="zipcode"
-                  id="zipcode"
+                  name="shipping-zipcode"
+                  id="shipping-zipcode"
                   //   value={authState.user.zipcode || ''}
-                  onChange={handleChange}
+                  // onChange={handleChange}
                 ></input>
                 {errors.zipcode && <p className="error">{errors.zipcode}</p>}
-                <label htmlFor="city">
+                <label htmlFor="shipping-city">
                   Ville<span className="required">*</span>
                 </label>
                 <input
                   type="text"
-                  name="city"
-                  id="city"
+                  name="shipping-city"
+                  id="shipping-city"
                   //   value={authState.user.city || ''}
-                  onChange={handleChange}
+                  // onChange={handleChange}
                 ></input>
                 {errors.city && <p className="error">{errors.city}</p>}
-                <label htmlFor="country">
+                <label htmlFor="shipping-country">
                   Pays<span className="required">*</span>
                 </label>
                 <input
                   type="text"
-                  name="country"
-                  id="country"
+                  name="shipping-country"
+                  id="shipping-country"
                   //   value={authState.user.country || ''}
-                  onChange={handleChange}
+                  // onChange={handleChange}
                 ></input>
                 {errors.country && <p className="error">{errors.country}</p>}
               </section>
@@ -309,10 +322,10 @@ const Checkout = () => {
               </span>
             </>
           )}
-          {/* <Link href="/checkout"> */}
-          {/* <button className="submit-button">
+          {/* <Link to="/checkout"> */}
+          <button className="submit-button">
               Enregister les modifications
-            </button> */}
+            </button>
           {/* </Link> */}
         </form>
       </section>
@@ -328,13 +341,19 @@ const Checkout = () => {
             </tr>
           </thead>
           <tbody>
-            <tr>
+          {products.map((product, i) => (
+          <tr>
+            <td>{product.name} x {product.quantity}</td>
+            <td>{product.quantity * product.price} €</td>
+          </tr>
+        ))}
+            {/* <tr>
               <td>Poisson rouge</td>
               <td>8.00 €</td>
-            </tr>
+            </tr> */}
             <tr className="checkout__container-recap-table-important">
               <td className="checkout__container-recap-table-lg">Sous-total</td>
-              <td>8.00 €</td>
+          <td>{totalCart(products)}€</td>
             </tr>
             <tr className="checkout__container-recap-table-important">
               <td className="checkout__container-recap-table-lg">Expédition</td>
@@ -342,7 +361,7 @@ const Checkout = () => {
             </tr>
             <tr className="checkout__container-recap-table-important">
               <td className="checkout__container-recap-table-lg">Total</td>
-              <td>8.00 €</td>
+              <td>{totalCart(products)}€</td>
             </tr>
           </tbody>
         </table>
@@ -373,7 +392,7 @@ const Checkout = () => {
                 <button type="submit" className="submit-button">Régler par carte</button>
             </div>): (<div className="checkout__container-recap-payment-validation-confirm">
                 <button type="submit" 
-                disabled={processing || disabled || succeeded}
+                // disabled={processing || disabled || succeeded}
                 className="submit-button">Régler via Paypal</button>
             </div>)}
           </div>
@@ -381,6 +400,7 @@ const Checkout = () => {
       </section>
     </div>
   );
+  // }
 };
 
 export default Checkout;

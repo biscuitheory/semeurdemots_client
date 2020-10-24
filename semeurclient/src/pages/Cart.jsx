@@ -6,6 +6,7 @@ import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import InputCount from '../components/Misc';
+import totalCart from '../services/totalCart';
 // import CartContext from '../contexts/cart';
 
 const API = process.env.REACT_APP_API_URL;
@@ -32,15 +33,6 @@ const Cart = () => {
       }
     };
     fetchProducts();
-  }
-
-  const total = (allProducts) => {
-    let totalMemo = 0; // accumulator
-    allProducts.map(product => 
-      totalMemo += parseFloat(product.price) * parseFloat(product.quantity)
-      // équivaut: totalMemo = totalMemo +  parseFloat(product.price) * parseFloat(product.quantity)
-    )
-    return totalMemo
   }
 
   useEffect(() => {
@@ -96,7 +88,7 @@ const Cart = () => {
             <div className="cart__container-totalcart-box-subtotal">
               <h5>Sous-total:</h5>
               {/* <p>{products.map(product => product.price * product.quantity)} €</p> */}
-              <p>{total(products)}€</p>
+              <p>{totalCart(products)}€</p>
             </div>
             <div className="cart__container-totalcart-box-shipping">
               <h5>Expédition:</h5>
