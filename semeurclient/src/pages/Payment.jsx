@@ -36,31 +36,23 @@ const Payment = () => {
             const res = await axios.post(`${API}payment`, {amount});
             if(res.data) {
               setClientSecret(res.data.clientSecret)
+              const result = await stripe.confirmCardPayment(clientSecret, {
+                receipt_email: document.getElementById('email').value,
+                payment_method : {
+                  card: elements.getElement(CardElement),
+                  billing_details: {
+                    email: email,
+                  },
+                },
+              });
             }
           } catch (error) {
             console.log(error)
           }
         }
-        // let amount = totalCart(products)
-        // console.log('toto', products)
-        // const res = await axios.post(`${API}payment`, {amount});
-        // setClientSecret(res.data.clientSecret)
-      
-      // console.log(res.data.clientSecret);
   };          
-  // CreatePayment(amount); 
 
     useEffect(() => {
-      // Create PaymentIntent as soon as the page loads
-      // let amount = totalCart(products);
-      // console.log('toto', products)
-      // const CreatePayment = async () => {
-      //     const res = await axios.post(`${API}payment`, {amount});
-      //     setClientSecret(res.data.clientSecret)
-      //     // console.log(res.data.clientSecret);
-      // };          
-      // CreatePayment(amount);     
-
         CreatePayment();
     
     }, [products]);
@@ -119,6 +111,7 @@ const Payment = () => {
         <p>Règlement d'un montant de {totalCart(products)}€</p>
         <input
           type="text"
+          id="email"
           value={authState.user.email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Saisir adresse email"
