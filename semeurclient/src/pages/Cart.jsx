@@ -16,36 +16,24 @@ const Cart = () => {
 
   function allStorage() {
     console.log('storage', localStorage);
-
-    // Transform Localstorage object to array of its keys
-    let keys = Object.keys(localStorage);
-    console.log('keyss', keys);
-
-    let values = Object.values(localStorage);
-    console.log('valuess', values);
-
     // fetchProducts : function qui filtre ma requete de tous les produits
     const fetchProducts = async () => {
-      // fetch tous les produit
-      // const res = await axios.post(`${API}cart`, { keys, values });
-      // const res = await axios.post(`${API}cart`, { keys });
+     
       const res = await axios.post(`${API}cart`, { localStorage });
-      // const filterProducts = [];
-
-      // if (res.data) { // quand ma requete a fini
-      //   keys.forEach((item) => {
-      //     res.data.forEach((element) => {
-      //       if (element.id == item) {
-      //         filterProducts.push(element);
-      //       }
-      //     });
-      //   });
-      // }
-      // setProducts(filterProducts);
-      setProducts(res.data);
-      // console.log('wow', res.data)
+      if (res.data) {
+        setProducts(res.data)
+      }
     };
     fetchProducts();
+  }
+
+  const total = (allProducts) => {
+    let totalMemo = 0;
+    allProducts.map(product => 
+      totalMemo += parseFloat(product.price) * parseFloat(product.quantity)
+      // équivaut: totalMemo = totalMemo +  parseFloat(product.price) * parseFloat(product.quantity)
+    )
+    return totalMemo
   }
 
   useEffect(() => {
@@ -100,7 +88,8 @@ const Cart = () => {
           <div className="cart__container-totalcart-box">
             <div className="cart__container-totalcart-box-subtotal">
               <h5>Sous-total:</h5>
-              <p>{products.map(product => product.price * product.quantity)} €</p>
+              {/* <p>{products.map(product => product.price * product.quantity)} €</p> */}
+              <p>{total(products)}€</p>
             </div>
             <div className="cart__container-totalcart-box-shipping">
               <h5>Expédition:</h5>
