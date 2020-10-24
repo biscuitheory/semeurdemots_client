@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
 
-import CustomerPortal from '../pages/CustomerPortal';
+import Dashboard from '../pages/customerPortal/Dashboard';
 import Commandes from '../pages/customerPortal/Commandes';
 import DetailsCompte from '../pages/customerPortal/DetailsCompte';
 
@@ -16,9 +16,8 @@ const CustomerPortalWindow = () => {
         <Route exact path={`${url}/edit-compte`}>
           <DetailsCompte />
         </Route>
-        <Route path={`${path}/compte-client`}>
-          <CustomerPortal />
-        </Route>
+        <Dashboard />
+        <Route path={`${path}/compte-client`} />
       </Switch>
     </div>
   );

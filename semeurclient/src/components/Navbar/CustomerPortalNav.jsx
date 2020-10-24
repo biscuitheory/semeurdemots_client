@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Link, useRouteMatch, useHistory } from 'react-router-dom';
 import { AuthContext } from '../../contexts/auth';
-import { Breakpoint } from 'react-socks';
+// import { Breakpoint } from 'react-socks';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -24,12 +24,12 @@ const CustomerPortalNavbar = () => {
   let { url } = useRouteMatch();
   return (
     <>
-      <Breakpoint customQuery="(max-width: 1025px)">
+      {/* <Breakpoint customQuery="(max-width: 1025px)"> */}
         {/* <button className="customerportal__container-navbutton">navnav</button> */}
         <ul className="customerportal__container-navbar">
           <Link to={`${url}`} className="customerportal__container-navbar-item">
             <FontAwesomeIcon
-              icon={faSolarPanel}
+              icon={faSolarPanel} style={{fontSize:"0.97em"}} 
               className="customerportal__container-navbar-item-icon"
             />
             <span>Dashboard</span>
@@ -52,7 +52,7 @@ const CustomerPortalNavbar = () => {
               icon={faUserCircle}
               className="customerportal__container-navbar-item-icon"
             />
-            <span>Informations personnelles</span>
+            <span>Informations client</span>
           </Link>
           <Link
             to="/Déconnexion"
@@ -66,17 +66,17 @@ const CustomerPortalNavbar = () => {
             <span>Déconnexion</span>
           </Link>
         </ul>
-      </Breakpoint>
-      <Breakpoint customQuery="(min-width: 1025px)">
-        <ul className="customerportal__container-navbar">
+      {/* </Breakpoint>
+      <Breakpoint customQuery="(min-width: 1025px)"> */}
+        {/* <ul className="customerportal__container-navbar">
           <Link to={`${url}`}>Tableau de bord</Link>
           <Link to={`${url}/suivi-commandes`}>Commandes</Link>
           <Link to={`${url}/edit-compte`}>Détails du compte</Link>
           <Link to="/Déconnexion" onClick={signOut}>
             Déconnexion
           </Link>
-        </ul>
-      </Breakpoint>
+        </ul> */}
+      {/* </Breakpoint> */}
     </>
   );
 };

@@ -11,19 +11,17 @@ const AdminPortalWindow = () => {
   return (
     <div className="adminportal__container-window">
       <Switch>
-      <Route exact path={`${url}/produits`}>
-          <Products />
-        </Route>
-        <Route exact path={`${url}/commandes`}>
-          <Orders />
-        </Route>
-        <Route exact path={`${url}/clients`}>
-          <Customers />
-        </Route>
-        <Dashboard />
-        <Route path={`${path}/compte-admin`}>
+        <Route exact path={`${url}/produits`}>
+            <Products />
+          </Route>
+          <Route exact path={`${url}/commandes`}>
+            <Orders />
+          </Route>
+          <Route exact path={`${url}/clients`}>
+            <Customers />
+          </Route>
           <Dashboard />
-        </Route>
+          <Route path={`${path}/compte-admin`} />
       </Switch>
      </div>
   );

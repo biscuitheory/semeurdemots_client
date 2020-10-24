@@ -84,11 +84,68 @@
   &-window {
     width: 100%;
     height: 100vh;
-    padding: 0 2em;
+    padding: 0;
     overflow: auto;
-    // border: 1px solid orange;
-    // line-height: 2.5em;
+    border: 1px solid orange;
     @include media(desktop) {
+    }
+
+    &-header {
+      width: 100%;
+      font-size: 1.5em;
+      text-align: center;
+      padding: 0.5em 0;
+      @include media(desktop) {
+        font-size: 2em;
+        padding: 1em 0;
+      }
+
+      h2 {
+        width: 100%;
+      }
+    }
+  }
+
+  &-dashboard {
+    font-size: 0.8em;
+    padding: 1em 0 0 0;
+    text-align: center;
+
+    @include media(desktop) {
+      font-size: 1em;
+    }
+    &-main {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2em 0;
+      @include media(desktop) {
+        flex-direction: row;
+        padding: 0;
+      }
+
+      &-orders, &-data {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        line-height: 2em;
+        padding: 2em;
+        margin: 1em 2em;
+        border: 1px solid $color--brinput;
+        border-radius: 0.5em;
+        @include media(desktop) {
+          justify-content: space-evenly;
+          width: 20em;
+          height: 20em;
+        }
+
+        p {
+          font-size: 1.2em;
+          text-align: center;
+        }
+      }
     }
   }
 }
