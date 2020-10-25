@@ -16,9 +16,7 @@ const DetailsCompte = () => {
   // const [NewPasswordInputTypeBis, NewToggleIconBis] = usePasswordToggle();
 
   const notify = () =>
-  toast.success(
-    "Les modifications ont bien été prises en compte 😉",
-    {
+    toast.success('Les modifications ont bien été prises en compte 😉', {
       position: 'bottom-center',
       autoClose: 8000,
       hideProgressBar: false,
@@ -26,8 +24,7 @@ const DetailsCompte = () => {
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-    }
-  );
+    });
 
   const { state: authState } = useContext(AuthContext);
 
@@ -80,7 +77,6 @@ const DetailsCompte = () => {
       if (res) {
         console.log('Submitted Succesfully');
         console.log(res);
-        
         // setRedirect(true);
       }
       throw res;
@@ -111,7 +107,7 @@ const DetailsCompte = () => {
               value={values.firstname || ''}
               onChange={handleChange}
               id="firstname"
-            ></input>
+            />
             {errors.firstname && <p className="error">{errors.firstname}</p>}
           </span>
           <span className="detailscompte__container-form-lastname">
@@ -124,13 +120,14 @@ const DetailsCompte = () => {
               id="lastname"
               // placeholder="Nom"
               onChange={handleChange}
-            ></input>
+            />
             {errors.lastname && <p className="error">{errors.lastname}</p>}
           </span>
         </section>
         <section className="detailscompte__container-form-otherinfo">
           <label htmlFor="username">
-            Nom d'utilisateur<span className="required">*</span>
+            Nom d'utilisateur
+            <span className="required">*</span>
           </label>
           <input
             type="text"
@@ -138,10 +135,11 @@ const DetailsCompte = () => {
             id="username"
             value={values.username || ''}
             onChange={handleChange}
-          ></input>
+          />
           {errors.username && <p className="error">{errors.username}</p>}
           <label htmlFor="phone">
-            Téléphone<span className="required">*</span>
+            Téléphone
+            <span className="required">*</span>
           </label>
           <input
             type="text"
@@ -149,10 +147,11 @@ const DetailsCompte = () => {
             id="phone"
             value={values.phone || ''}
             onChange={handleChange}
-          ></input>
+          />
           {errors.phone && <p className="error">{errors.phone}</p>}
           <label htmlFor="email">
-            Email<span className="required">*</span>
+            Email
+            <span className="required">*</span>
           </label>
           <input
             type="email"
@@ -160,14 +159,15 @@ const DetailsCompte = () => {
             id="email"
             value={values.email || ''}
             onChange={handleChange}
-          ></input>
+          />
           {errors.email && <p className="error">{errors.email}</p>}
         </section>
         <section className="detailscompte__container-form-addresses">
           <div className="detailscompte__container-form-addresses-facturation">
             <p>Mes adresses</p>
             <label htmlFor="address">
-              Adresse<span className="required">*</span>
+              Adresse
+              <span className="required">*</span>
             </label>
             <input
               type="text"
@@ -175,10 +175,11 @@ const DetailsCompte = () => {
               id="address"
               value={values.address || ''}
               onChange={handleChange}
-            ></input>
+            />
             {errors.address && <p className="error">{errors.address}</p>}
             <label htmlFor="zipcode">
-              Code postal<span className="required">*</span>
+              Code postal
+              <span className="required">*</span>
             </label>
             <input
               type="text"
@@ -186,10 +187,11 @@ const DetailsCompte = () => {
               id="zipcode"
               value={values.zipcode || ''}
               onChange={handleChange}
-            ></input>
+            />
             {errors.zipcode && <p className="error">{errors.zipcode}</p>}
             <label htmlFor="city">
-              Ville<span className="required">*</span>
+              Ville
+              <span className="required">*</span>
             </label>
             <input
               type="text"
@@ -197,10 +199,11 @@ const DetailsCompte = () => {
               id="city"
               value={values.city || ''}
               onChange={handleChange}
-            ></input>
+            />
             {errors.city && <p className="error">{errors.city}</p>}
             <label htmlFor="country">
-              Pays<span className="required">*</span>
+              Pays
+              <span className="required">*</span>
             </label>
             <input
               type="text"
@@ -208,10 +211,10 @@ const DetailsCompte = () => {
               id="country"
               value={values.country || ''}
               onChange={handleChange}
-            ></input>
+            />
             {errors.country && <p className="error">{errors.country}</p>}
           </div>
-          <div className="detailscompte__container-form-addresses-livraison"></div>
+          <div className="detailscompte__container-form-addresses-livraison" />
         </section>
         {/* <div className="detailscompte__container-form-passwordupdate">
           <p>Changement du mot de passe</p>
@@ -229,7 +232,7 @@ const DetailsCompte = () => {
             <span className="password-toggle-icon">{ToggleIcon}</span>
           </span>
           {errors.password && <p className="error">{errors.password}</p>} */}
-          {/* <label htmlFor="newpassword">
+        {/* <label htmlFor="newpassword">
               Nouveau mot de passe<span className="required">*</span>
             </label>
             <span className="detailscompte__container-form-passwordupdate-inputbox">
@@ -260,9 +263,7 @@ const DetailsCompte = () => {
               <p className="error">{errors.newpasswordbis}</p>
             )} */}
         {/* </div> */}
-        <button type="submit" 
-        onClick={notify}
-        className="submit-button">
+        <button type="submit" onClick={notify} className="submit-button">
           Enregister les modifications
         </button>
       </form>

@@ -1,11 +1,13 @@
 import React, { useReducer, useEffect, useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { BreakpointProvider } from 'react-socks';
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+import { toast } from 'react-toastify';
+import axios from 'axios';
+
 import { AuthContext } from './contexts/auth';
 import CartContext from './contexts/cart';
-import { toast } from 'react-toastify';
-import { loadStripe } from "@stripe/stripe-js";
-import { Elements } from "@stripe/react-stripe-js";
 
 import Navbar from './components/Navbar/Navbar';
 import Commander from './pages/Commander';
@@ -20,13 +22,14 @@ import Footer from './components/Footer';
 
 import 'react-toastify/dist/ReactToastify.css';
 import './styles/App.scss';
-import axios from 'axios';
 
 const API = process.env.REACT_APP_API_URL;
 
 toast.configure();
 
-const promise = loadStripe('pk_test_51HelQOIJvJvnr1bf1jK6WiUYzTKzfcObILTJgzsBiNdPWMQjYHI5u9vLI1a6Z3fIloN6G1ofLPxnt5bKiHsH49qY00F2BR4hWG');
+const promise = loadStripe(
+  'pk_test_51HelQOIJvJvnr1bf1jK6WiUYzTKzfcObILTJgzsBiNdPWMQjYHI5u9vLI1a6Z3fIloN6G1ofLPxnt5bKiHsH49qY00F2BR4hWG'
+);
 
 const initialState = {
   isAuthenticated: false,
@@ -71,10 +74,9 @@ function App() {
     // console.log('storage', localStorage);
     // fetchProducts : function qui filtre ma requete de tous les produits
     const fetchProducts = async () => {
-     
       const res = await axios.post(`${API}cart`, { localStorage });
       if (res.data) {
-        setCartState(res.data)
+        setCartState(res.data);
       }
     };
     fetchProducts();
@@ -82,9 +84,9 @@ function App() {
 
   useEffect(() => {
     const fetchUser = async () => {
-      let token = localStorage.getItem('token');
+      const token = localStorage.getItem('token');
       if (token) {
-        let user = await axios.get(`${API}user/me`, {
+        const user = await axios.get(`${API}user/me`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -116,9 +118,20 @@ function App() {
                 <AdminPortal />
               </Route>
               <Route exact path="/panier" component={Cart} />
-              <Route state={state} exact path="/checkout" component={Checkout} />
-              <Elements stripe={promise}><Route exact path="/payment" component={Payment}/>
-              <Route exact path="/confirmation-commande" component={OrderConfirmation}/></Elements>
+              <Route
+                state={state}
+                exact
+                path="/checkout"
+                component={Checkout}
+              />
+              <Elements stripe={promise}>
+                <Route exact path="/payment" component={Payment} />
+                <Route
+                  exact
+                  path="/confirmation-commande"
+                  component={OrderConfirmation}
+                />
+              </Elements>
               <Route path="*" component={ErrorPage} />
             </Switch>
           </CartContext.Provider>

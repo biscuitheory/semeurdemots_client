@@ -1,6 +1,6 @@
 {
-  "extends": ["airbnb", "prettier", "react-app", "plugin:react/recommended"],
-  "plugins": ["prettier"],
+  "extends": ["airbnb", "prettier", "react-app", "eslint:recommended", "plugin:react/recommended"],
+  "plugins": ["react", "prettier"], 
   "rules": {
     "prettier/prettier": "error",
     "no-unused-vars": "warn",

@@ -26,7 +26,7 @@ const Cart = () => {
     // console.log('storage', localStorage);
     // fetchProducts : function qui filtre ma requete de tous les produits
     const fetchProducts = async () => {
-     
+    
       const res = await axios.post(`${API}cart`, { localStorage });
       if (res.data) {
         setProducts(res.data)
