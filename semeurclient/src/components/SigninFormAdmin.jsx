@@ -1,6 +1,7 @@
-import React, { useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useState, useContext } from 'react';
+import { Redirect } from 'react-router-dom';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
 
 import useForm from './customedhooks/useForm';
 import validate from './validators/validateSignin';
@@ -11,6 +12,7 @@ const API = process.env.REACT_APP_API_URL;
 
 const SigninFormAdmin = () => {
   const { dispatch } = useContext(AuthContext);
+  const [redirect, setRedirect] = useState(false);
   const [PasswordInputType, ToggleIcon] = usePasswordToggle();
 
   const initialState = {
@@ -27,7 +29,7 @@ const SigninFormAdmin = () => {
     validate,
     submit
   );
-  const history = useHistory();
+  // const history = useHistory();
 
   async function submit() {
     try {
@@ -41,8 +43,8 @@ const SigninFormAdmin = () => {
           type: 'SIGNIN',
           payload: res,
         });
-        history.push('/compte-admin');
-        return;
+        setRedirect(true);
+        // return;
       }
       throw res;
     } catch (error) {
@@ -50,9 +52,23 @@ const SigninFormAdmin = () => {
         ...values,
         errorMessage: error.message,
       });
+
+      toast.error("Ce compte n'existe pas", {
+        // className: 'error-toast',
+        position: 'bottom-center',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   }
 
+  if (redirect) {
+    return <Redirect to="/mon-compte" />;
+  }
   return (
     <div className="signin__container">
       <h2>S'identifier</h2>
@@ -77,10 +93,10 @@ const SigninFormAdmin = () => {
               onChange={handleChange}
               className="signin__container-form-info-input"
             />
-            {errors.emailOrUsername && (
-              <p className="error">{errors.emailOrUsername}</p>
-            )}
           </div>
+          {errors.emailOrUsername && (
+            <p className="error">{errors.emailOrUsername}</p>
+          )}
         </div>
         <div className="signin__container-form-info">
           <label
@@ -99,13 +115,18 @@ const SigninFormAdmin = () => {
               className="signin__container-form-info-input"
             />
             <span className="password-toggle-icon">{ToggleIcon}</span>
-            </div>
-            {errors.password && <p className="error">{errors.password}</p>}
+          </div>
+          {errors.password && <p className="error">{errors.password}</p>}
         </div>
-        <button type="submit" className="signin__container-form-submitbutton">
+        <button
+          type="submit"
+          onClick={toast}
+          className="signin__container-form-submitbutton"
+        >
           Valider
         </button>
       </form>
+      <ToastContainer />
     </div>
   );
 };

@@ -118,13 +118,13 @@
 
     &-addproduct-container {
       margin: 1em 0 2em 1em;
-      @include media (desktop) {
+      @include media(desktop) {
         margin: 1em 0 2em 0;
       }
 
       button {
         font-size: 0.9em;
-        @include media (desktop) {
+        @include media(desktop) {
           font-size: 1em;
         }
       }

@@ -26,7 +26,6 @@ const Payment = () => {
 
   const CreatePayment = async () => {
     const amount = totalCart(products);
-    console.log('toto', products);
     if (products.length != 0) {
       try {
         const res = await axios.post(`${API}payment`, { amount });
@@ -122,8 +121,9 @@ const Payment = () => {
         onSubmit={handleSubmit}
       >
         <p>
-          Règlement d'un montant de
-          {totalCart(products)}€
+          Règlement d&apos;un montant de
+          {totalCart(products)}
+          0€
         </p>
         <input
           type="text"
@@ -137,7 +137,11 @@ const Payment = () => {
           options={cardStyle}
           onChange={handleChange}
         />
-        <button disabled={processing || disabled || succeeded} id="submit">
+        <button
+          type="submit"
+          disabled={processing || disabled || succeeded}
+          id="submit"
+        >
           <span id="button-text">
             {processing ? <div className="spinner" id="spinner" /> : 'Valider'}
           </span>
@@ -154,8 +158,7 @@ const Payment = () => {
           <a href="https://dashboard.stripe.com/test/payments">
             {' '}
             Stripe dashboard.
-          </a>
-{' '}
+          </a>{' '}
           Refresh the page to pay again.
         </p>
       </form>

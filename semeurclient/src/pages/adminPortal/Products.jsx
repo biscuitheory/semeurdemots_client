@@ -27,7 +27,11 @@ const Products = () => {
         <h2>Tous les produits</h2>
       </section>
       <div className="adminportal__container-products-container-addproduct-container">
-        <button type="button" className="submit-button" onClick={() => setModalIsOpen(true)}>
+        <button
+          type="button"
+          className="submit-button"
+          onClick={() => setModalIsOpen(true)}
+        >
           Ajouter un produit
         </button>
         <Modal
@@ -36,15 +40,20 @@ const Products = () => {
           className="Modal"
           overlayClassName="Overlay"
         >
-          <button
-            type="button"
-            className="cross-button"
-            title="close modal"
-            onClick={() => setModalIsOpen(false)}
-          >
-            ✕
-          </button>
-          <AddProductForm modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen}/>
+          <span className="Modal__header">
+            <button
+              type="button"
+              className="cross-button"
+              title="close modal"
+              onClick={() => setModalIsOpen(false)}
+            >
+              ✕
+            </button>
+          </span>
+          <AddProductForm
+            modalIsOpen={modalIsOpen}
+            setModalIsOpen={setModalIsOpen}
+          />
         </Modal>
       </div>
       <main className="adminportal__container-products-container-main">
@@ -101,7 +110,11 @@ const ProductTableRow = ({
             {id}
           </td>
           <td className="adminportal__container-customers-container-main-table-regular">
-            <button className="edit-item" type="button" onClick={() => setModalIsOpen(true)}>
+            <button
+              className="edit-item"
+              type="button"
+              onClick={() => setModalIsOpen(true)}
+            >
               {name}
             </button>
             <Modal
@@ -126,7 +139,8 @@ const ProductTableRow = ({
                 stock={stock}
                 description={description}
                 image={image}
-                modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen}
+                modalIsOpen={modalIsOpen}
+                setModalIsOpen={setModalIsOpen}
               />
             </Modal>
           </td>

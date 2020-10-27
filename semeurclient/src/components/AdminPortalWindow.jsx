@@ -7,23 +7,23 @@ import Orders from '../pages/adminPortal/Orders';
 import Customers from '../pages/adminPortal/Customers';
 
 const AdminPortalWindow = () => {
-  let { path, url } = useRouteMatch();
+  const { path, url } = useRouteMatch();
   return (
     <div className="adminportal__container-window">
       <Switch>
         <Route exact path={`${url}/produits`}>
-            <Products />
-          </Route>
-          <Route exact path={`${url}/commandes`}>
-            <Orders />
-          </Route>
-          <Route exact path={`${url}/clients`}>
-            <Customers />
-          </Route>
-          <Dashboard />
-          <Route path={`${path}/compte-admin`} />
+          <Products />
+        </Route>
+        <Route exact path={`${url}/commandes`}>
+          <Orders />
+        </Route>
+        <Route exact path={`${url}/clients`}>
+          <Customers />
+        </Route>
+        <Dashboard />
+        <Route path={`${path}/compte-admin`} />
       </Switch>
-     </div>
+    </div>
   );
 };
 

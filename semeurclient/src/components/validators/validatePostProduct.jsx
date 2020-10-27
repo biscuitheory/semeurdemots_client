@@ -16,15 +16,21 @@ export default function validatePostProduct(values) {
   if (!values.price) {
     errors.price = 'Un prix est obligatoire.';
   } else if (typeof values.price !== 'string') {
-    errors.price =
-      'Veuillez utiliser des caractères valides pour saisir le prix.';
+    errors.price = 'Veuillez utiliser des chiffres pour saisir le prix.';
+  } else if (!/^-?\d*\.?\d*$/.test(values.price)) {
+    errors.price = 'Veuillez utiliser des chiffres pour saisir le prix.';
   }
+
   if (!values.stock) {
     errors.stock = 'Un nombre de stock est obligatoire.';
   } else if (typeof values.stock !== 'string') {
     errors.stock =
-      'Veuillez utiliser des caractères valides pour saisir le stock.';
+      'Veuillez utiliser des caractères valides pour saisir le stock de produits.';
+  } else if (!/^-?\d*\.?\d*$/.test(values.stock)) {
+    errors.stock =
+      'Veuillez utiliser des chiffres pour saisir le stock de produits.';
   }
+
   if (!values.description) {
     errors.description = 'Une description du produit est obligatoire.';
   } else if (typeof values.description !== 'string') {

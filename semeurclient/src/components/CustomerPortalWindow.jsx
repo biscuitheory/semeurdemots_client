@@ -6,7 +6,7 @@ import Commandes from '../pages/customerPortal/Commandes';
 import DetailsCompte from '../pages/customerPortal/DetailsCompte';
 
 const CustomerPortalWindow = () => {
-  let { path, url } = useRouteMatch();
+  const { path, url } = useRouteMatch();
   return (
     <div className="customerportal__container-window">
       <Switch>

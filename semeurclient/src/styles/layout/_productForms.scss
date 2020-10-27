@@ -24,6 +24,10 @@
     font-weight: 600;
   }
 
+  .error {
+    margin-top: 0.2em;
+  }
+
   &-form {
     width: 100%;
     padding: 0.2em 0.5em;
@@ -80,6 +84,7 @@
       &-options {
         display: flex;
         justify-content: space-between;
+        margin-top: 0.2em;
 
         @include media(sm-tablet) {
           justify-content: flex-start;
