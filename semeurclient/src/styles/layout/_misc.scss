@@ -59,11 +59,25 @@ input[type='number'] {
   background-color: #ffffff;
   overflow: auto;
 
-  @include media(desktop) {
+  @include media(sm-tablet) {
     top: 10em;
-    left: 38em;
-    right: 38em;
+    left: 10em;
+    right: 10em;
     bottom: 10em;
+  }
+
+  @include media(lg-tablet) {
+    top: 15em;
+    left: 15em;
+    right: 15em;
+    bottom: 15em;
+  }
+
+  @include media(desktop) {
+    top: 5em;
+    left: 48em;
+    right: 48em;
+    bottom: 5em;
   }
 
   &__header {

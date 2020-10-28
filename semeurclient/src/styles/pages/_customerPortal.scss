@@ -86,7 +86,7 @@
     height: 100vh;
     padding: 0;
     overflow: auto;
-    border: 1px solid orange;
+
     @include media(desktop) {
     }
 
@@ -135,8 +135,10 @@
         margin: 1em 2em;
         border: 1px solid $color--brinput;
         border-radius: 0.5em;
+        width: 30em;
         @include media(desktop) {
           justify-content: space-evenly;
+          margin: 3em 5em;
           width: 20em;
           height: 20em;
         }

@@ -18,7 +18,7 @@ const Customers = () => {
   return (
     <div className="adminportal__container-customers-container">
       <section className="adminportal__container-customers-container-header">
-        <h5>Clients</h5>
+        <h2>Répertoire clients</h2>
       </section>
       <main className="adminportal__container-customers-container-main">
         <table className="adminportal__container-customers-container-main-table">

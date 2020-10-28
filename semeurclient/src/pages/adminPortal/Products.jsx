@@ -24,7 +24,7 @@ const Products = () => {
   return (
     <div className="adminportal__container-products-container">
       <section className="adminportal__container-products-container-header">
-        <h2>Tous les produits</h2>
+        <h2>Répertoire produits</h2>
       </section>
       <div className="adminportal__container-products-container-addproduct-container">
         <button
