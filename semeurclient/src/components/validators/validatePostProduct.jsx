@@ -38,5 +38,16 @@ export default function validatePostProduct(values) {
       'Veuillez utiliser des caractères valides pour saisir la description du produit.';
   }
 
+  if (!values.image) {
+    errors.image = "Un lien URL de l'image est obligatoire.";
+  } else if (
+    !/[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi.test(
+      values.image
+    )
+  ) {
+    errors.image =
+      "Veuillez entrer un lien URL de l'image du produit hébergé au format 'http://www.nomdusite.jpg' ou 'https://www.nomdusite.jpg'.";
+  }
+
   return errors;
 }
