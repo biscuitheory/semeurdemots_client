@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 // import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
@@ -41,7 +41,6 @@ const DetailsCompte = () => {
     // password: '',
     // newpassword: '',
     // newpasswordbis: '',
-    admin: false,
   };
 
   const { handleChange, handleSubmit, values, setValues, errors } = useForm(
@@ -52,7 +51,7 @@ const DetailsCompte = () => {
 
   // const [redirect, setRedirect] = useState(false);
 
-  console.log('from details compte', values);
+  // console.log('from details compte', values);
 
   async function submit() {
     try {
@@ -69,7 +68,6 @@ const DetailsCompte = () => {
           city: values.city,
           country: values.country,
           // password: values.password,
-          admin: values.admin,
         },
         { headers: { Authorization: `Bearer ${authState.token}` } }
       );
@@ -126,7 +124,7 @@ const DetailsCompte = () => {
         </section>
         <section className="detailscompte__container-form-otherinfo">
           <label htmlFor="username">
-            Nom d'utilisateur
+            Nom d&apos;utilisateur
             <span className="required">*</span>
           </label>
           <input

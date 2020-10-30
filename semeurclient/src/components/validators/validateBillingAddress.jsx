@@ -1,4 +1,4 @@
-export default function validateCustomerAddress(values) {
+export default function validateBillingAddress(values) {
   const errors = {};
 
   if (!values.firstname) {
@@ -20,33 +20,33 @@ export default function validateCustomerAddress(values) {
   }
   if (!values.phone) {
     errors.phone = 'Un numéro de téléphone est obligatoire.';
-  } else if (typeof values.phone !== 'string') {
+  } else if (!/^-?\d*\.?\d*$/.test(values.phone)) {
     errors.phone =
-      "Veuillez utiliser des caractères valides pour saisir votre nom d'utilisateur.";
+      'Veuillez utiliser des chiffres pour saisir votre numéro de téléphone.';
   }
   if (!values.address) {
     errors.address = 'Une adresse est obligatoire.';
   } else if (typeof values.address !== 'string') {
     errors.address =
-      "Veuillez utiliser des caractères valides pour saisir votre nom d'utilisateur.";
+      'Veuillez utiliser des caractères valides pour saisir votre adresse.';
   }
   if (!values.zipcode) {
     errors.zipcode = 'Un code postal est obligatoire.';
   } else if (typeof values.zipcode !== 'string') {
     errors.zipcode =
-      "Veuillez utiliser des caractères valides pour saisir votre nom d'utilisateur.";
+      'Veuillez utiliser des caractères valides pour saisir votre code postal.';
   }
   if (!values.city) {
     errors.city = 'Un nom de ville est obligatoire.';
   } else if (typeof values.city !== 'string') {
     errors.city =
-      "Veuillez utiliser des caractères valides pour saisir votre nom d'utilisateur.";
+      'Veuillez utiliser des caractères valides pour saisir le nom de votre ville.';
   }
   if (!values.country) {
     errors.country = 'Un nom de pays est obligatoire.';
   } else if (typeof values.country !== 'string') {
     errors.country =
-      "Veuillez utiliser des caractères valides pour saisir votre nom d'utilisateur.";
+      'Veuillez utiliser des caractères valides pour saisir le nom de votre pays.';
   }
   return errors;
 }
