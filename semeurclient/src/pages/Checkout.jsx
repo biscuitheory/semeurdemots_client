@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 import SubHeader from '../components/SubHeader';
-// import EditBillingForm from '../components/EditBillingForm';
+import EditBillingForm from '../components/EditBillingForm';
 // import EditShippingForm from '../components/EditShippingForm';
 import useForm from '../components/customedhooks/useForm';
 import validate from '../components/validators/validateShippingAddress';
@@ -19,11 +19,11 @@ const Checkout = () => {
   // const [redirect, setRedirect] = useState(false);
   // console.log('lerara ', products)
   const [isVisible, setIsVisible] = useState(false);
-  const [isCards, setIsCards] = useState(true);
+  const [isCards, setIsCards] = useState(false);
 
   const initialState = {
-    user_id: '' ? '' : authState.user.id,
-    status_id: '',
+    user_id: authState.user.id,
+    status_id: 1,
     shipping_firstname: '',
     shipping_lastname: '',
     shipping_address: '',
@@ -34,6 +34,7 @@ const Checkout = () => {
   };
 
   // console.log('from checkout e ', authState.user.id);
+  // console.log('from checkout e ', initialState);
 
   const { handleChange, handleSubmit, values, setValues, errors } = useForm(
     initialState,
@@ -41,39 +42,80 @@ const Checkout = () => {
     submit
   );
 
-  // console.log('frm checkout ', authState.user.id);
+  // console.log('valou ', values);
 
   // pour MAJ données facturation utilisateur
+
   async function submit() {
-    try {
-      const res = await axios.post(
-        `${API}orders/`,
-        {
-          user_id: authState.user.id,
-          status_id: 1,
-          shipping_firstname: values.shipping_firstname,
-          shipping_lastname: values.shipping_lastname,
-          shipping_address: values.shipping_address,
-          shipping_zipcode: values.shipping_zipcode,
-          shipping_city: values.shipping_city,
-          shipping_country: values.shipping_country,
-          payment: values.payment,
+    if (authState.user.id !== undefined) {
+      // console.log('detec');
+      if (authState.user.id) {
+        try {
+          const res = await axios.post(
+            `${API}orders/`,
+            {
+              user_id: authState.user.id,
+              status_id: values.status_id,
+              shipping_firstname: values.shippingFirstname
+                ? values.shippingFirstname
+                : authState.user.firstname,
+              shipping_lastname: values.shippingLastname
+                ? values.shippingLastname
+                : authState.user.lastname,
+              shipping_address: values.shippingAddress
+                ? values.shippingAddress
+                : authState.user.address,
+              shipping_zipcode: values.shippingZipcode
+                ? values.shippingZipcode
+                : authState.user.zipcode,
+              shipping_city: values.shippingCity
+                ? values.shippingCity
+                : authState.user.city,
+              shipping_country: values.shippingCountry
+                ? values.shippingCountry
+                : authState.user.country,
+              payment: values.payment,
+            }
+            // {
+            //   user_id: authState.user.id,
+            //   status_id: values.status_id,
+            //   shipping_firstname: values.shipping_firstname
+            //     ? values.shipping_firstname
+            //     : authState.user.firstname,
+            //   shipping_lastname: values.shipping_lastname
+            //     ? values.shipping_lastname
+            //     : authState.user.lastname,
+            //   shipping_address: values.shipping_address
+            //     ? values.shipping_address
+            //     : authState.user.address,
+            //   shipping_zipcode: values.shipping_zipcode
+            //     ? values.shipping_zipcode
+            //     : authState.user.zipcode,
+            //   shipping_city: values.shipping_city
+            //     ? values.shipping_city
+            //     : authState.user.city,
+            //   shipping_country: values.shipping_country
+            //     ? values.shipping_country
+            //     : authState.user.country,
+            //   payment: values.payment,
+            // }
+            // { headers: { Authorization: `Bearer ${authState.token}` } }
+          );
+          console.log('res ', authState.user.id);
+          if (res) {
+            console.log('Submitted Succesfully');
+            console.log(res);
+          }
+          throw res;
+        } catch (err) {
+          console.log('error from checkout', err);
+          setValues({
+            ...values,
+            isSubmitting: false,
+            errorMessage: err.message,
+          });
         }
-        // { headers: { Authorization: `Bearer ${authState.token}` } }
-      );
-      console.log('res ', values);
-      if (res) {
-        console.log('Submitted Succesfully');
-        console.log(res);
       }
-      throw res;
-    } catch (err) {
-      console.log('error from checkout', err);
-      setValues({
-        ...values,
-        isSubmitting: false,
-        errorMessage: err.message,
-      });
     }
   }
 
@@ -99,8 +141,9 @@ const Checkout = () => {
                 <input
                   type="checkbox"
                   id="shipping-address-form"
-                  name="shipping-form"
+                  name="shippingForm"
                   onClick={() => setIsVisible(false)}
+                  checked
                 />
                 <label htmlFor="shipping-address-form">
                   <h2>Expédier à une adresse différente ?</h2>
@@ -112,13 +155,13 @@ const Checkout = () => {
                   <span className="required">*</span>
                   <input
                     type="text"
-                    name="shipping_firstname"
+                    name="shippingFirstname"
                     value={values.shippingFirstname}
                     onChange={handleChange}
                     id="shipping-firstname"
                   />
-                  {errors.firstname && (
-                    <p className="error">{errors.firstname}</p>
+                  {errors.shippingFirstname && (
+                    <p className="error">{errors.shippingFirstname}</p>
                   )}
                 </span>
                 <span className="checkout__container-form-names-lastname">
@@ -126,13 +169,13 @@ const Checkout = () => {
                   <span className="required">*</span>
                   <input
                     type="text"
-                    name="shipping_lastname"
+                    name="shippingLastname"
                     value={values.shippingLastname}
                     onChange={handleChange}
                     id="shipping-lastname"
                   />
-                  {errors.lastname && (
-                    <p className="error">{errors.lastname}</p>
+                  {errors.shippingLastname && (
+                    <p className="error">{errors.shippingLastname}</p>
                   )}
                 </span>
               </section>
@@ -143,48 +186,48 @@ const Checkout = () => {
                 </label>
                 <input
                   type="text"
-                  name="shipping_address"
+                  name="shippingAddress"
                   value={values.shippingAddress}
                   onChange={handleChange}
                   id="shipping-address"
                 />
-                {errors.address && <p className="error">{errors.address}</p>}
+                {errors.shippingAddress && <p className="error">{errors.shippingAddress}</p>}
                 <label htmlFor="zipcode">
                   Code postal
                   <span className="required">*</span>
                 </label>
                 <input
                   type="text"
-                  name="shipping_zipcode"
+                  name="shippingZipcode"
                   value={values.shippingZipcode}
                   onChange={handleChange}
                   id="shipping-zipcode"
                 />
-                {errors.zipcode && <p className="error">{errors.zipcode}</p>}
+                {errors.shippingZipcode && <p className="error">{errors.shippingZipcode}</p>}
                 <label htmlFor="shipping-city">
                   Ville
                   <span className="required">*</span>
                 </label>
                 <input
                   type="text"
-                  name="shipping_city"
+                  name="shippingCity"
                   value={values.shippingCity}
                   onChange={handleChange}
                   id="shipping-city"
                 />
-                {errors.city && <p className="error">{errors.city}</p>}
+                {errors.shippingCity && <p className="error">{errors.shippingCity}</p>}
                 <label htmlFor="shipping-country">
                   Pays
                   <span className="required">*</span>
                 </label>
                 <input
                   type="text"
-                  name="shipping_country"
+                  name="shippingCountry"
                   value={values.shippingCountry}
                   onChange={handleChange}
                   id="shipping-country"
                 />
-                {errors.country && <p className="error">{errors.country}</p>}
+                {errors.shippingCountry && <p className="error">{errors.shippingCountry}</p>}
               </section>
             </div>
           ) : (
@@ -193,7 +236,7 @@ const Checkout = () => {
                 <input
                   type="checkbox"
                   id="shipping-address-form"
-                  name="shipping_address"
+                  name="shippingForm"
                   onClick={() => setIsVisible(true)}
                 />
                 <label htmlFor="shipping-address-form">
@@ -220,7 +263,9 @@ const Checkout = () => {
               {products.map((product, i) => (
                 <tr key={i}>
                   <td>
-                    {product.name} x{product.quantity}
+                    {product.name}
+{' '}
+x{product.quantity}
                   </td>
                   <td> 
 {' '}
@@ -282,46 +327,31 @@ const Checkout = () => {
                 Vos données personnelles seront utilisées pour le traitement de
                 votre commande, vous accompagner au cours de votre visite du
                 site web, et pour d’autres raisons décrites dans notre
-{' '}
-                <Link to="/">politique de confidentialité</Link>.
-              </p>
+                <Link to="/">politique de confidentialité</Link>
+.
+</p>
               <span className="checkout__container-recap-payment-validation-sign">
                 <input type="checkbox" id="order-sign" />
                 <label htmlFor="order-sign">
                   J’ai lu et j’accepte les
-{' '}
                   <Link to="/">conditions générales</Link>
                   <span className="required">*</span>
                 </label>
               </span>
-              {isCards ? (
-                <div className="checkout__container-recap-payment-validation-confirm">
-                  {/* <Link to="/payment"> */}
-                  <button type="submit" className="submit-button">
-                    Régler par carte
-                  </button>
-                  {/* </Link> */}
-                </div>
-              ) : (
-                <div className="checkout__container-recap-payment-validation-confirm">
-                  <Link to="/payment">
-                    <button
-                      type="submit"
-                      // disabled={processing || disabled || succeeded}
-                      className="submit-button"
-                    >
-                      Régler via Paypal
-                    </button>
-                  </Link>
-                </div>
-              )}
             </div>
+          </div>
+          <div className="checkout__container-recap-payment-validation-confirm">
+            <button type="submit" className="submit-button">
+              Régler 
+{' '}
+{isCards ? ' par carte' : 'via Paypal'}
+            </button>
+            {/* </Link> */}
           </div>
         </section>
       </form>
     </div>
   );
-  // }
 };
 
 export default Checkout;

@@ -1,28 +1,26 @@
 import React, { useState, useContext } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 
 import useForm from './customedhooks/useForm';
-import validate from './validators/validateBillingAddress';
+import validate from './validators/validateEditCustomer';
 import { AuthContext } from '../contexts/auth';
 
 const API = process.env.REACT_APP_API_URL;
 
 const EditShippingForm = () => {
   const { state: authState } = useContext(AuthContext);
-  const [isVisible, setIsVisible] = useState(false);
-
   const initialState = {
     firstname: '' ? '' : authState.user.firstname,
     lastname: '' ? '' : authState.user.lastname,
-    phone: '' ? '' : authState.user.phone,
-    email: '' ? '' : authState.user.email,
     address: '' ? '' : authState.user.address,
     zipcode: '' ? '' : authState.user.zipcode,
     city: '' ? '' : authState.user.city,
     country: '' ? '' : authState.user.country,
-    admin: false,
   };
+  const [isVisible, setIsVisible] = useState(false);
+
+  // const [errors, setErrors] = useState({});
+  // const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { handleChange, handleSubmit, values, setValues, errors } = useForm(
     initialState,
@@ -31,8 +29,9 @@ const EditShippingForm = () => {
   );
 
   async function submit() {
+    console.log('detected !');
     try {
-      const res = await axios.patch(
+      const res = await axios.post(
         `${API}users/`,
         {
           firstname: values.firstname,
@@ -89,8 +88,8 @@ const EditShippingForm = () => {
               <input
                 type="text"
                 name="shipping-firstname"
-                // value={authState.user.firstname || ''}
-                // onChange={handleChange}
+                value={values.firstname}
+                onChange={handleChange}
                 id="shipping-firstname"
               />
               {errors.firstname && <p className="error">{errors.firstname}</p>}
@@ -101,55 +100,66 @@ const EditShippingForm = () => {
               <input
                 type="text"
                 name="shipping-lastname"
-                // value={authState.user.lastname || ''}
+                value={values.lastname}
+                onChange={handleChange}
                 id="shipping-lastname"
               />
               {errors.lastname && <p className="error">{errors.lastname}</p>}
             </span>
           </section>
           <section className="checkout__container-form-otherinfo">
-            <label htmlFor="shipping-phone">
-              Téléphone
-              <span className="required">*</span>
-            </label>
-            <input type="text" name="shipping-phone" id="shipping-phone" />
-            {errors.phone && <p className="error">{errors.phone}</p>}
-            <label htmlFor="shipping-email">
-              Email
-              <span className="required">*</span>
-            </label>
-            <input type="email" name="shipping-email" id="shipping-email" />
-            {errors.email && <p className="error">{errors.email}</p>}
             <label htmlFor="shipping-address">
               Adresse
               <span className="required">*</span>
             </label>
-            <input type="text" name="shipping-address" id="shipping-address" />
+            <input
+              type="text"
+              name="shipping-address"
+              value={values.adresse}
+              onChange={handleChange}
+              id="shipping-address"
+            />
             {errors.address && <p className="error">{errors.address}</p>}
             <label htmlFor="zipcode">
               Code postal
               <span className="required">*</span>
             </label>
-            <input type="text" name="shipping-zipcode" id="shipping-zipcode" />
+            <input
+              type="text"
+              name="shipping-zipcode"
+              value={values.zipcode}
+              onChange={handleChange}
+              id="shipping-zipcode"
+            />
             {errors.zipcode && <p className="error">{errors.zipcode}</p>}
             <label htmlFor="shipping-city">
               Ville
               <span className="required">*</span>
             </label>
-            <input type="text" name="shipping-city" id="shipping-city" />
+            <input
+              type="text"
+              name="shipping-city"
+              value={values.city}
+              onChange={handleChange}
+              id="shipping-city"
+            />
             {errors.city && <p className="error">{errors.city}</p>}
             <label htmlFor="shipping-country">
               Pays
               <span className="required">*</span>
             </label>
-            <input type="text" name="shipping-country" id="shipping-country" />
+            <input
+              type="text"
+              name="shipping-country"
+              value={values.country}
+              onChange={handleChange}
+              id="shipping-country"
+            />
             {errors.country && <p className="error">{errors.country}</p>}
           </section>
-          <Link to="/payment">
-            <button type="submit" className="submit-button">
-              Enregister les modifications
-            </button>
-          </Link>
+          <button type="submit" className="submit-button">
+            Enregister les modifications
+          </button>
         </>
       ) : (
         <>
