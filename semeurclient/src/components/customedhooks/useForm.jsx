@@ -23,7 +23,7 @@ const useForm = (initialState, validate, callback) => {
     setIsSubmitting(true);
   };
 
-  console.log('from useform', values);
+  // console.log('from useform', values);
 
   useEffect(() => {
     if (Object.keys(errors).length === 0 && isSubmitting) {

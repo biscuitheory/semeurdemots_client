@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import axios from 'axios';
 
 import useForm from './customedhooks/useForm';
@@ -9,6 +9,7 @@ const API = process.env.REACT_APP_API_URL;
 
 const EditBillingForm = () => {
   const { state: authState } = useContext(AuthContext);
+  // console.log('tati', auth);
 
   const initialState = {
     firstname: '' ? '' : authState.user.firstname,
@@ -61,6 +62,7 @@ const EditBillingForm = () => {
     }
   }
 
+  // if (Object.keys(auth).length === 0) return <p>Loading...</p>;
   return (
     <form
       onSubmit={handleSubmit}

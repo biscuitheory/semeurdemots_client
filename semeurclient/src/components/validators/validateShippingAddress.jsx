@@ -1,4 +1,4 @@
-export default function validateShippingAddress(values) {
+export default function validateShippingAddress(values, isCheck) {
   const errors = {};
 
   if (!values.shippingFirstname) {

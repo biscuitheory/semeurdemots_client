@@ -129,7 +129,7 @@ function App() {
                   component={OrderConfirmation}
                 />
               </Elements>
-              <Route path="/*" component={ErrorPage} />
+              <Route path="*" component={ErrorPage} />
             </Switch>
           </CartContext.Provider>
           <Footer />
