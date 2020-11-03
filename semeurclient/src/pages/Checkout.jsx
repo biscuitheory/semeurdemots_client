@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 
 import SubHeader from '../components/SubHeader';
@@ -9,13 +9,16 @@ import validate from '../components/validators/validateShippingAddress';
 import { AuthContext } from '../contexts/auth';
 import CartContext from '../contexts/cart';
 import totalCart from '../services/totalCart';
+import OrderContext from '../contexts/order';
 
 const API = process.env.REACT_APP_API_URL;
 
 const Checkout = () => {
   const { state: authState } = useContext(AuthContext);
   const products = useContext(CartContext).cartState;
-  // const [redirect, setRedirect] = useState(false);
+  // const { setOrderState } = useContext(OrderContext).orderState;
+  const { setOrderState } = useContext(OrderContext);
+  const [redirect, setRedirect] = useState(false);
   // console.log('lerara ', products)
   const [isVisible, setIsVisible] = useState(false);
   const [isCards, setIsCards] = useState(false);
@@ -65,6 +68,8 @@ const Checkout = () => {
 
   console.log('valou ', values);
 
+  const history = useHistory();
+
   // pour MAJ données facturation utilisateur
 
   async function submit(isChecked) {
@@ -105,6 +110,8 @@ const Checkout = () => {
         if (res) {
           console.log('Submitted Succesfully');
           console.log(res);
+          setOrderState(res.data.id);
+          history.push('/payment', { res: res.data.id });
         }
         throw res;
       } catch (err) {
@@ -122,8 +129,8 @@ const Checkout = () => {
   // dois envoyer données livraison vers table orders => context shippingInfo, à récupérer dans page de confirmation
 
   // if (redirect) {
-  //     return <Redirect to="/payment" />
-  //   } else {
+  //   return <Redirect to="/payment" />;
+  // }
   return (
     <div className="checkout__container">
       <SubHeader title="Livraison et Facturation" />
@@ -153,29 +160,33 @@ const Checkout = () => {
               </span>
               <section className="checkout__container-form-names">
                 <span className="checkout__container-form-names-firstname">
-                  <label htmlFor="shipping-firstname">Prénom</label>
-                  <span className="required">*</span>
-                  <input
-                    type="text"
-                    name="shippingFirstname"
-                    value={values.shippingFirstname}
-                    onChange={handleChange}
-                    id="shipping-firstname"
-                  />
+                  <label htmlFor="shipping-firstname">
+                    Prénom
+                    <span className="required">*</span>
+                    <input
+                      type="text"
+                      name="shippingFirstname"
+                      value={values.shippingFirstname}
+                      onChange={handleChange}
+                      id="shipping-firstname"
+                    />
+                  </label>
                   {errors.shippingFirstname && (
                     <p className="error">{errors.shippingFirstname}</p>
                   )}
                 </span>
                 <span className="checkout__container-form-names-lastname">
-                  <label htmlFor="shipping-lastname">Nom</label>
-                  <span className="required">*</span>
-                  <input
-                    type="text"
-                    name="shippingLastname"
-                    value={values.shippingLastname}
-                    onChange={handleChange}
-                    id="shipping-lastname"
-                  />
+                  <label htmlFor="shipping-lastname">
+                    Nom
+                    <span className="required">*</span>
+                    <input
+                      type="text"
+                      name="shippingLastname"
+                      value={values.shippingLastname}
+                      onChange={handleChange}
+                      id="shipping-lastname"
+                    />
+                  </label>
                   {errors.shippingLastname && (
                     <p className="error">{errors.shippingLastname}</p>
                   )}
@@ -185,56 +196,56 @@ const Checkout = () => {
                 <label htmlFor="shipping-address">
                   Adresse
                   <span className="required">*</span>
+                  <input
+                    type="text"
+                    name="shippingAddress"
+                    value={values.shippingAddress}
+                    onChange={handleChange}
+                    id="shipping-address"
+                  />
                 </label>
-                <input
-                  type="text"
-                  name="shippingAddress"
-                  value={values.shippingAddress}
-                  onChange={handleChange}
-                  id="shipping-address"
-                />
                 {errors.shippingAddress && (
                   <p className="error">{errors.shippingAddress}</p>
                 )}
                 <label htmlFor="zipcode">
                   Code postal
                   <span className="required">*</span>
+                  <input
+                    type="text"
+                    name="shippingZipcode"
+                    value={values.shippingZipcode}
+                    onChange={handleChange}
+                    id="shipping-zipcode"
+                  />
                 </label>
-                <input
-                  type="text"
-                  name="shippingZipcode"
-                  value={values.shippingZipcode}
-                  onChange={handleChange}
-                  id="shipping-zipcode"
-                />
                 {errors.shippingZipcode && (
                   <p className="error">{errors.shippingZipcode}</p>
                 )}
                 <label htmlFor="shipping-city">
                   Ville
                   <span className="required">*</span>
+                  <input
+                    type="text"
+                    name="shippingCity"
+                    value={values.shippingCity}
+                    onChange={handleChange}
+                    id="shipping-city"
+                  />
                 </label>
-                <input
-                  type="text"
-                  name="shippingCity"
-                  value={values.shippingCity}
-                  onChange={handleChange}
-                  id="shipping-city"
-                />
                 {errors.shippingCity && (
                   <p className="error">{errors.shippingCity}</p>
                 )}
                 <label htmlFor="shipping-country">
                   Pays
                   <span className="required">*</span>
+                  <input
+                    type="text"
+                    name="shippingCountry"
+                    value={values.shippingCountry}
+                    onChange={handleChange}
+                    id="shipping-country"
+                  />
                 </label>
-                <input
-                  type="text"
-                  name="shippingCountry"
-                  value={values.shippingCountry}
-                  onChange={handleChange}
-                  id="shipping-country"
-                />
                 {errors.shippingCountry && (
                   <p className="error">{errors.shippingCountry}</p>
                 )}
@@ -275,9 +286,7 @@ const Checkout = () => {
                 {products.map((product, i) => (
                   <tr key={i}>
                     <td>
-                      {product.name}
-{' '}
-x{product.quantity}
+                      {product.name} x{product.quantity}
                     </td>
                     <td> 
 {' '}
@@ -338,10 +347,10 @@ x{product.quantity}
                 <p>
                   Vos données personnelles seront utilisées pour le traitement
                   de votre commande, vous accompagner au cours de votre visite
-                  du site web, et pour d’autres raisons décrites dans notre{' '}
-                  <Link to="/">politique de confidentialité</Link>
-.
-</p>
+                  du site web, et pour d’autres raisons décrites dans notre
+{' '}
+                  <Link to="/">politique de confidentialité</Link>.
+                </p>
                 <span className="checkout__container-recap-payment-validation-sign">
                   <input type="checkbox" id="order-sign" />
                   <label htmlFor="order-sign">
@@ -355,9 +364,7 @@ x{product.quantity}
             </div>
             <div className="checkout__container-recap-payment-validation-confirm">
               <button type="submit" className="submit-button">
-                Régler 
-{' '}
-{isCards ? ' par carte' : 'via Paypal'}
+                Régler {isCards ? ' par carte' : 'via Paypal'}
               </button>
               {/* </Link> */}
             </div>

@@ -8,6 +8,7 @@ import axios from 'axios';
 
 import { AuthContext } from './contexts/auth';
 import CartContext from './contexts/cart';
+import OrderContext from './contexts/order';
 
 import Navbar from './components/Navbar/Navbar';
 import Commander from './pages/Commander';
@@ -68,6 +69,7 @@ const reducer = (state, action) => {
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [cartState, setCartState] = useState([]);
+  const [orderState, setOrderState] = useState();
 
   const fetchUser = async () => {
     const token = localStorage.getItem('token');
@@ -106,31 +108,33 @@ function App() {
         <Router>
           <Navbar />
           <CartContext.Provider value={{ cartState, setCartState }}>
-            <Switch>
-              <Route exact path="/commander" component={Commander} />
-              <Route state={state} path="/compte-client">
-                <CustomerPortal />
-              </Route>
-              <Route state={state} path="/compte-admin">
-                <AdminPortal />
-              </Route>
-              <Route exact path="/panier" component={Cart} />
-              <Route
-                state={state}
-                exact
-                path="/checkout"
-                component={Checkout}
-              />
-              <Elements stripe={promise}>
-                <Route exact path="/payment" component={Payment} />
+            <OrderContext.Provider value={{ orderState, setOrderState }}>
+              <Switch>
+                <Route exact path="/commander" component={Commander} />
+                <Route state={state} path="/compte-client">
+                  <CustomerPortal />
+                </Route>
+                <Route state={state} path="/compte-admin">
+                  <AdminPortal />
+                </Route>
+                <Route exact path="/panier" component={Cart} />
                 <Route
+                  state={state}
                   exact
-                  path="/confirmation-commande"
-                  component={OrderConfirmation}
+                  path="/checkout"
+                  component={Checkout}
                 />
-              </Elements>
-              <Route path="*" component={ErrorPage} />
-            </Switch>
+                <Elements stripe={promise}>
+                  <Route exact path="/payment" component={Payment} />
+                  <Route
+                    exact
+                    path="/confirmation-commande"
+                    component={OrderConfirmation}
+                  />
+                </Elements>
+                <Route path="*" component={ErrorPage} />
+              </Switch>
+            </OrderContext.Provider>
           </CartContext.Provider>
           <Footer />
         </Router>

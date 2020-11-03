@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Redirect } from 'react-router-dom';
+import { useLocation, Redirect } from 'react-router-dom';
 import axios from 'axios';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 
 import { AuthContext } from '../contexts/auth';
 import CartContext from '../contexts/cart';
 import totalCart from '../services/totalCart';
+import OrderContext from '../contexts/order';
 
 const API = process.env.REACT_APP_API_URL;
 
@@ -13,6 +14,7 @@ const Payment = () => {
   const { state: authState } = useContext(AuthContext);
   // let products = useContext(CartContext).cartState;
   const products = useContext(CartContext).cartState;
+  const order = useContext(OrderContext).orderState;
 
   const [succeeded, setSucceeded] = useState(false);
   const [error, setError] = useState(null);
@@ -23,6 +25,8 @@ const Payment = () => {
   const stripe = useStripe();
   const elements = useElements();
   const [redirect, setRedirect] = useState(false);
+
+  const location = useLocation();
 
   const CreatePayment = async () => {
     const amount = totalCart(products);
@@ -47,21 +51,16 @@ const Payment = () => {
     }
   };
 
-  const getStatuses = async () => {
-    try {
-      const res = await axios.get(`${API}statuses`);
-      if (res) {
-        console.log(res);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const UpdateOrder = async () => {
+  //   try {
+  //     const res = await axios.patch(`${API}orders`, )
+  //   }
+  // }
 
   useEffect(() => {
     CreatePayment();
-    getStatuses();
-  }, [products]);
+    console.log('frm payment', location.state.res);
+  }, [products, location]);
 
   const cardStyle = {
     style: {
@@ -121,16 +120,16 @@ const Payment = () => {
         onSubmit={handleSubmit}
       >
         <p>
-          Règlement d&apos;un montant de
-          {totalCart(products)}
-          0€
-        </p>
+Règlement d&apos;un montant de{totalCart(products)}
+€
+</p>
         <input
           type="text"
           id="email"
           value={authState.user.email}
-          onChange={(e) => setEmail(e.target.value)}
+          // onChange={(e) => setEmail(e.target.value)}
           placeholder="Saisir adresse email"
+          style={{ display: 'none' }}
         />
         <CardElement
           id="card-element"
@@ -158,7 +157,8 @@ const Payment = () => {
           <a href="https://dashboard.stripe.com/test/payments">
             {' '}
             Stripe dashboard.
-          </a>{' '}
+          </a>
+{' '}
           Refresh the page to pay again.
         </p>
       </form>
