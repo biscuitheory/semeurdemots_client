@@ -84,10 +84,9 @@
   &-window {
     width: 100%;
     height: 100vh;
-    padding: 0;
+    padding: 0 1em;
     overflow: auto;
-    border: 1px solid green;
-
+    // border: 1px solid orange;
     @include media(desktop) {
     }
 
@@ -126,8 +125,7 @@
         padding: 0;
       }
 
-      &-orders,
-      &-data {
+      &-orders, &-data {
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -137,10 +135,8 @@
         margin: 1em 2em;
         border: 1px solid $color--brinput;
         border-radius: 0.5em;
-        width: 30em;
         @include media(desktop) {
           justify-content: space-evenly;
-          margin: 3em 5em;
           width: 20em;
           height: 20em;
         }
@@ -171,17 +167,20 @@
     height: 3.5em;
   }
 
+  h2 {
+    padding-bottom: 0.5em;
+
+    @include media (desktop) {
+      padding-bottom: 1em;
+    }
+  }
+
   &-form {
     display: flex;
     flex-direction: column;
-    align-items: center;
     @include media(desktop) {
+      align-items: center;
     }
-
-    h2 {
-      padding: 1em 0;
-    }
-
     &-names {
       display: flex;
       flex-direction: row;
@@ -189,20 +188,30 @@
       width: 100%;
       @include media(sm-tablet) {
         justify-content: space-between;
-        align-items: center;
       }
       @include media(lg-tablet) {
         justify-content: space-between;
-        align-items: center;
+        width: 35em;
       }
       @include media(desktop) {
         justify-content: space-between;
-        align-items: center;
-        // width: 35em;
+        width: 35em;
       }
     }
-    &-field {
-      margin: 0 0.5em;
+    &-firstname {
+      margin-right: 1em;
+      @include media(sm-tablet) {
+        width: 50%;
+      }
+      @include media(lg-tablet) {
+        width: 50%;
+      }
+      @include media(desktop) {
+        width: 50%;
+      }
+    }
+
+    &-lastname {
       @include media(sm-tablet) {
         width: 50%;
       }
@@ -220,30 +229,18 @@
       label {
         padding-top: 1em;
       }
-      @include media(sm-tablet) {
-        flex-direction: row;
-        width: 100%;
-      }
       @include media(lg-tablet) {
-        flex-direction: row;
-        width: 100%;
+        width: 35em;
       }
       @include media(desktop) {
-        flex-direction: row;
-        width: 100%;
+        width: 35em;
       }
-    }
-
-    .submit-button {
-      margin: 1em 0;
-      width: 20em;
     }
 
     &-addresses,
     &-passwordupdate {
       margin: 3em 0 1em 0;
       padding: 1em 0;
-      border: 1px solid $color--brinput;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -251,52 +248,41 @@
       input,
       label {
         width: 98%;
+        @include media (desktop) {
+          width: 100%;
+          margin-bottom: 1em;
+        }
       }
 
       label {
         padding-top: 1em;
+        @include media (desktop) {
+          line-height: 3em;
+        }
       }
 
       &-billing,
-      &-shipping {
+      &-inputbox {
         width: 100%;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: flex-start;
-
-        @include media(desktop) {
-          padding-right: 0.5em;
+        padding-right: 0.5em;
+        @include media (desktop) {
+          width: 35em;
+          display: inline;
+          padding-right: 0;
         }
 
-        &-header {
-          padding: 1em 0;
-          text-transform: uppercase;
+        h2 {
+          text-align: center;
         }
 
-        &-info {
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-          width: 100%;
-          padding: 3em 0;
-          border: 1.5px solid #ffffff;
-          background-color: $color--blue;
-          color: #ffffff;
-          p {
-            font-size: 0.9em;
-            font-weight: 500;
-            text-align: center;
-          }
-
-          &-name {
-            display: flex;
-            flex-direction: row;
-            p {
-              font-weight: 700;
-            }
-          }
+        p {
+          font-size: 0.9em;
+          font-weight: 700;
+          text-align: center;
         }
       }
     }

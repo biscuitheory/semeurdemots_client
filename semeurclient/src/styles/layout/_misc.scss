@@ -39,7 +39,7 @@ input[type='number'] {
   border-radius: 1em;
   font-family: 'Poppins';
   font-weight: 700;
-  margin: 0.5em;
+  margin: 0.5em 0;
 }
 
 .password-toggle-icon {
@@ -58,6 +58,7 @@ input[type='number'] {
   bottom: 25px;
   background-color: #ffffff;
   overflow: auto;
+  padding: 0 1em;
 
   @include media(sm-tablet) {
     top: 10em;
