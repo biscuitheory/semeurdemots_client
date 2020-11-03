@@ -129,7 +129,9 @@ const Checkout = () => {
       <SubHeader title="Livraison et Facturation" />
 
       <section className="checkout__container-forms">
-        {authState && <EditBillingForm auth={authState.user} />}
+        <div className="checkout__container-form-billing">
+          {authState && <EditBillingForm auth={authState.user} />}
+        </div>
         <form
           onSubmit={handleSubmit}
           noValidate
@@ -336,7 +338,7 @@ x{product.quantity}
                 <p>
                   Vos données personnelles seront utilisées pour le traitement
                   de votre commande, vous accompagner au cours de votre visite
-                  du site web, et pour d’autres raisons décrites dans notre
+                  du site web, et pour d’autres raisons décrites dans notre{' '}
                   <Link to="/">politique de confidentialité</Link>
 .
 </p>
@@ -344,6 +346,7 @@ x{product.quantity}
                   <input type="checkbox" id="order-sign" />
                   <label htmlFor="order-sign">
                     J’ai lu et j’accepte les
+{' '}
                     <Link to="/">conditions générales</Link>
                     <span className="required">*</span>
                   </label>

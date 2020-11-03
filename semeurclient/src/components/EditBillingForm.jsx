@@ -170,10 +170,10 @@ const EditBillingForm = () => {
           onChange={handleChange}
         />
         {errors.country && <p className="error">{errors.country}</p>}
+        <button type="submit" className="submit-button">
+          Enregister les modifications
+        </button>
       </section>
-      <button type="submit" className="submit-button">
-        Enregister les modifications
-      </button>
     </form>
   );
 };

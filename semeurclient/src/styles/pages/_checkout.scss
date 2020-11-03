@@ -5,13 +5,26 @@
     padding-top: 0;
   }
 
+  &-main {
+    // display: inline;
+    @include media (lg-tablet) {
+      // display: flex;
+      // flex-direction: column;
+      // align-items: center;
+      // justify-content: center;
+    }
+    @include media (desktop) {
+      margin: 0 2em 0 5em;
+    }
+  }
+
   &-forms {
     padding: 0 0.5em;
     @include media(desktop) {
-      padding: 2em 2em;
+      padding: 2em 2em 2em 4em;
       display: flex;
       flex-direction: row;
-      justify-content: space-around;
+      justify-content: space-between;
     }
   }
 
@@ -40,13 +53,26 @@
     &-billing {
       display: flex;
       flex-direction: column;
-      margin: 2em 0;
-      border: 1px solid pink;
+      // border: 1px solid pink;
+      @include media(lg-tablet) {
+        align-items: center;
+      }
     }
 
     &-shipping {
-      margin: 2em 0;
-      border: 1px solid pink;
+      @include media(phone) {
+        margin: 2em 0;
+      }
+      @include media(lg-tablet) {
+        width: 100;
+        margin: 0 2em;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      @include media (desktop) {
+        margin: 0 1em;
+      }
 
       &-title {
         display: flex;
@@ -55,16 +81,26 @@
         justify-content: space-between;
         width: 100%;
         font-size: 1em;
-        margin: 1em 0 3em 0;
+        margin: 3em 0;
+        @include media (sm-tablet) {
+          margin: 3em 0 1em 0.5em;
+        }
+        @include media(lg-tablet) {
+          align-items: center;
+        }
         @include media(desktop) {
+          margin: 1em 0 1em 0;
+          align-items: center;
           width: 40em;
-          margin: 1em 0 0 0;
         }
 
         input {
           height: 1em;
           width: 2em;
           margin-right: 1em;
+          @include media (lg-tablet) {
+            margin: 0 1em 0 19em;
+          }
         }
 
         label {
@@ -129,6 +165,10 @@
       }
       @include media(desktop) {
         width: 40em;
+      }
+
+      .submit-button {
+        margin-top: 1em;
       }
     }
   }
