@@ -14,7 +14,7 @@ const Payment = () => {
   const { state: authState } = useContext(AuthContext);
   // let products = useContext(CartContext).cartState;
   const products = useContext(CartContext).cartState;
-  const order = useContext(OrderContext).orderState;
+  const order = useContext(OrderContext);
 
   const [succeeded, setSucceeded] = useState(false);
   const [error, setError] = useState(null);
@@ -27,6 +27,16 @@ const Payment = () => {
   const [redirect, setRedirect] = useState(false);
 
   const location = useLocation();
+
+  // console.log('whee ', location.state.res);
+  const initialState = {
+    id: location.state.res,
+    status_id: 2,
+  };
+
+  const [values, setValues] = useState(initialState);
+
+  // console.log('valli', values);
 
   const CreatePayment = async () => {
     const amount = totalCart(products);
@@ -50,12 +60,6 @@ const Payment = () => {
       }
     }
   };
-
-  // const UpdateOrder = async () => {
-  //   try {
-  //     const res = await axios.patch(`${API}orders`, )
-  //   }
-  // }
 
   useEffect(() => {
     CreatePayment();
@@ -87,6 +91,24 @@ const Payment = () => {
     setError(
       event.error ? event.error.message : 'Veuillez renseigner une carte valide'
     );
+    setValues({
+      ...values,
+    });
+  };
+
+  const UpdateOrder = async () => {
+    try {
+      const res = await axios.patch(`${API}orders`, {
+        id: location.state.res,
+        status_id: values.status_id,
+      });
+      if (res) {
+        console.log('Submitted Succesfully');
+        console.log(res);
+      }
+    } catch (err) {
+      console.log('error from payment update order', err);
+    }
   };
 
   const handleSubmit = async (ev) => {
@@ -105,6 +127,10 @@ const Payment = () => {
       setError(null);
       setProcessing(false);
       setSucceeded(true);
+      setValues({
+        ...values,
+      });
+      UpdateOrder();
       setRedirect(true);
     }
   };
@@ -120,7 +146,8 @@ const Payment = () => {
         onSubmit={handleSubmit}
       >
         <p>
-Règlement d&apos;un montant de{totalCart(products)}
+          Règlement d&apos;un montant de
+          {totalCart(products)}
 €
 </p>
         <input
