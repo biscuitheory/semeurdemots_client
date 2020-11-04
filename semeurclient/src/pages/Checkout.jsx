@@ -16,12 +16,12 @@ const API = process.env.REACT_APP_API_URL;
 const Checkout = () => {
   const { state: authState } = useContext(AuthContext);
   const products = useContext(CartContext).cartState;
-  // const { setOrderState } = useContext(OrderContext).orderState;
   const { setOrderState } = useContext(OrderContext);
   const [redirect, setRedirect] = useState(false);
   // console.log('lerara ', products)
   const [isVisible, setIsVisible] = useState(false);
   const [isCards, setIsCards] = useState(false);
+  const [isSigned, setIsSigned] = useState(false);
 
   const initialState = {
     user_id: authState.user.id,
@@ -41,7 +41,7 @@ const Checkout = () => {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-
+    setIsSigned();
     setValues({
       ...values,
       [name]: value,
@@ -352,21 +352,36 @@ const Checkout = () => {
                   <Link to="/">politique de confidentialité</Link>.
                 </p>
                 <span className="checkout__container-recap-payment-validation-sign">
-                  <input type="checkbox" id="order-sign" />
+                  <input
+                    type="checkbox"
+                    id="order-sign"
+                    checked={isSigned}
+                    onChange={() => setIsSigned(!isSigned)}
+                  />
                   <label htmlFor="order-sign">
                     J’ai lu et j’accepte les
 {' '}
-                    <Link to="/">conditions générales</Link>
+                    <Link to="/" target="blank">
+                      conditions générales
+                    </Link>
                     <span className="required">*</span>
                   </label>
                 </span>
+                {!isSigned && (
+                  <p className="error">
+                    Merci de cocher cette case afin de poursuivre votre achat.
+                  </p>
+                )}
               </div>
             </div>
             <div className="checkout__container-recap-payment-validation-confirm">
-              <button type="submit" className="submit-button">
+              <button
+                type="submit"
+                className="submit-button"
+                disabled={!isSigned}
+              >
                 Régler {isCards ? ' par carte' : 'via Paypal'}
               </button>
-              {/* </Link> */}
             </div>
           </section>
         </form>

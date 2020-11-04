@@ -6,15 +6,12 @@ import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { AuthContext } from '../contexts/auth';
 import CartContext from '../contexts/cart';
 import totalCart from '../services/totalCart';
-import OrderContext from '../contexts/order';
 
 const API = process.env.REACT_APP_API_URL;
 
 const Payment = () => {
   const { state: authState } = useContext(AuthContext);
-  // let products = useContext(CartContext).cartState;
   const products = useContext(CartContext).cartState;
-  const order = useContext(OrderContext);
 
   const [succeeded, setSucceeded] = useState(false);
   const [error, setError] = useState(null);
@@ -35,8 +32,6 @@ const Payment = () => {
   };
 
   const [values, setValues] = useState(initialState);
-
-  // console.log('valli', values);
 
   const CreatePayment = async () => {
     const amount = totalCart(products);
@@ -134,9 +129,14 @@ const Payment = () => {
       setRedirect(true);
     }
   };
+  console.log('yeepa ', values);
 
   if (redirect) {
-    return <Redirect to="/confirmation-commande" />;
+    return (
+      <Redirect
+        to={{ pathname: '/confirmation-commande', state: { id: values.id } }}
+      />
+    );
   }
   return (
     <div className="payment__container">
@@ -148,8 +148,9 @@ const Payment = () => {
         <p>
           Règlement d&apos;un montant de
           {totalCart(products)}
-€
-</p>
+{' '}
+€{' '}
+        </p>
         <input
           type="text"
           id="email"

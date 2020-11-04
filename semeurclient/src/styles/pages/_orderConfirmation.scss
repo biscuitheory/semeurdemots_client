@@ -1,13 +1,52 @@
 .orderconfirmation__container {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 2em;
-    height: 100vh;
-    border: 1px solid green;
-  
-    &-form {
-      border: 1px solid green;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 12em 1em 2em 1em;
+  margin-bottom: 3em;
+  height: 100vh;
+  @include media(lg-tablet) {
+    padding: 5em 0;
+  }
+  @include media(desktop) {
+    padding: 5em 0;
+  }
+
+  &-box {
+    margin: 2em 0;
+    border: 1px solid $color--brinput;
+    width: 95%;
+    @include media(sm-tablet) {
+      padding: 2em 1em;
+      width: 50%;
+    }
+    @include media(lg-tablet) {
+      padding: 2em 1em;
+      width: 42%;
+    }
+    @include media(desktop) {
+      padding: 2em 1em;
+      width: 30%;
+    }
+
+  }
+
+  &-receipt {
+    padding: 2em 0 0 0;
+    // @include media(desktop) {
+    //   width: 30em;
+    // }
+
+    &-reference {
+      text-transform: uppercase;
+      color: $color--blue;
+      font-weight: 800;
+    }
+
+    .submit-button {
+      margin-bottom: 1em;
     }
   }
+}
