@@ -29,6 +29,8 @@ const Payment = () => {
   const initialState = {
     id: location.state.res,
     status_id: 2,
+    user_email: authState.user.email,
+    user_username: authState.user.username,
   };
 
   const [values, setValues] = useState(initialState);
@@ -96,6 +98,8 @@ const Payment = () => {
       const res = await axios.patch(`${API}orders`, {
         id: location.state.res,
         status_id: values.status_id,
+        user_email: values.user_email,
+        user_username: values.user_username,
       });
       if (res) {
         console.log('Submitted Succesfully');
