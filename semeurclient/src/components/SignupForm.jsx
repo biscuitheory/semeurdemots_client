@@ -56,7 +56,6 @@ const SignupForm = () => {
       });
 
       toast.error('Ce compte existe déjà', {
-        // className: 'error-toast',
         position: 'bottom-center',
         autoClose: 5000,
         hideProgressBar: false,

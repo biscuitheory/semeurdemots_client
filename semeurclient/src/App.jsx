@@ -1,5 +1,10 @@
 import React, { useReducer, useEffect, useState } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from 'react-router-dom';
 import { BreakpointProvider } from 'react-socks';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
@@ -11,6 +16,7 @@ import CartContext from './contexts/cart';
 import OrderContext from './contexts/order';
 
 import Navbar from './components/Navbar/Navbar';
+import Home from './pages/Homepage';
 import Commander from './pages/Commander';
 import CustomerPortal from './pages/CustomerPortal';
 import AdminPortal from './pages/AdminPortal';
@@ -110,6 +116,7 @@ function App() {
           <CartContext.Provider value={{ cartState, setCartState }}>
             <OrderContext.Provider value={{ orderState, setOrderState }}>
               <Switch>
+                <Route exact path="/" component={Home} />
                 <Route exact path="/commander" component={Commander} />
                 <Route state={state} path="/compte-client">
                   <CustomerPortal />
@@ -124,6 +131,8 @@ function App() {
                   path="/checkout"
                   component={Checkout}
                 />
+                <Route path="/404" component={ErrorPage} />
+                <Redirect to="/404" />
                 <Elements stripe={promise}>
                   <Route exact path="/payment" component={Payment} />
                   <Route
@@ -132,7 +141,6 @@ function App() {
                     component={OrderConfirmation}
                   />
                 </Elements>
-                <Route path="*" component={ErrorPage} />
               </Switch>
             </OrderContext.Provider>
           </CartContext.Provider>
