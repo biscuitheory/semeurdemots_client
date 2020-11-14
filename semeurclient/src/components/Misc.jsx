@@ -1,10 +1,9 @@
 import React from 'react';
 
-export default function InputCount({count, onChange}){
-
+export default function InputCount({ count, onChange }) {
   const handleChange = (event) => {
     onChange(event.target.value);
-  }
+  };
 
   return (
     <input
@@ -17,18 +16,14 @@ export default function InputCount({count, onChange}){
       className="input-count"
       value={count}
       onChange={handleChange}
-    ></input>
+    />
   );
-};
+}
 
-
-export function SubmitButton () {
+export function SubmitButton() {
   return <button className="submit-button">Ajouter au panier</button>;
-};
+}
 
-export function TestText () {
+export function TestText() {
   return <p>Test Text</p>;
-};
-
-
- 
+}

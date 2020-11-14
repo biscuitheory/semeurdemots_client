@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import Modal from 'react-modal';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import AddProductForm from '../../components/AddProductForm';
 import EditProductForm from '../../components/EditProductForm';
+import { AuthContext } from '../../contexts/auth';
 
 const API = process.env.REACT_APP_API_URL;
 
@@ -61,6 +64,9 @@ const Products = () => {
           <thead>
             <tr className="adminportal__container-products-container-main-table-regular">
               <th className="adminportal__container-products-container-main-table-small">
+                <FontAwesomeIcon icon={faTrashAlt} />
+              </th>
+              <th className="adminportal__container-products-container-main-table-small">
                 Id
               </th>
               <th className="adminportal__container-products-container-main-table-regular">
@@ -101,11 +107,39 @@ const ProductTableRow = ({
   description,
   image,
 }) => {
+  const { state: authState } = useContext(AuthContext);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  const DeleteProduct = async () => {
+    try {
+      const res = await axios({
+        method: 'DELETE',
+        url: `${API}products/`,
+        headers: { Authorization: `Bearer ${authState.token}` },
+        data: { id },
+      });
+      if (res) {
+        console.log('Removed Succesfully');
+        console.log(res);
+      }
+    } catch (err) {
+      console.log('error from DeleteProduct ', err);
+    }
+  };
   return (
     <>
       <tbody>
         <tr className="adminportal__container-customers-container-main-table-regular">
+          <td className="adminportal__container-customers-container-main-table-small">
+            {/* {console.log('erer ', id)} */}
+            <button
+              onClick={() => DeleteProduct(id)}
+              type="submit"
+              className="cart__container-products-box-delete"
+            >
+              <FontAwesomeIcon icon={faTrashAlt} />
+            </button>
+          </td>
           <td className="adminportal__container-customers-container-main-table-small">
             {id}
           </td>
