@@ -42,8 +42,8 @@ const Payment = () => {
         const res = await axios.post(`${API}payment`, { amount });
         if (res.data) {
           setClientSecret(res.data.clientSecret);
-          const result = await stripe.confirmCardPayment(clientSecret, {
-            receipt_email: document.getElementById('email').value,
+          await stripe.confirmCardPayment(clientSecret, {
+            receipt_email: authState.user.email,
             payment_method: {
               card: elements.getElement(CardElement),
               billing_details: {
@@ -82,8 +82,6 @@ const Payment = () => {
   };
 
   const handleChange = async (event) => {
-    // Listen for changes in the CardElement
-    // and display any errors as the customer types their card details
     setDisabled(event.empty);
     setError(
       event.error ? event.error.message : 'Veuillez renseigner une carte valide'
@@ -114,7 +112,7 @@ const Payment = () => {
     ev.preventDefault();
     setProcessing(true);
     const payload = await stripe.confirmCardPayment(clientSecret, {
-      receipt_email: email,
+      receipt_email: authState.user.email,
       payment_method: {
         card: elements.getElement(CardElement),
       },
@@ -151,9 +149,7 @@ const Payment = () => {
       >
         <p>
           Règlement d&apos;un montant de
-          {totalCart(products)}
-{' '}
-€{' '}
+          {' '}{totalCart(products)}€
         </p>
         <input
           type="text"

@@ -19,7 +19,7 @@ const Commander = () => {
 
   return (
     <>
-      <SubHeader title="Commander"/>
+      <SubHeader title="Commander" />
       <div>
         {/* {console.log(products)} */}
         {products.map((product, i) => (

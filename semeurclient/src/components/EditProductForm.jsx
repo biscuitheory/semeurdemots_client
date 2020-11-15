@@ -1,4 +1,6 @@
-import React, { useState, useContext } from 'react';
+/* eslint-disable no-constant-condition */
+/* eslint-disable react/prop-types */
+import React, { useContext } from 'react';
 // import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 

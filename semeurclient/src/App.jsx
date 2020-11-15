@@ -116,30 +116,30 @@ function App() {
           <CartContext.Provider value={{ cartState, setCartState }}>
             <OrderContext.Provider value={{ orderState, setOrderState }}>
               <Switch>
-                <Route exact path="/" component={Home} />
-                <Route exact path="/commander" component={Commander} />
-                <Route state={state} path="/compte-client">
-                  <CustomerPortal />
-                </Route>
-                <Route state={state} path="/compte-admin">
-                  <AdminPortal />
-                </Route>
-                <Route exact path="/panier" component={Cart} />
-                <Route
-                  state={state}
-                  exact
-                  path="/checkout"
-                  component={Checkout}
-                />
-                <Route path="/404" component={ErrorPage} />
-                <Redirect to="/404" />
                 <Elements stripe={promise}>
+                  <Route exact path="/" component={Home} />
+                  <Route exact path="/commander" component={Commander} />
+                  <Route state={state} path="/compte-client">
+                    <CustomerPortal />
+                  </Route>
+                  <Route state={state} path="/compte-admin">
+                    <AdminPortal />
+                  </Route>
+                  <Route exact path="/panier" component={Cart} />
+                  <Route
+                    state={state}
+                    exact
+                    path="/checkout"
+                    component={Checkout}
+                  />
                   <Route exact path="/payment" component={Payment} />
                   <Route
                     exact
                     path="/confirmation-commande"
                     component={OrderConfirmation}
                   />
+                  <Route path="/404" component={ErrorPage} />
+                  <Redirect to="/404" />
                 </Elements>
               </Switch>
             </OrderContext.Provider>
