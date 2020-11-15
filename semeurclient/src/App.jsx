@@ -138,9 +138,9 @@ function App() {
                     path="/confirmation-commande"
                     component={OrderConfirmation}
                   />
-                  <Route path="/404" component={ErrorPage} />
-                  <Redirect to="/404" />
                 </Elements>
+                <Route path="/404" component={ErrorPage} />
+                <Redirect to="/404" />
               </Switch>
             </OrderContext.Provider>
           </CartContext.Provider>

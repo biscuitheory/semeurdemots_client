@@ -10,35 +10,34 @@ const OrderConfirmation = () => {
   const location = useLocation();
   const { state: authState } = useContext(AuthContext);
 
-  if (!location.state)
-    return (
-      <Redirect
-        to={{
-          pathname: '/404',
-        }}
-      />
-    );
+  // if (!location.state)
+  //   return (
+  //     <Redirect
+  //       to={{
+  //         pathname: '/404',
+  //       }}
+  //     />
+  //   );
 
   console.log('hululu ', location.state);
 
-  const allOrderProductPosts = location.state.fullorder.product_id.map(
-    (product) =>
-      axios.post(
-        `${API}fullorder`,
-        {
-          order_id: location.state.fullorder.order_id,
-          product_id: product.id,
-          quantity: product.quantity,
-          // product_id: location.state.product.id,
-          // quantity: location.state.product.quantity,
-        },
-        { headers: { Authorization: `Bearer ${authState.token}` } }
-      )
+  const { order_id, product_id } = location.state.fullorder;
+
+  const allOrderProductPosts = product_id.map((product) =>
+    axios.post(
+      `${API}fullorder`,
+      {
+        order_id,
+        product_id: product.id,
+        quantity: product.quantity,
+      },
+      { headers: { Authorization: `Bearer ${authState.token}` } }
+    )
   );
   // console.log('pipi', allOrderProductPosts);
 
   const fullOrder = () => {
-    if (location.state.product_id > 1) {
+    if (product_id > 1) {
       axios
         .all(allOrderProductPosts)
         // .all(allOrderProductPosts.map((call) => call.data))
@@ -56,9 +55,9 @@ const OrderConfirmation = () => {
         .post(
           `${API}fullorder`,
           {
-            order_id: location.state.fullorder.order_id,
-            product_id: location.state.fullorder.product_id[0].id,
-            quantity: location.state.fullorder.product_id[0].quantity,
+            order_id,
+            product_id: product_id[0].id,
+            quantity: product_id[0].quantity,
           },
           { headers: { Authorization: `Bearer ${authState.token}` } }
         )
@@ -83,7 +82,7 @@ const OrderConfirmation = () => {
 {' '}
             <strong>
               n°
-              {location.state.order_id}
+              {order_id}
             </strong>
             ) a bien été enregistrée.
           </p>
