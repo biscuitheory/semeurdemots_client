@@ -27,7 +27,7 @@ const Payment = () => {
 
   // console.log('whee ', location.state.res);
   const initialState = {
-    id: location.state.res,
+    id: location.state.order_id,
     status_id: 2,
     user_email: authState.user.email,
     user_username: authState.user.username,
@@ -57,11 +57,6 @@ const Payment = () => {
       }
     }
   };
-
-  useEffect(() => {
-    CreatePayment();
-    console.log('frm payment', location.state.res);
-  }, [products, location]);
 
   const cardStyle = {
     style: {
@@ -93,12 +88,16 @@ const Payment = () => {
 
   const UpdateOrder = async () => {
     try {
-      const res = await axios.patch(`${API}orders`, {
-        id: location.state.res,
-        status_id: values.status_id,
-        user_email: values.user_email,
-        user_username: values.user_username,
-      });
+      const res = await axios.patch(
+        `${API}orders`,
+        {
+          id: location.state.order_id,
+          status_id: values.status_id,
+          user_email: values.user_email,
+          user_username: values.user_username,
+        },
+        { headers: { Authorization: `Bearer ${authState.token}` } }
+      );
       if (res) {
         console.log('Submitted Succesfully');
         console.log(res);
@@ -128,15 +127,26 @@ const Payment = () => {
         ...values,
       });
       UpdateOrder();
+      // fullOrder();
       setRedirect(true);
     }
+    // fullOrder();
   };
   console.log('yeepa ', values);
+
+  useEffect(() => {
+    CreatePayment();
+    console.log('frm payment', location.state);
+  }, []);
+  // }, [products, location]);
 
   if (redirect) {
     return (
       <Redirect
-        to={{ pathname: '/confirmation-commande', state: { id: values.id } }}
+        to={{
+          pathname: '/confirmation-commande',
+          state: { fullorder: location.state },
+        }}
       />
     );
   }
@@ -146,10 +156,14 @@ const Payment = () => {
         className="payment__container-form"
         id="payment-form"
         onSubmit={handleSubmit}
+        // onSubmit={() => {
+        //   handleSubmit();
+        //   fullOrder();
+        // }}
       >
         <p>
           Règlement d&apos;un montant de
-          {' '}{totalCart(products)}€
+          {totalCart(products)}€
         </p>
         <input
           type="text"

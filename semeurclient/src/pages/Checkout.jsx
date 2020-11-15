@@ -17,8 +17,8 @@ const Checkout = () => {
   const { state: authState } = useContext(AuthContext);
   const products = useContext(CartContext).cartState;
   const { setOrderState } = useContext(OrderContext);
-  const [redirect, setRedirect] = useState(false);
-  // console.log('lerara ', products)
+  // const [redirect, setRedirect] = useState(false);
+  console.log('lerara ', products);
   const [isVisible, setIsVisible] = useState(false);
   const [isCards, setIsCards] = useState(false);
   const [isSigned, setIsSigned] = useState(false);
@@ -111,7 +111,10 @@ const Checkout = () => {
           console.log('Submitted Succesfully');
           console.log(res);
           setOrderState(res.data.id);
-          history.push('/payment', { res: res.data.id });
+          history.push('/payment', {
+            order_id: res.data.id,
+            product_id: products,
+          });
         }
         throw res;
       } catch (err) {
@@ -286,7 +289,9 @@ const Checkout = () => {
                 {products.map((product, i) => (
                   <tr key={i}>
                     <td>
-                      {product.name} x{product.quantity}
+                      {product.name}
+{' '}
+x{product.quantity}
                     </td>
                     <td> 
 {' '}
@@ -349,8 +354,9 @@ const Checkout = () => {
                   de votre commande, vous accompagner au cours de votre visite
                   du site web, et pour d’autres raisons décrites dans notre
 {' '}
-                  <Link to="/">politique de confidentialité</Link>.
-                </p>
+                  <Link to="/">politique de confidentialité</Link>
+.
+</p>
                 <span className="checkout__container-recap-payment-validation-sign">
                   <input
                     type="checkbox"
@@ -380,7 +386,9 @@ const Checkout = () => {
                 className="submit-button"
                 disabled={!isSigned}
               >
-                Régler {isCards ? ' par carte' : 'via Paypal'}
+                Régler 
+{' '}
+{isCards ? ' par carte' : 'via Paypal'}
               </button>
             </div>
           </section>
