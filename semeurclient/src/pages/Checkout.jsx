@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import axios from 'axios';
 
 import SubHeader from '../components/SubHeader';
@@ -22,6 +22,12 @@ const Checkout = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isCards, setIsCards] = useState(false);
   const [isSigned, setIsSigned] = useState(false);
+
+  const location = useLocation();
+
+  console.log('trytry ', location.state.product);
+
+  const { product } = location.state;
 
   const initialState = {
     user_id: authState.user.id,
@@ -64,7 +70,7 @@ const Checkout = () => {
     }
   }, [errors, isSubmitting]);
 
-  console.log('from checkout e ', authState.user.id);
+  // console.log('from checkout e ', user.id);
 
   console.log('valou ', values);
 
@@ -85,10 +91,10 @@ const Checkout = () => {
             user_id: authState.user.id,
             status_id: values.status_id,
             shipping_firstname: inputValue
-              ? authState.user.firstname
+              ? authState.firstname
               : values.shippingFirstname,
             shipping_lastname: inputValue
-              ? authState.user.lastname
+              ? authState.lastname
               : values.shippingLastname,
             shipping_address: inputValue
               ? authState.user.address
@@ -140,7 +146,7 @@ const Checkout = () => {
 
       <section className="checkout__container-forms">
         <div className="checkout__container-form-billing">
-          {authState && <EditBillingForm auth={authState.user} />}
+          <EditBillingForm />
         </div>
         <form
           onSubmit={handleSubmit}
@@ -286,7 +292,7 @@ const Checkout = () => {
                 </tr>
               </thead>
               <tbody>
-                {products.map((product, i) => (
+                {product.map((product, i) => (
                   <tr key={i}>
                     <td>
                       {product.name}
@@ -308,7 +314,7 @@ x{product.quantity}
                   </td>
                   <td> 
 {' '}
-{totalCart(products)}€</td>
+{totalCart(product)}€</td>
                 </tr>
                 <tr className="checkout__container-recap-table-important">
                   <td className="checkout__container-recap-table-lg">
@@ -320,7 +326,7 @@ x{product.quantity}
                   <td className="checkout__container-recap-table-lg">Total</td>
                   <td> 
 {' '}
-{totalCart(products)}€</td>
+{totalCart(product)}€</td>
                 </tr>
               </tbody>
             </table>

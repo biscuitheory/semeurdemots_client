@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 
 import useForm from './customedhooks/useForm';
@@ -11,15 +12,21 @@ const EditBillingForm = () => {
   const { state: authState } = useContext(AuthContext);
   // console.log('tati', auth);
 
+  const location = useLocation();
+
+  console.log('filou ', location.state.user);
+
+  const { user } = location.state;
+
   const initialState = {
-    firstname: '' ? '' : authState.user.firstname,
-    lastname: '' ? '' : authState.user.lastname,
-    phone: '' ? '' : authState.user.phone,
-    email: '' ? '' : authState.user.email,
-    address: '' ? '' : authState.user.address,
-    zipcode: '' ? '' : authState.user.zipcode,
-    city: '' ? '' : authState.user.city,
-    country: '' ? '' : authState.user.country,
+    firstname: user.firstname ? user.firstname : authState.user.firstname,
+    lastname: user.lastname ? user.lastname : '',
+    phone: '' ? '' : user.phone,
+    email: '' ? '' : user.email,
+    address: '' ? '' : user.address,
+    zipcode: '' ? '' : user.zipcode,
+    city: '' ? '' : user.city,
+    country: '' ? '' : user.country,
   };
 
   const { handleChange, handleSubmit, values, setValues, errors } = useForm(
@@ -35,6 +42,7 @@ const EditBillingForm = () => {
       const res = await axios.patch(
         `${API}users/`,
         {
+          username: authState.user.username,
           firstname: values.firstname,
           lastname: values.lastname,
           phone: values.phone,
@@ -77,7 +85,7 @@ const EditBillingForm = () => {
           <input
             type="text"
             name="firstname"
-            value={values.firstname || ''}
+            value={values.firstname || user.firstname}
             onChange={handleChange}
             id="firstname"
           />
