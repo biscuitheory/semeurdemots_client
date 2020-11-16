@@ -45,49 +45,89 @@ const Commandes = () => {
   return (
     <div className="commandes__container">
       {console.log('nb of orders ', orders)}
-      {console.log('nb of products in order ', orders[0].Products)}
       <h2 className="commandes__container-title">Mes commandes</h2>
-      <section>
-        <div className="commandes__container-ordernumber">
-          <h3>
-            Numéro de commande&nbsp;:&nbsp;
-            {orders[0].id}
-          </h3>
-          <p>Voir la commande</p>
-        </div>
-      </section>
-      <section>
-        <div className="commandes__container-date">
-          <h4>Date de commande</h4>
-          <p>{moment(orders[0].createdAt).format('DD/MM/YYYY')}</p>
-        </div>
-        <div className="commandes__container-total">
-          <h4>Total</h4>
-          <p>
-            {orders[0].Products[0].price *
-              orders[0].Products[0].OrderProduct.quantity}
-            &nbsp;€
-          </p>
-        </div>
-      </section>
-      <section>
-        {orders[0].Products.map((order, i) => (
-          <ProductPreview key={i} {...order} />
-        ))}
-      </section>
+      {orders.map((order, i) => (
+        <OrderPreview key={i} {...order} />
+      ))}
     </div>
   );
 };
 
-const ProductPreview = ( Products ) => {
+const OrderPreview = (order) => {
+  const { state: authState } = useContext(AuthContext);
   return (
-    <div className="commandes__container-product">
+    <section className="commandes__container-order">
+      {console.log('nb of products in order ', order)}
+      <section className="commandes__container-order-id">
+        <div className="commandes__container-ordernumber">
+          <h3>
+            Numéro de commande&nbsp;:&nbsp;
+            {order.id}
+          </h3>
+        </div>
+      </section>
+      <section className="commandes__container-order-datetotal">
+        <div className="commandes__container-order-datetotal-date">
+          <h4>Date de commande</h4>
+          <p>{moment(order.createdAt).format('DD/MM/YYYY')}</p>
+        </div>
+        <div className="commandes__container-order-datetotal-total">
+          <h4>TOTAL</h4>
+          <p>
+            {order.Products[0] &&
+              parseFloat(order.Products.price) *
+                order.Products[0].OrderProduct.quantity}
+            &nbsp;€
+          </p>
+        </div>
+      </section>
+      <section className="commandes__container-order-productbox">
+        {order.Products.map((order, i) => (
+          <ProductPreview key={i} {...order} />
+        ))}
+      </section>
+      <section className="commandes__container-order-address">
+        <h3>Facturation et Livraison</h3>
+        <div className="commandes__container-order-address-box">
+          <span>
+            <h4>Adresse de facturation</h4>
+            <p>{authState.user.address}</p>
+            <p>{authState.user.zipcode}</p>
+            <p>{authState.user.city}</p>
+            <p>{authState.user.country}</p>
+          </span>
+          <span>
+            <h4>Adresse de livraison</h4>
+            <p>{order.shipping_address}</p>
+            <p>{order.shipping_zipcode}</p>
+            <p>{order.shipping_city}</p>
+            <p>{order.shipping_country}</p>
+          </span>
+        </div>
+      </section>
+    </section>
+  );
+};
+
+const ProductPreview = (Products) => {
+  return (
+    <div className="commandes__container-order-productbox-product">
       <img
         src={Products.image}
         alt="produit commandé"
-        className="commandes__container-product-image"
+        className="commandes__container-order-productbox-product-image"
       />
-      <p>{Products.name}</p>
+      <span>
+        <h4>{Products.name}</h4>
+        <p>
+          Quantité:&nbsp;
+          {Products.OrderProduct.quantity}
+        </p>
+        <p>
+          {Products.price}
+          &nbsp;€
+        </p>
+      </span>
     </div>
   );
 };

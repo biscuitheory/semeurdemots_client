@@ -129,7 +129,8 @@
         color: $color--blue;
       }
 
-      &-orders, &-data {
+      &-orders,
+      &-data {
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -158,25 +159,81 @@
 .commandes__container {
   width: 100%;
   padding-top: 3em;
-  border: 1px solid green;
+  // border: 1px solid green;
   @include media(desktop) {
     padding-top: 0;
   }
 
   &-order {
-    border: 1px solid blue;
-  }
+    border-top: 1px solid $color--brinput;
+    margin: 2em 0;
+    padding-top: 2em;
 
+    &-productbox {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      padding-top: 2em;
 
-  &-product {
-    border: 1px solid red;
+      @include media(sm-tablet) {
+        flex-direction: row;
+      }
 
-    &-image {
-      width: 10em;
+      @include media(lg-tablet) {
+        flex-direction: row;
+      }
+
+      @include media(desktop) {
+        flex-direction: row;
+      }
+
+      &-product {
+        // border: 1px solid red;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: flex-start;
+
+        &-image {
+          width: 10em;
+        }
+
+        p {
+          font-size: 0.9em;
+        }
+      }
     }
 
-    &-p {
-      font-size: 1em;
+    &-address {
+      padding: 2em 0;
+
+      &-box {
+        display: flex;
+        flex-direction: column;
+
+        @include media(sm-tablet) {
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-start;
+        }
+
+        @include media(lg-tablet) {
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-start;
+        }
+
+        @include media(desktop) {
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-start;
+        }
+
+        span {
+          margin: 2em;
+        }
+      }
     }
   }
 }
@@ -197,7 +254,7 @@
   h2 {
     padding-bottom: 0.5em;
 
-    @include media (desktop) {
+    @include media(desktop) {
       padding-bottom: 1em;
     }
   }
@@ -275,7 +332,7 @@
       input,
       label {
         width: 98%;
-        @include media (desktop) {
+        @include media(desktop) {
           width: 100%;
           margin-bottom: 1em;
         }
@@ -283,7 +340,7 @@
 
       label {
         padding-top: 1em;
-        @include media (desktop) {
+        @include media(desktop) {
           line-height: 3em;
         }
       }
@@ -296,7 +353,7 @@
         justify-content: center;
         align-items: flex-start;
         padding-right: 0.5em;
-        @include media (desktop) {
+        @include media(desktop) {
           width: 35em;
           display: inline;
           padding-right: 0;
