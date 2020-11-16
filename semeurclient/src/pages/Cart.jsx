@@ -38,7 +38,7 @@ const Cart = () => {
   }
 
   const handleSubmit = (event) => {
-    history.push('/checkout', {
+    history.push('/beforecheckout', {
       product: products,
       user: authState.user,
     });

@@ -25,13 +25,14 @@ const Checkout = () => {
 
   const location = useLocation();
 
-  console.log('trytry ', location.state.product);
+  console.log('trytry ', location.state);
+  console.log('trytry ', authState.token);
 
-  const { product } = location.state;
+  const { product, user } = location.state;
   console.log('poptot ', totalCart(product));
 
   const initialState = {
-    user_id: authState.user.id,
+    user_id: user.id,
     status_id: 1,
     shipping_firstname: '',
     shipping_lastname: '',
@@ -85,31 +86,29 @@ const Checkout = () => {
     // if (authState.user.id !== undefined) {
     // console.log('detec');
     console.log('tru', isChecked);
-    if (authState.user.id) {
+    if (user.id) {
       const inputValue = isChecked ? '' : true;
       try {
         const res = await axios.post(
           `${API}orders/`,
           {
-            user_id: authState.user.id,
+            user_id: user.id,
             status_id: values.status_id,
             shipping_firstname: inputValue
-              ? authState.user.firstname
+              ? user.firstname
               : values.shippingFirstname,
             shipping_lastname: inputValue
-              ? authState.user.lastname
+              ? user.lastname
               : values.shippingLastname,
             shipping_address: inputValue
-              ? authState.user.address
+              ? user.address
               : values.shippingAddress,
             shipping_zipcode: inputValue
-              ? authState.user.zipcode
+              ? user.zipcode
               : values.shippingZipcode,
-            shipping_city: inputValue
-              ? authState.user.city
-              : values.shippingCity,
+            shipping_city: inputValue ? user.city : values.shippingCity,
             shipping_country: inputValue
-              ? authState.user.country
+              ? user.country
               : values.shippingCountry,
             total_price: totalCart(product),
             payment: values.payment,
@@ -299,9 +298,7 @@ const Checkout = () => {
                 {product.map((product, i) => (
                   <tr key={i}>
                     <td>
-                      {product.name}
-{' '}
-x{product.quantity}
+                      {product.name} x{product.quantity}
                     </td>
                     <td> 
 {' '}
@@ -364,9 +361,8 @@ x{product.quantity}
                   de votre commande, vous accompagner au cours de votre visite
                   du site web, et pour d’autres raisons décrites dans notre
 {' '}
-                  <Link to="/">politique de confidentialité</Link>
-.
-</p>
+                  <Link to="/">politique de confidentialité</Link>.
+                </p>
                 <span className="checkout__container-recap-payment-validation-sign">
                   <input
                     type="checkbox"
@@ -396,9 +392,7 @@ x{product.quantity}
                 className="submit-button"
                 disabled={!isSigned}
               >
-                Régler 
-{' '}
-{isCards ? ' par carte' : 'via Paypal'}
+                Régler {isCards ? ' par carte' : 'via Paypal'}
               </button>
             </div>
           </section>

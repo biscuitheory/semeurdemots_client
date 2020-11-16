@@ -21,6 +21,7 @@ import Commander from './pages/Commander';
 import CustomerPortal from './pages/CustomerPortal';
 import AdminPortal from './pages/AdminPortal';
 import Cart from './pages/Cart';
+import BeforeCheckout from './pages/BeforeCheckout';
 import Checkout from './pages/Checkout';
 import Payment from './pages/Payment';
 import OrderConfirmation from './pages/OrderConfirmation';
@@ -131,6 +132,12 @@ function App() {
                     exact
                     path="/checkout"
                     component={Checkout}
+                  />
+                  <Route
+                    state={state}
+                    exact
+                    path="/beforecheckout"
+                    component={BeforeCheckout}
                   />
                   <Route exact path="/payment" component={Payment} />
                   <Route
