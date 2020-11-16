@@ -19,8 +19,8 @@ const EditBillingForm = () => {
   const { user } = location.state;
 
   const initialState = {
-    firstname: user.firstname ? user.firstname : authState.user.firstname,
-    lastname: user.lastname ? user.lastname : '',
+    firstname: '' ? '' : user.firstname,
+    lastname: '' ? '' : user.lastname,
     phone: '' ? '' : user.phone,
     email: '' ? '' : user.email,
     address: '' ? '' : user.address,

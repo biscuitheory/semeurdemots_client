@@ -91,10 +91,10 @@ const Checkout = () => {
             user_id: authState.user.id,
             status_id: values.status_id,
             shipping_firstname: inputValue
-              ? authState.firstname
+              ? authState.user.firstname
               : values.shippingFirstname,
             shipping_lastname: inputValue
-              ? authState.lastname
+              ? authState.user.lastname
               : values.shippingLastname,
             shipping_address: inputValue
               ? authState.user.address
@@ -295,9 +295,7 @@ const Checkout = () => {
                 {product.map((product, i) => (
                   <tr key={i}>
                     <td>
-                      {product.name}
-{' '}
-x{product.quantity}
+                      {product.name} x{product.quantity}
                     </td>
                     <td> 
 {' '}
@@ -360,9 +358,8 @@ x{product.quantity}
                   de votre commande, vous accompagner au cours de votre visite
                   du site web, et pour d’autres raisons décrites dans notre
 {' '}
-                  <Link to="/">politique de confidentialité</Link>
-.
-</p>
+                  <Link to="/">politique de confidentialité</Link>.
+                </p>
                 <span className="checkout__container-recap-payment-validation-sign">
                   <input
                     type="checkbox"
@@ -392,9 +389,7 @@ x{product.quantity}
                 className="submit-button"
                 disabled={!isSigned}
               >
-                Régler 
-{' '}
-{isCards ? ' par carte' : 'via Paypal'}
+                Régler {isCards ? ' par carte' : 'via Paypal'}
               </button>
             </div>
           </section>

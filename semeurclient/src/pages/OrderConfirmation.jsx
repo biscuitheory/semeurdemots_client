@@ -19,7 +19,7 @@ const OrderConfirmation = () => {
   //     />
   //   );
 
-  console.log('hululu ', location.state);
+  console.log('hululu ', authState.token);
 
   const { order_id, product_id } = location.state.fullorder;
 

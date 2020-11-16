@@ -156,7 +156,11 @@
 }
 
 .commandes__container {
-  border: 1px solid black;
+  width: 100%;
+  padding-top: 3em;
+  @include media(desktop) {
+    padding-top: 0;
+  }
 }
 
 .detailscompte__container {

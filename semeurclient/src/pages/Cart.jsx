@@ -25,8 +25,8 @@ const Cart = () => {
 
   // METHODE 2: call api + refresh + doublon App
   function allStorage() {
-    console.log('storage from Cart');
-    // console.log('storage', localStorage);
+    // console.log('storage from Cart');
+    console.log('storage', localStorage);
     // fetchProducts : function qui filtre ma requete de tous les produits
     const fetchProducts = async () => {
       const res = await axios.post(`${API}cart`, { localStorage });
