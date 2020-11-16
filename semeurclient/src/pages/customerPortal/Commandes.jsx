@@ -47,13 +47,13 @@ const Commandes = () => {
       {console.log('nb of orders ', orders)}
       <h2 className="commandes__container-title">Mes commandes</h2>
       {orders.map((order, i) => (
-        <OrderPreview key={i} {...order} />
+        <OrderPreview key={i} order={order} index={i} />
       ))}
     </div>
   );
 };
 
-const OrderPreview = (order) => {
+const OrderPreview = ({order, index}) => {
   const { state: authState } = useContext(AuthContext);
   return (
     <section className="commandes__container-order">
@@ -74,9 +74,7 @@ const OrderPreview = (order) => {
         <div className="commandes__container-order-datetotal-total">
           <h4>TOTAL</h4>
           <p>
-            {order.Products[0] &&
-              parseFloat(order.Products.price) *
-                order.Products[0].OrderProduct.quantity}
+            {order.total_price}
             &nbsp;€
           </p>
         </div>

@@ -106,6 +106,10 @@
           max-width: auto;
           padding: 1em;
           border: 0.2px solid $color--brinput;
+
+          img {
+            width: 10em;
+          }
         }
 
         &-large {

@@ -40,8 +40,10 @@ const Payment = () => {
     if (products.length != 0) {
       try {
         const res = await axios.post(`${API}payment`, { amount });
+        console.log('fol');
         if (res.data) {
           setClientSecret(res.data.clientSecret);
+          console.log('fit', clientSecret);
           await stripe.confirmCardPayment(clientSecret, {
             receipt_email: authState.user.email,
             payment_method: {
@@ -53,7 +55,7 @@ const Payment = () => {
           });
         }
       } catch (error) {
-        console.log(error);
+        console.log('stripe err', error);
       }
     }
   };
@@ -163,8 +165,9 @@ const Payment = () => {
       >
         <p>
           Règlement d&apos;un montant de
-          {totalCart(products)}€
-        </p>
+          {totalCart(products)}
+€
+</p>
         <input
           type="text"
           id="email"

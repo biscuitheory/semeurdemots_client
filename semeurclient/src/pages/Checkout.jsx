@@ -28,6 +28,7 @@ const Checkout = () => {
   console.log('trytry ', location.state.product);
 
   const { product } = location.state;
+  console.log('poptot ', totalCart(product));
 
   const initialState = {
     user_id: authState.user.id,
@@ -38,6 +39,7 @@ const Checkout = () => {
     shipping_zipcode: '',
     shipping_city: '',
     shipping_country: '',
+    total_price: totalCart(product),
     payment: '',
   };
 
@@ -54,6 +56,7 @@ const Checkout = () => {
     });
   };
 
+  // const handleSubmit = (event, totalPrice) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     setValues({
@@ -108,6 +111,7 @@ const Checkout = () => {
             shipping_country: inputValue
               ? authState.user.country
               : values.shippingCountry,
+            total_price: totalCart(product),
             payment: values.payment,
           },
           { headers: { Authorization: `Bearer ${authState.token}` } }
@@ -295,7 +299,9 @@ const Checkout = () => {
                 {product.map((product, i) => (
                   <tr key={i}>
                     <td>
-                      {product.name} x{product.quantity}
+                      {product.name}
+{' '}
+x{product.quantity}
                     </td>
                     <td> 
 {' '}
@@ -358,8 +364,9 @@ const Checkout = () => {
                   de votre commande, vous accompagner au cours de votre visite
                   du site web, et pour d’autres raisons décrites dans notre
 {' '}
-                  <Link to="/">politique de confidentialité</Link>.
-                </p>
+                  <Link to="/">politique de confidentialité</Link>
+.
+</p>
                 <span className="checkout__container-recap-payment-validation-sign">
                   <input
                     type="checkbox"
@@ -389,7 +396,9 @@ const Checkout = () => {
                 className="submit-button"
                 disabled={!isSigned}
               >
-                Régler {isCards ? ' par carte' : 'via Paypal'}
+                Régler 
+{' '}
+{isCards ? ' par carte' : 'via Paypal'}
               </button>
             </div>
           </section>

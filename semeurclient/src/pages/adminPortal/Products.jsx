@@ -191,7 +191,7 @@ const ProductTableRow = ({
             {description}
           </td>
           <td className="adminportal__container-customers-container-main-table-regular">
-            {image}
+            <img src={image} alt="produit poisson rouge" />
           </td>
         </tr>
       </tbody>
