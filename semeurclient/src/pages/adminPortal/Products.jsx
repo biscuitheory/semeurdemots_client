@@ -89,9 +89,11 @@ const Products = () => {
               </th>
             </tr>
           </thead>
-          {products.map((product, i) => (
-            <ProductTableRow key={i} {...product} />
-          ))}
+          {products
+            .sort((a, b) => (a.id > b.id ? 1 : -1))
+            .map((product, i) => (
+              <ProductTableRow key={i} {...product} />
+            ))}
         </table>
       </main>
     </div>

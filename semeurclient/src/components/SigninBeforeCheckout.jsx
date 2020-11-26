@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
 
 import useForm from './customedhooks/useForm';
 import validate from './validators/validateSignin';
@@ -10,15 +11,17 @@ import usePasswordToggle from './customedhooks/usePasswordToggle';
 
 const API = process.env.REACT_APP_API_URL;
 
-const SigninBeforeCheckout = () => {
+const SigninBeforeCheckout = (products) => {
   const { dispatch, state: authState } = useContext(AuthContext);
-  const products = useContext(CartContext).cartState;
+  // const products = useContext(CartContext).cartState;
   const [PasswordInputType, ToggleIcon] = usePasswordToggle();
-  const [redirect, setRedirect] = useState(false);
+  // const [redirect, setRedirect] = useState(false);
 
-  const location = useLocation();
+  console.log('the props passed from parent BC ', products);
 
-  const { product } = location.state;
+  // const location = useLocation();
+
+  // const { product } = location.state;
 
   const history = useHistory();
 
@@ -42,29 +45,45 @@ const SigninBeforeCheckout = () => {
         password: values.password,
         admin: values.admin,
       });
-      // console.log('res ', res);
+      console.log('res ', res);
       if (res.status === 200) {
         dispatch({
           type: 'SIGNIN',
           payload: res,
         });
+        console.log('response SI ', res);
+        // history.push('/checkout', {
+          // product: products,
+        //   products,
+        //   user: authState.user,
+        // });
         history.push('/checkout', {
-          product: products,
-          user: authState.user,
+          products,
+          user: res.data.user,
+          user_id: authState.user.id,
         });
       }
       throw res;
     } catch (error) {
-      console.log(error.message);
+      console.log('err from SI BCO', error.message);
       setValues({
         ...values,
         errorMessage: error.message,
+      });
+      toast.error("Ce compte n'existe pas ! Veuillez créer un compte", {
+        position: 'bottom-center',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
       });
     }
   }
   return (
     <div className="signin__container">
-      <h2>S'identifier</h2>
+      <h2>S&apos;identifier</h2>
       <form
         onSubmit={handleSubmit}
         noValidate
@@ -75,7 +94,7 @@ const SigninBeforeCheckout = () => {
             htmlFor="emailOrUsername"
             className="signin__container-form-info-label"
           >
-            Nom d'utilisateur ou Email
+            Nom d&apos;utilisateur ou Email
           </label>
           <span className="required">*</span>
           <div className="signin__container-form-info-inputbox">
@@ -111,10 +130,15 @@ const SigninBeforeCheckout = () => {
           </div>
           {errors.password && <p className="error">{errors.password}</p>}
         </div>
-        <button type="submit" className="signin__container-form-submitbutton">
+        <button
+          type="submit"
+          onClick={toast}
+          className="signin__container-form-submitbutton"
+        >
           Valider
         </button>
       </form>
+      <ToastContainer />
     </div>
   );
 };

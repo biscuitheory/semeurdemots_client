@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import axios from 'axios';
 
 import useForm from './customedhooks/useForm';
@@ -14,9 +14,12 @@ const EditBillingForm = () => {
 
   const location = useLocation();
 
-  console.log('filou ', location.state.user);
+  console.log('location user & product frm EBF ', location.state);
 
-  const { user } = location.state;
+  // const { user } = location.state;
+  const { user, product } = location.state;
+
+  const history = useHistory();
 
   const initialState = {
     firstname: '' ? '' : user.firstname,
@@ -28,6 +31,16 @@ const EditBillingForm = () => {
     city: '' ? '' : user.city,
     country: '' ? '' : user.country,
   };
+  // const initialState = {
+  //   firstname: '' ? '' : authState.user.firstname,
+  //   lastname: '' ? '' : authState.user.lastname,
+  //   phone: '' ? '' : authState.user.phone,
+  //   email: '' ? '' : authState.user.email,
+  //   address: '' ? '' : authState.user.address,
+  //   zipcode: '' ? '' : authState.user.zipcode,
+  //   city: '' ? '' : authState.user.city,
+  //   country: '' ? '' : authState.user.country,
+  // };
 
   const { handleChange, handleSubmit, values, setValues, errors } = useForm(
     initialState,
@@ -57,7 +70,12 @@ const EditBillingForm = () => {
       // console.log('res ', values);
       if (res) {
         console.log('Submitted Succesfully');
-        console.log(res);
+        console.log('EBF response ', res);
+        history.push('/checkout', {
+          product,
+          user: authState.user,
+          // newuser: res.data.user,
+        });
       }
       throw res;
     } catch (err) {
@@ -86,6 +104,7 @@ const EditBillingForm = () => {
             type="text"
             name="firstname"
             value={values.firstname || user.firstname}
+            // value={values.firstname || ''}
             onChange={handleChange}
             id="firstname"
           />

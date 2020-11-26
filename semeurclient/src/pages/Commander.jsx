@@ -21,10 +21,11 @@ const Commander = () => {
     <>
       <SubHeader title="Commander" />
       <div>
-        {/* {console.log(products)} */}
-        {products.map((product, i) => (
-          <ProductSheet key={i} {...product} />
-        ))}
+        {products
+          .sort((a, b) => (a.id > b.id ? 1 : -1))
+          .map((product, i) => (
+            <ProductSheet key={i} {...product} />
+          ))}
       </div>
     </>
   );

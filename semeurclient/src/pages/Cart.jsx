@@ -38,9 +38,12 @@ const Cart = () => {
   }
 
   const handleSubmit = (event) => {
+    // history.push('/beforecheckout', {
+    //   product: products,
+    //   user: authState.user,
+    // });
     history.push('/beforecheckout', {
-      product: products,
-      user: authState.user,
+      products,
     });
   };
 

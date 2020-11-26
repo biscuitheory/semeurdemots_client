@@ -18,21 +18,25 @@ const Checkout = () => {
   const products = useContext(CartContext).cartState;
   const { setOrderState } = useContext(OrderContext);
   // const [redirect, setRedirect] = useState(false);
-  console.log('lerara ', products);
+  console.log('cartstate from Checkout ', products);
   const [isVisible, setIsVisible] = useState(false);
   const [isCards, setIsCards] = useState(false);
   const [isSigned, setIsSigned] = useState(false);
 
   const location = useLocation();
 
-  console.log('trytry ', location.state);
-  console.log('trytry ', authState.token);
+  console.log('location state frm SI/SU ', location.state);
+  console.log('AS checkout ', authState);
+  console.log('product frm SI/SU ', location.state.products);
 
-  const { product, user } = location.state;
-  console.log('poptot ', totalCart(product));
+  const { user, user_id, newuser } = location.state;
+  // const { products, user } = location.state;
+  // const { product } = location.state;
+  console.log('totalCart frm checkout ', totalCart(products));
 
   const initialState = {
-    user_id: user.id,
+    // user_id: authState.user.id,
+    user_id,
     status_id: 1,
     shipping_firstname: '',
     shipping_lastname: '',
@@ -40,7 +44,7 @@ const Checkout = () => {
     shipping_zipcode: '',
     shipping_city: '',
     shipping_country: '',
-    total_price: totalCart(product),
+    total_price: totalCart(products),
     payment: '',
   };
 
@@ -76,7 +80,7 @@ const Checkout = () => {
 
   // console.log('from checkout e ', user.id);
 
-  console.log('valou ', values);
+  console.log('shippingform values from checkout ', values);
 
   const history = useHistory();
 
@@ -86,13 +90,13 @@ const Checkout = () => {
     // if (authState.user.id !== undefined) {
     // console.log('detec');
     console.log('tru', isChecked);
-    if (user.id) {
+    if (user_id) {
       const inputValue = isChecked ? '' : true;
       try {
         const res = await axios.post(
           `${API}orders/`,
           {
-            user_id: user.id,
+            user_id: values.user_id,
             status_id: values.status_id,
             shipping_firstname: inputValue
               ? user.firstname
@@ -110,10 +114,37 @@ const Checkout = () => {
             shipping_country: inputValue
               ? user.country
               : values.shippingCountry,
-            total_price: totalCart(product),
+            total_price: totalCart(products),
             payment: values.payment,
-          },
-          { headers: { Authorization: `Bearer ${authState.token}` } }
+          }
+      // try {
+      //   const res = await axios.post(
+      //     `${API}orders/`,
+      //     {
+      //       user_id: values.user_id,
+      //       status_id: values.status_id,
+      //       shipping_firstname: inputValue
+      //         ? authState.user.firstname
+      //         : values.shippingFirstname,
+      //       shipping_lastname: inputValue
+      //         ? authState.user.lastname
+      //         : values.shippingLastname,
+      //       shipping_address: inputValue
+      //         ? authState.user.address
+      //         : values.shippingAddress,
+      //       shipping_zipcode: inputValue
+      //         ? authState.user.zipcode
+      //         : values.shippingZipcode,
+      //       shipping_city: inputValue
+      //         ? authState.user.city
+      //         : values.shippingCity,
+      //       shipping_country: inputValue
+      //         ? authState.user.country
+      //         : values.shippingCountry,
+      //       total_price: totalCart(products),
+      //       payment: values.payment,
+      //     }
+          // { headers: { Authorization: `Bearer ${authState.token}` } }
         );
         // console.log('res ', authState.user.id);
         if (res) {
@@ -295,14 +326,18 @@ const Checkout = () => {
                 </tr>
               </thead>
               <tbody>
-                {product.map((product, i) => (
+                {products.map((product, i) => (
                   <tr key={i}>
                     <td>
-                      {product.name} x{product.quantity}
+                      {product.name}
+                      &nbsp;x
+                      {product.quantity}
                     </td>
-                    <td> 
-{' '}
-{product.quantity * product.price} €</td>
+                    <td>
+                      &nbsp;
+                      {product.quantity * product.price}
+                      &nbsp;€
+                    </td>
                   </tr>
                 ))}
                 {/* <tr>
@@ -313,9 +348,11 @@ const Checkout = () => {
                   <td className="checkout__container-recap-table-lg">
                     Sous-total
                   </td>
-                  <td> 
-{' '}
-{totalCart(product)}€</td>
+                  <td>
+                    &nbsp;
+                    {totalCart(products)}
+€
+</td>
                 </tr>
                 <tr className="checkout__container-recap-table-important">
                   <td className="checkout__container-recap-table-lg">
@@ -325,9 +362,11 @@ const Checkout = () => {
                 </tr>
                 <tr className="checkout__container-recap-table-important">
                   <td className="checkout__container-recap-table-lg">Total</td>
-                  <td> 
-{' '}
-{totalCart(product)}€</td>
+                  <td>
+                    &nbsp;
+                    {totalCart(products)}
+€
+</td>
                 </tr>
               </tbody>
             </table>
@@ -360,9 +399,10 @@ const Checkout = () => {
                   Vos données personnelles seront utilisées pour le traitement
                   de votre commande, vous accompagner au cours de votre visite
                   du site web, et pour d’autres raisons décrites dans notre
-{' '}
-                  <Link to="/">politique de confidentialité</Link>.
-                </p>
+                  &nbsp;
+                  <Link to="/">politique de confidentialité</Link>
+.
+</p>
                 <span className="checkout__container-recap-payment-validation-sign">
                   <input
                     type="checkbox"
@@ -371,8 +411,7 @@ const Checkout = () => {
                     onChange={() => setIsSigned(!isSigned)}
                   />
                   <label htmlFor="order-sign">
-                    J’ai lu et j’accepte les
-{' '}
+                    J’ai lu et j’accepte les&nbsp;
                     <Link to="/" target="blank">
                       conditions générales
                     </Link>
@@ -392,7 +431,8 @@ const Checkout = () => {
                 className="submit-button"
                 disabled={!isSigned}
               >
-                Régler {isCards ? ' par carte' : 'via Paypal'}
+                Régler&nbsp;
+                {isCards ? ' par carte' : 'via Paypal'}
               </button>
             </div>
           </section>

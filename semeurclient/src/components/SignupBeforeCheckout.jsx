@@ -14,11 +14,11 @@ const API = process.env.REACT_APP_API_URL;
 const SignupBeforeCheckout = () => {
   const { state: authState } = useContext(AuthContext);
   const products = useContext(CartContext).cartState;
-  console.log('lerara ', products);
+  console.log('products frm SU ', products);
   const [PasswordInputType, ToggleIcon] = usePasswordToggle();
 
   const location = useLocation();
-  console.log('signupbc ', location.state.product);
+  console.log('product location from SU ', location.state.product);
 
   const { product } = location.state;
 
@@ -47,6 +47,10 @@ const SignupBeforeCheckout = () => {
       });
 
       if (res.status === 201) {
+        // history.push('/beforecheckout', {
+        //   product,
+        //   user: authState.user,
+        // });
         toast.success(
           "Inscription bien reçue ! Pour poursuivre votre achat, connectez-vous via le formulaire 'S'identifier' !",
           {
@@ -92,7 +96,7 @@ const SignupBeforeCheckout = () => {
             htmlFor="username"
             className="signup__container-form-info-label"
           >
-            Nom d'utilisateur
+            Nom d&apos;utilisateur
           </label>
           <span className="required">*</span>
           <div className="signup__container-form-info-inputbox">

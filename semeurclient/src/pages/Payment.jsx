@@ -166,8 +166,8 @@ const Payment = () => {
         <p>
           Règlement d&apos;un montant de
           {totalCart(products)}
-€
-</p>
+          &nbsp;€
+        </p>
         <input
           type="text"
           id="email"
@@ -200,11 +200,9 @@ const Payment = () => {
         <p className={succeeded ? 'result-message' : 'result-message hidden'}>
           Payment succeeded, see the result in your
           <a href="https://dashboard.stripe.com/test/payments">
-            {' '}
-            Stripe dashboard.
+            &nbsp;Stripe dashboard.
           </a>
-{' '}
-          Refresh the page to pay again.
+          &nbsp;Refresh the page to pay again.
         </p>
       </form>
     </div>

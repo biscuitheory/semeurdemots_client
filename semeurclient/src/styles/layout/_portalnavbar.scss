@@ -12,7 +12,7 @@
     justify-content: space-between;
     align-items: flex-start;
     padding: 2em 0;
-    border: 1px solid green;
+    // border: 1px solid green;
   }
 
   @include media(desktop) {
@@ -21,7 +21,7 @@
     justify-content: space-between;
     align-items: flex-start;
     padding: 2em;
-    border: 1px solid green;
+    // border: 1px solid green;
   }
 
   &-navbutton {
