@@ -3,24 +3,27 @@ import { useHistory, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 
-import usePasswordToggle from './customedhooks/usePasswordToggle';
 import useForm from './customedhooks/useForm';
 import validate from './validators/validateSignup';
 import { AuthContext } from '../contexts/auth';
 import CartContext from '../contexts/cart';
+import usePasswordToggle from './customedhooks/usePasswordToggle';
 
 const API = process.env.REACT_APP_API_URL;
 
-const SignupBeforeCheckout = () => {
+const SignupBeforeCheckout = (products) => {
   const { state: authState } = useContext(AuthContext);
-  const products = useContext(CartContext).cartState;
-  console.log('products frm SU ', products);
+  // const products = useContext(CartContext).cartState;
+  // console.log('products frm SU ', products);
   const [PasswordInputType, ToggleIcon] = usePasswordToggle();
 
-  const location = useLocation();
-  console.log('product location from SU ', location.state.product);
+  products = products.product;
 
-  const { product } = location.state;
+  // const location = useLocation();
+  console.log('the props passed from parent BC in SUBC ', products);
+  // console.log('product location from SU ', location.state.product);
+
+  // const { product } = location.state;
 
   const history = useHistory();
 
@@ -47,10 +50,9 @@ const SignupBeforeCheckout = () => {
       });
 
       if (res.status === 201) {
-        // history.push('/beforecheckout', {
-        //   product,
-        //   user: authState.user,
-        // });
+        history.push('/beforecheckout', {
+          products,
+        });
         toast.success(
           "Inscription bien reçue ! Pour poursuivre votre achat, connectez-vous via le formulaire 'S'identifier' !",
           {

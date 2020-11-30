@@ -16,8 +16,8 @@ const Commandes = () => {
     const fetchOrders = async () => {
       try {
         const res = await axios.post(`${API}customerorders`, {
-          // user_id: authState.user.id,
-          userId: authState.user.id,
+          user_id: authState.user.id,
+          // userId: authState.user.id,
         });
         if (res) {
           // console.log('gogo ', res.data);

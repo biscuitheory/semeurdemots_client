@@ -17,11 +17,13 @@ const SigninBeforeCheckout = (products) => {
   const [PasswordInputType, ToggleIcon] = usePasswordToggle();
   // const [redirect, setRedirect] = useState(false);
 
-  console.log('the props passed from parent BC ', products);
+  products = products.product;
+
+  console.log('the props passed from parent BC in SIBC', products);
 
   // const location = useLocation();
 
-  // const { product } = location.state;
+  // const { products } = location.state;
 
   const history = useHistory();
 
@@ -60,7 +62,7 @@ const SigninBeforeCheckout = (products) => {
         history.push('/checkout', {
           products,
           user: res.data.user,
-          user_id: authState.user.id,
+          user_id: res.data.user.id,
         });
       }
       throw res;

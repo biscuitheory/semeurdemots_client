@@ -5,32 +5,46 @@ import axios from 'axios';
 import useForm from './customedhooks/useForm';
 import validate from './validators/validateBillingAddress';
 import { AuthContext } from '../contexts/auth';
+import CartContext from '../contexts/cart';
 
 const API = process.env.REACT_APP_API_URL;
 
 const EditBillingForm = () => {
   const { state: authState } = useContext(AuthContext);
   // console.log('tati', auth);
+  const products = useContext(CartContext).cartState;
+  console.log('cartstate from Checkout ', products);
 
   const location = useLocation();
 
-  console.log('location user & product frm EBF ', location.state);
+  console.log('location frm EBF ', location.state);
+  console.log('location user_id frm EBF ', location.state.user.id);
 
   // const { user } = location.state;
-  const { user, product } = location.state;
+  const { user, user_id } = location.state;
 
   const history = useHistory();
 
   const initialState = {
-    firstname: '' ? '' : user.firstname,
-    lastname: '' ? '' : user.lastname,
-    phone: '' ? '' : user.phone,
-    email: '' ? '' : user.email,
-    address: '' ? '' : user.address,
-    zipcode: '' ? '' : user.zipcode,
-    city: '' ? '' : user.city,
-    country: '' ? '' : user.country,
+    firstname: user.firstname ? user.firstname : authState.user.firstname,
+    lastname: user.lastname ? user.lastname : authState.user.lastname,
+    phone: user.phone ? user.phone : authState.user.phone,
+    email: user.email ? user.email : authState.user.email,
+    address: user.address ? user.address : authState.user.address,
+    zipcode: user.zipcode ? user.zipcode : authState.user.zipcode,
+    city: user.city ? user.city : authState.user.city,
+    country: user.country ? user.country : authState.user.country,
   };
+  // const initialState = {
+  //   firstname: '' ? '' : user.firstname,
+  //   lastname: '' ? '' : user.lastname,
+  //   phone: '' ? '' : user.phone,
+  //   email: '' ? '' : user.email,
+  //   address: '' ? '' : user.address,
+  //   zipcode: '' ? '' : user.zipcode,
+  //   city: '' ? '' : user.city,
+  //   country: '' ? '' : user.country,
+  // };
   // const initialState = {
   //   firstname: '' ? '' : authState.user.firstname,
   //   lastname: '' ? '' : authState.user.lastname,
@@ -68,13 +82,14 @@ const EditBillingForm = () => {
         { headers: { Authorization: `Bearer ${authState.token}` } }
       );
       // console.log('res ', values);
-      if (res) {
+      if (res.status === 200) {
         console.log('Submitted Succesfully');
         console.log('EBF response ', res);
         history.push('/checkout', {
-          product,
+          products,
           user: authState.user,
-          // newuser: res.data.user,
+          user_id,
+          newuser: res.data,
         });
       }
       throw res;

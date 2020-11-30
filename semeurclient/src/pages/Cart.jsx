@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -7,14 +7,13 @@ import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import SubHeader from '../components/SubHeader';
 import InputCount from '../components/Misc';
 import totalCart from '../services/totalCart';
-import { AuthContext } from '../contexts/auth';
 
 const API = process.env.REACT_APP_API_URL;
 
 const Cart = () => {
   // let [cart, setCart] = useState([]);
   const [products, setProducts] = useState([]);
-  const { state: authState } = useContext(AuthContext);
+  // const { state: authState } = useContext(AuthContext);
 
   // console.log('weheh ', products);
   // const [test, setTest] = useState(123)

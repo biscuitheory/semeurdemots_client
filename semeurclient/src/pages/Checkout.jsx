@@ -7,7 +7,7 @@ import EditBillingForm from '../components/EditBillingForm';
 // import EditShippingForm from '../components/EditShippingForm';
 import validate from '../components/validators/validateShippingAddress';
 import { AuthContext } from '../contexts/auth';
-import CartContext from '../contexts/cart';
+// import CartContext from '../contexts/cart';
 import totalCart from '../services/totalCart';
 import OrderContext from '../contexts/order';
 
@@ -15,10 +15,10 @@ const API = process.env.REACT_APP_API_URL;
 
 const Checkout = () => {
   const { state: authState } = useContext(AuthContext);
-  const products = useContext(CartContext).cartState;
+  // const products = useContext(CartContext).cartState;
   const { setOrderState } = useContext(OrderContext);
   // const [redirect, setRedirect] = useState(false);
-  console.log('cartstate from Checkout ', products);
+  // console.log('cartstate from Checkout ', products);
   const [isVisible, setIsVisible] = useState(false);
   const [isCards, setIsCards] = useState(false);
   const [isSigned, setIsSigned] = useState(false);
@@ -29,14 +29,14 @@ const Checkout = () => {
   console.log('AS checkout ', authState);
   console.log('product frm SI/SU ', location.state.products);
 
-  const { user, user_id, newuser } = location.state;
+  const { products, user, user_id, newuser } = location.state;
   // const { products, user } = location.state;
   // const { product } = location.state;
   console.log('totalCart frm checkout ', totalCart(products));
 
   const initialState = {
     // user_id: authState.user.id,
-    user_id,
+    user_id: user_id ? user_id : user.id,
     status_id: 1,
     shipping_firstname: '',
     shipping_lastname: '',
@@ -90,7 +90,7 @@ const Checkout = () => {
     // if (authState.user.id !== undefined) {
     // console.log('detec');
     console.log('tru', isChecked);
-    if (user_id) {
+    if (user_id && user) {
       const inputValue = isChecked ? '' : true;
       try {
         const res = await axios.post(
@@ -117,35 +117,80 @@ const Checkout = () => {
             total_price: totalCart(products),
             payment: values.payment,
           }
-      // try {
-      //   const res = await axios.post(
-      //     `${API}orders/`,
-      //     {
-      //       user_id: values.user_id,
-      //       status_id: values.status_id,
-      //       shipping_firstname: inputValue
-      //         ? authState.user.firstname
-      //         : values.shippingFirstname,
-      //       shipping_lastname: inputValue
-      //         ? authState.user.lastname
-      //         : values.shippingLastname,
-      //       shipping_address: inputValue
-      //         ? authState.user.address
-      //         : values.shippingAddress,
-      //       shipping_zipcode: inputValue
-      //         ? authState.user.zipcode
-      //         : values.shippingZipcode,
-      //       shipping_city: inputValue
-      //         ? authState.user.city
-      //         : values.shippingCity,
-      //       shipping_country: inputValue
-      //         ? authState.user.country
-      //         : values.shippingCountry,
-      //       total_price: totalCart(products),
-      //       payment: values.payment,
-      //     }
+          // try {
+          //   const res = await axios.post(
+          //     `${API}orders/`,
+          //     {
+          //       user_id: values.user_id,
+          //       status_id: values.status_id,
+          //       shipping_firstname: inputValue
+          //         ? authState.user.firstname
+          //         : values.shippingFirstname,
+          //       shipping_lastname: inputValue
+          //         ? authState.user.lastname
+          //         : values.shippingLastname,
+          //       shipping_address: inputValue
+          //         ? authState.user.address
+          //         : values.shippingAddress,
+          //       shipping_zipcode: inputValue
+          //         ? authState.user.zipcode
+          //         : values.shippingZipcode,
+          //       shipping_city: inputValue
+          //         ? authState.user.city
+          //         : values.shippingCity,
+          //       shipping_country: inputValue
+          //         ? authState.user.country
+          //         : values.shippingCountry,
+          //       total_price: totalCart(products),
+          //       payment: values.payment,
+          //     }
           // { headers: { Authorization: `Bearer ${authState.token}` } }
         );
+        // console.log('res ', authState.user.id);
+        if (res) {
+          console.log('Submitted Succesfully');
+          console.log(res);
+          setOrderState(res.data.id);
+          history.push('/payment', {
+            order_id: res.data.id,
+            product_id: products,
+          });
+        }
+        throw res;
+      } catch (err) {
+        console.log('error from checkout', err);
+        setValues({
+          ...values,
+          isSubmitting: false,
+          errorMessage: err.message,
+        });
+      }
+    }
+    if (user_id && newuser) {
+      const inputValue = isChecked ? '' : true;
+      try {
+        const res = await axios.post(`${API}orders/`, {
+          user_id: values.user_id,
+          status_id: values.status_id,
+          shipping_firstname: inputValue
+            ? newuser.firstname
+            : values.shippingFirstname,
+          shipping_lastname: inputValue
+            ? newuser.lastname
+            : values.shippingLastname,
+          shipping_address: inputValue
+            ? newuser.address
+            : values.shippingAddress,
+          shipping_zipcode: inputValue
+            ? newuser.zipcode
+            : values.shippingZipcode,
+          shipping_city: inputValue ? newuser.city : values.shippingCity,
+          shipping_country: inputValue
+            ? newuser.country
+            : values.shippingCountry,
+          total_price: totalCart(products),
+          payment: values.payment,
+        });
         // console.log('res ', authState.user.id);
         if (res) {
           console.log('Submitted Succesfully');
@@ -350,9 +395,8 @@ const Checkout = () => {
                   </td>
                   <td>
                     &nbsp;
-                    {totalCart(products)}
-€
-</td>
+                    {totalCart(products)}€
+                  </td>
                 </tr>
                 <tr className="checkout__container-recap-table-important">
                   <td className="checkout__container-recap-table-lg">
@@ -364,9 +408,8 @@ const Checkout = () => {
                   <td className="checkout__container-recap-table-lg">Total</td>
                   <td>
                     &nbsp;
-                    {totalCart(products)}
-€
-</td>
+                    {totalCart(products)}€
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -400,9 +443,8 @@ const Checkout = () => {
                   de votre commande, vous accompagner au cours de votre visite
                   du site web, et pour d’autres raisons décrites dans notre
                   &nbsp;
-                  <Link to="/">politique de confidentialité</Link>
-.
-</p>
+                  <Link to="/">politique de confidentialité</Link>.
+                </p>
                 <span className="checkout__container-recap-payment-validation-sign">
                   <input
                     type="checkbox"
