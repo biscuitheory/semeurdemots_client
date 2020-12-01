@@ -85,76 +85,79 @@ const Checkout = () => {
 
   // pour MAJ données facturation utilisateur
 
-  async function submit(isChecked) {
+  async function submit(isVisible) {
     // if (authState.user.id !== undefined) {
-    if (user_id && newuser) {
-      const inputValue = isChecked ? '' : true;
-      // console.log('shipping address form ', inputValue);
-      try {
-        const res = await axios.post(`${API}orders/`, {
-          user_id: values.user_id,
-          status_id: values.status_id,
-          shipping_firstname: inputValue
-            ? newuser.firstname
-            : values.shippingFirstname,
-          shipping_lastname: inputValue
-            ? newuser.lastname
-            : values.shippingLastname,
-          shipping_address: inputValue
-            ? newuser.address
-            : values.shippingAddress,
-          shipping_zipcode: inputValue
-            ? newuser.zipcode
-            : values.shippingZipcode,
-          shipping_city: inputValue ? newuser.city : values.shippingCity,
-          shipping_country: inputValue
-            ? newuser.country
-            : values.shippingCountry,
-          total_price: totalCart(products),
-          payment: values.payment,
-        });
-        console.log('inputValue from post orders ', inputValue);
-        if (res) {
-          console.log('Submitted Succesfully from user_id && new_user', res);
-          setOrderState(res.data.id);
-          history.push('/payment', {
-            order_id: res.data.id,
-            product_id: products,
-          });
-        }
-        // throw res;
-      } catch (err) {
-        console.log('error from checkout', err);
-        setValues({
-          ...values,
-          isSubmitting: false,
-          errorMessage: err.message,
-        });
-      }
-    } else if (user_id && user) {
-      const inputValue = isChecked ? '' : true;
+    // if (user_id && newuser) {
+    //   const inputValue = isChecked ? '' : true;
+    //   // console.log('shipping address form ', inputValue);
+    //   try {
+    //     const res = await axios.post(`${API}orders/`, {
+    //       user_id: values.user_id,
+    //       status_id: values.status_id,
+    //       shipping_firstname: inputValue
+    //         ? newuser.firstname
+    //         : values.shippingFirstname,
+    //       shipping_lastname: inputValue
+    //         ? newuser.lastname
+    //         : values.shippingLastname,
+    //       shipping_address: inputValue
+    //         ? newuser.address
+    //         : values.shippingAddress,
+    //       shipping_zipcode: inputValue
+    //         ? newuser.zipcode
+    //         : values.shippingZipcode,
+    //       shipping_city: inputValue ? newuser.city : values.shippingCity,
+    //       shipping_country: inputValue
+    //         ? newuser.country
+    //         : values.shippingCountry,
+    //       total_price: totalCart(products),
+    //       payment: values.payment,
+    //     });
+    //     console.log('inputValue from post orders ', inputValue);
+    //     if (res) {
+    //       console.log('Submitted Succesfully from user_id && new_user', res);
+    //       setOrderState(res.data.id);
+    //       history.push('/payment', {
+    //         order_id: res.data.id,
+    //         product_id: products,
+    //       });
+    //     }
+    //     // throw res;
+    //   } catch (err) {
+    //     console.log('error from checkout', err);
+    //     setValues({
+    //       ...values,
+    //       isSubmitting: false,
+    //       errorMessage: err.message,
+    //     });
+    //   }
+    // } else
+    if (user_id && user) {
+      // const inputValue = isVisible ? '' : true;
       try {
         const res = await axios.post(
           `${API}orders/`,
           {
             user_id: values.user_id,
             status_id: values.status_id,
-            shipping_firstname: inputValue
-              ? user.firstname
-              : values.shippingFirstname,
-            shipping_lastname: inputValue
-              ? user.lastname
-              : values.shippingLastname,
-            shipping_address: inputValue
-              ? user.address
-              : values.shippingAddress,
-            shipping_zipcode: inputValue
-              ? user.zipcode
-              : values.shippingZipcode,
-            shipping_city: inputValue ? user.city : values.shippingCity,
-            shipping_country: inputValue
-              ? user.country
-              : values.shippingCountry,
+            shipping_firstname: values.shippingFirstname
+              ? values.shippingFirstname
+              : user.firstname,
+            shipping_lastname: values.shippingLastname
+              ? values.shippingLastname
+              : user.lastname,
+            shipping_address: values.shippingAddress
+              ? values.shippingAddress
+              : user.address,
+            shipping_zipcode: values.shippingZipcode
+              ? values.shippingZipcode
+              : user.zipcode,
+            shipping_city: values.shippingCity
+              ? values.shippingCity
+              : user.city,
+            shipping_country: values.shippingCountry
+              ? values.shippingCountry
+              : user.country,
             total_price: totalCart(products),
             payment: values.payment,
           }
@@ -187,7 +190,7 @@ const Checkout = () => {
           //     }
           // { headers: { Authorization: `Bearer ${authState.token}` } }
         );
-        console.log('inputValue from post orders ', inputValue);
+        // console.log('inputValue from post orders ', inputValue);
         if (res) {
           console.log('Submitted Succesfully from user_id && user ', res);
           setOrderState(res.data.id);
