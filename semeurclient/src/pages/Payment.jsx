@@ -40,10 +40,10 @@ const Payment = () => {
     if (products.length != 0) {
       try {
         const res = await axios.post(`${API}payment`, { amount });
-        console.log('fol');
+        console.log('total amount products on Payment', amount);
         if (res.data) {
           setClientSecret(res.data.clientSecret);
-          console.log('fit', clientSecret);
+          // console.log('fit', clientSecret);
           await stripe.confirmCardPayment(clientSecret, {
             receipt_email: authState.user.email,
             payment_method: {
@@ -134,11 +134,11 @@ const Payment = () => {
     }
     // fullOrder();
   };
-  console.log('yeepa ', values);
+  console.log('from payment update order passed values ', values);
 
   useEffect(() => {
     CreatePayment();
-    console.log('frm payment', location.state);
+    console.log('frm payment location state', location.state);
   }, []);
   // }, [products, location]);
 

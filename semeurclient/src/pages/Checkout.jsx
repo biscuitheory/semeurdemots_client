@@ -25,18 +25,18 @@ const Checkout = () => {
 
   const location = useLocation();
 
-  console.log('location state frm SI/SU ', location.state);
-  console.log('AS checkout ', authState);
-  console.log('product frm SI/SU ', location.state.products);
+  // console.log('location state frm SI/SU ', location.state);
+  // console.log('AS checkout ', authState);
+  // console.log('product frm SI/SU ', location.state.products);
 
   const { products, user, user_id, newuser } = location.state;
   // const { products, user } = location.state;
   // const { product } = location.state;
-  console.log('totalCart frm checkout ', totalCart(products));
+  // console.log('totalCart frm checkout ', totalCart(products));
 
   const initialState = {
     // user_id: authState.user.id,
-    user_id: user_id ? user_id : user.id,
+    user_id: user_id || user.id,
     status_id: 1,
     shipping_firstname: '',
     shipping_lastname: '',
@@ -61,7 +61,6 @@ const Checkout = () => {
     });
   };
 
-  // const handleSubmit = (event, totalPrice) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     setValues({
@@ -88,9 +87,51 @@ const Checkout = () => {
 
   async function submit(isChecked) {
     // if (authState.user.id !== undefined) {
-    // console.log('detec');
-    console.log('tru', isChecked);
-    if (user_id && user) {
+    if (user_id && newuser) {
+      const inputValue = isChecked ? '' : true;
+      // console.log('shipping address form ', inputValue);
+      try {
+        const res = await axios.post(`${API}orders/`, {
+          user_id: values.user_id,
+          status_id: values.status_id,
+          shipping_firstname: inputValue
+            ? newuser.firstname
+            : values.shippingFirstname,
+          shipping_lastname: inputValue
+            ? newuser.lastname
+            : values.shippingLastname,
+          shipping_address: inputValue
+            ? newuser.address
+            : values.shippingAddress,
+          shipping_zipcode: inputValue
+            ? newuser.zipcode
+            : values.shippingZipcode,
+          shipping_city: inputValue ? newuser.city : values.shippingCity,
+          shipping_country: inputValue
+            ? newuser.country
+            : values.shippingCountry,
+          total_price: totalCart(products),
+          payment: values.payment,
+        });
+        console.log('inputValue from post orders ', inputValue);
+        if (res) {
+          console.log('Submitted Succesfully from user_id && new_user', res);
+          setOrderState(res.data.id);
+          history.push('/payment', {
+            order_id: res.data.id,
+            product_id: products,
+          });
+        }
+        // throw res;
+      } catch (err) {
+        console.log('error from checkout', err);
+        setValues({
+          ...values,
+          isSubmitting: false,
+          errorMessage: err.message,
+        });
+      }
+    } else if (user_id && user) {
       const inputValue = isChecked ? '' : true;
       try {
         const res = await axios.post(
@@ -146,10 +187,9 @@ const Checkout = () => {
           //     }
           // { headers: { Authorization: `Bearer ${authState.token}` } }
         );
-        // console.log('res ', authState.user.id);
+        console.log('inputValue from post orders ', inputValue);
         if (res) {
-          console.log('Submitted Succesfully');
-          console.log(res);
+          console.log('Submitted Succesfully from user_id && user ', res);
           setOrderState(res.data.id);
           history.push('/payment', {
             order_id: res.data.id,
@@ -157,51 +197,6 @@ const Checkout = () => {
           });
         }
         // throw res;
-      } catch (err) {
-        console.log('error from checkout', err);
-        setValues({
-          ...values,
-          isSubmitting: false,
-          errorMessage: err.message,
-        });
-      }
-    }
-    if (user_id && newuser) {
-      const inputValue = isChecked ? '' : true;
-      try {
-        const res = await axios.post(`${API}orders/`, {
-          user_id: values.user_id,
-          status_id: values.status_id,
-          shipping_firstname: inputValue
-            ? newuser.firstname
-            : values.shippingFirstname,
-          shipping_lastname: inputValue
-            ? newuser.lastname
-            : values.shippingLastname,
-          shipping_address: inputValue
-            ? newuser.address
-            : values.shippingAddress,
-          shipping_zipcode: inputValue
-            ? newuser.zipcode
-            : values.shippingZipcode,
-          shipping_city: inputValue ? newuser.city : values.shippingCity,
-          shipping_country: inputValue
-            ? newuser.country
-            : values.shippingCountry,
-          total_price: totalCart(products),
-          payment: values.payment,
-        });
-        // console.log('res ', authState.user.id);
-        if (res) {
-          console.log('Submitted Succesfully');
-          console.log(res);
-          setOrderState(res.data.id);
-          history.push('/payment', {
-            order_id: res.data.id,
-            product_id: products,
-          });
-        }
-        throw res;
       } catch (err) {
         console.log('error from checkout', err);
         setValues({
@@ -395,7 +390,8 @@ const Checkout = () => {
                   </td>
                   <td>
                     &nbsp;
-                    {totalCart(products)}€
+                    {totalCart(products)}
+                    &nbsp;€
                   </td>
                 </tr>
                 <tr className="checkout__container-recap-table-important">
@@ -408,7 +404,8 @@ const Checkout = () => {
                   <td className="checkout__container-recap-table-lg">Total</td>
                   <td>
                     &nbsp;
-                    {totalCart(products)}€
+                    {totalCart(products)}
+                    &nbsp;€
                   </td>
                 </tr>
               </tbody>
@@ -443,7 +440,8 @@ const Checkout = () => {
                   de votre commande, vous accompagner au cours de votre visite
                   du site web, et pour d’autres raisons décrites dans notre
                   &nbsp;
-                  <Link to="/">politique de confidentialité</Link>.
+                  <Link to="/">politique de confidentialité</Link>
+                  .&nbsp;
                 </p>
                 <span className="checkout__container-recap-payment-validation-sign">
                   <input
