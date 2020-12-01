@@ -5,8 +5,9 @@ export default function validateSignin(values) {
     errors.emailOrUsername =
       "Un email ou un nom d'utilisateur est obligatoire.";
   } else if (
-    !/\S+@\S+\.\S+/.test(values.emailOrUsername) &&
-    typeof values.emailOrUsername !== 'string'
+    !/^(?=[a-z0-9.]{3,20}$)[a-z0-9]+\.?[a-z0-9]+$|^.*@\w+\.[\w.]+$/i.test(
+      values.emailOrUsername
+    )
   ) {
     errors.emailOrUsername =
       "Veuillez insérer un nom d'utilisateur ou un e-mail valide.";

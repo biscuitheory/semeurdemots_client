@@ -65,7 +65,6 @@ const SigninBeforeCheckout = (products) => {
           user_id: res.data.user.id,
         });
       }
-      throw res;
     } catch (error) {
       console.log('err from SI BCO', error.message);
       setValues({

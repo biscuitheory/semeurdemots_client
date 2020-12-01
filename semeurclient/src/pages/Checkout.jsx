@@ -156,7 +156,7 @@ const Checkout = () => {
             product_id: products,
           });
         }
-        throw res;
+        // throw res;
       } catch (err) {
         console.log('error from checkout', err);
         setValues({

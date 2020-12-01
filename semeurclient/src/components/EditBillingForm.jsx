@@ -92,7 +92,7 @@ const EditBillingForm = () => {
           newuser: res.data,
         });
       }
-      throw res;
+      // throw res;
     } catch (err) {
       console.log('error from edit billing form', err);
       setValues({
