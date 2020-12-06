@@ -1,17 +1,17 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useLocation, Redirect } from 'react-router-dom';
+import { useLocation, useHistory, Redirect } from 'react-router-dom';
 import axios from 'axios';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 
 import { AuthContext } from '../contexts/auth';
-import CartContext from '../contexts/cart';
+// import CartContext from '../contexts/cart';
 import totalCart from '../services/totalCart';
 
 const API = process.env.REACT_APP_API_URL;
 
 const Payment = () => {
   const { state: authState } = useContext(AuthContext);
-  const products = useContext(CartContext).cartState;
+  // const products = useContext(CartContext).cartState;
 
   const [succeeded, setSucceeded] = useState(false);
   const [error, setError] = useState(null);
@@ -25,9 +25,11 @@ const Payment = () => {
 
   const location = useLocation();
 
-  // console.log('whee ', location.state.res);
+  const { order_id, products } = location.state;
+
+  console.log('whee ', location.state);
   const initialState = {
-    id: location.state.order_id,
+    id: order_id,
     status_id: 2,
     user_email: authState.user.email,
     user_username: authState.user.username,
@@ -93,7 +95,7 @@ const Payment = () => {
       const res = await axios.patch(
         `${API}orders`,
         {
-          id: location.state.order_id,
+          id: order_id,
           status_id: values.status_id,
           user_email: values.user_email,
           user_username: values.user_username,
