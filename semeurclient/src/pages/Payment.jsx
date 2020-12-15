@@ -166,7 +166,7 @@ const Payment = () => {
         // }}
       >
         <p>
-          Règlement d&apos;un montant de
+          Règlement d&apos;un montant de&nbsp;
           {totalCart(products)}
           &nbsp;€
         </p>

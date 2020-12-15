@@ -5,23 +5,18 @@ import axios from 'axios';
 import useForm from './customedhooks/useForm';
 import validate from './validators/validateBillingAddress';
 import { AuthContext } from '../contexts/auth';
-import CartContext from '../contexts/cart';
 
 const API = process.env.REACT_APP_API_URL;
 
 const EditBillingForm = () => {
   const { state: authState } = useContext(AuthContext);
-  // console.log('tati', auth);
-  const products = useContext(CartContext).cartState;
-  console.log('cartstate from Checkout ', products);
 
   const location = useLocation();
 
   console.log('location frm EBF ', location.state);
   console.log('location user_id frm EBF ', location.state.user.id);
 
-  // const { user } = location.state;
-  const { user, user_id } = location.state;
+  const { products, user, user_id } = location.state;
 
   const history = useHistory();
 
@@ -35,34 +30,12 @@ const EditBillingForm = () => {
     city: user.city ? user.city : authState.user.city,
     country: user.country ? user.country : authState.user.country,
   };
-  // const initialState = {
-  //   firstname: '' ? '' : user.firstname,
-  //   lastname: '' ? '' : user.lastname,
-  //   phone: '' ? '' : user.phone,
-  //   email: '' ? '' : user.email,
-  //   address: '' ? '' : user.address,
-  //   zipcode: '' ? '' : user.zipcode,
-  //   city: '' ? '' : user.city,
-  //   country: '' ? '' : user.country,
-  // };
-  // const initialState = {
-  //   firstname: '' ? '' : authState.user.firstname,
-  //   lastname: '' ? '' : authState.user.lastname,
-  //   phone: '' ? '' : authState.user.phone,
-  //   email: '' ? '' : authState.user.email,
-  //   address: '' ? '' : authState.user.address,
-  //   zipcode: '' ? '' : authState.user.zipcode,
-  //   city: '' ? '' : authState.user.city,
-  //   country: '' ? '' : authState.user.country,
-  // };
 
   const { handleChange, handleSubmit, values, setValues, errors } = useForm(
     initialState,
     validate,
     submit
   );
-
-  // console.log('from edit billing form', values);
 
   async function submit() {
     try {
@@ -103,7 +76,6 @@ const EditBillingForm = () => {
     }
   }
 
-  // if (Object.keys(auth).length === 0) return <p>Loading...</p>;
   return (
     <form
       onSubmit={handleSubmit}
@@ -119,7 +91,6 @@ const EditBillingForm = () => {
             type="text"
             name="firstname"
             value={values.firstname || user.firstname}
-            // value={values.firstname || ''}
             onChange={handleChange}
             id="firstname"
           />
@@ -133,7 +104,6 @@ const EditBillingForm = () => {
             name="lastname"
             value={values.lastname || ''}
             id="lastname"
-            // placeholder="Nom"
             onChange={handleChange}
           />
           {errors.lastname && <p className="error">{errors.lastname}</p>}

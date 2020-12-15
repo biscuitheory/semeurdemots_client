@@ -73,6 +73,10 @@ const EditProductForm = ({
       });
     }
   }
+
+  function refreshPage() {
+    window.location.reload();
+  }
   // if (redirect) {
   //   return <Redirect to="/compte-admin/produits" />;
   // } else {
@@ -187,7 +191,7 @@ const EditProductForm = ({
         <button
           type="submit"
           title="close modal"
-          // onClick={() => setModalIsOpen(false)}
+          onClick={() => refreshPage()}
           className="submit-button"
         >
           Enregistrer

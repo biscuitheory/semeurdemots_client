@@ -1,18 +1,17 @@
-import React, { useState, useContext } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 
 import useForm from './customedhooks/useForm';
 import validate from './validators/validateSignin';
 import { AuthContext } from '../contexts/auth';
-import CartContext from '../contexts/cart';
 import usePasswordToggle from './customedhooks/usePasswordToggle';
 
 const API = process.env.REACT_APP_API_URL;
 
 const SigninBeforeCheckout = (products) => {
-  const { dispatch, state: authState } = useContext(AuthContext);
+  const { dispatch } = useContext(AuthContext);
   // const products = useContext(CartContext).cartState;
   const [PasswordInputType, ToggleIcon] = usePasswordToggle();
   // const [redirect, setRedirect] = useState(false);
@@ -20,10 +19,6 @@ const SigninBeforeCheckout = (products) => {
   products = products.product;
 
   console.log('the props passed from parent BC in SIBC', products);
-
-  // const location = useLocation();
-
-  // const { products } = location.state;
 
   const history = useHistory();
 

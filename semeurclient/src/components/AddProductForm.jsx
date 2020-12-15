@@ -29,8 +29,6 @@ const AddProductForm = ({ modalIsOpen, setModalIsOpen }) => {
     submit
   );
 
-  // console.log('res ', values);
-
   async function submit() {
     try {
       const res = await axios.post(
@@ -80,6 +78,10 @@ const AddProductForm = ({ modalIsOpen, setModalIsOpen }) => {
         progress: undefined,
       });
     }
+  }
+
+  function refreshPage() {
+    window.location.reload();
   }
 
   if (redirect) {
@@ -195,7 +197,7 @@ const AddProductForm = ({ modalIsOpen, setModalIsOpen }) => {
         </div>
         <button
           type="submit"
-          // onClick={() => setModalIsOpen(false)}
+          onClick={() => refreshPage()}
           className="submit-button"
         >
           Enregistrer

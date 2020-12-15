@@ -4,10 +4,8 @@ import axios from 'axios';
 
 import SubHeader from '../components/SubHeader';
 import EditBillingForm from '../components/EditBillingForm';
-// import EditShippingForm from '../components/EditShippingForm';
 import validate from '../components/validators/validateShippingAddress';
 import { AuthContext } from '../contexts/auth';
-// import CartContext from '../contexts/cart';
 import totalCart from '../services/totalCart';
 import OrderContext from '../contexts/order';
 
@@ -15,10 +13,7 @@ const API = process.env.REACT_APP_API_URL;
 
 const Checkout = () => {
   const { state: authState } = useContext(AuthContext);
-  // const products = useContext(CartContext).cartState;
   const { setOrderState } = useContext(OrderContext);
-  // const [redirect, setRedirect] = useState(false);
-  // console.log('cartstate from Checkout ', products);
   const [isVisible, setIsVisible] = useState(false);
   const [isCards, setIsCards] = useState(false);
   const [isSigned, setIsSigned] = useState(false);
@@ -71,11 +66,7 @@ const Checkout = () => {
     submit(isVisible);
   };
 
-  useEffect(() => {
-    // if (Object.keys(errors).length === 0 && isSubmitting) {
-    //   submit(isVisible);
-    // }
-  }, [errors, isSubmitting]);
+  useEffect(() => {}, [errors, isSubmitting]);
 
   // console.log('from checkout e ', user.id);
 
@@ -88,7 +79,6 @@ const Checkout = () => {
   async function submit() {
     if (authState.user.id !== undefined) {
       if (user_id && newuser) {
-        // const inputValue = isChecked ? '' : true;
         const inputValue = isVisible ? '' : true;
         // console.log('shipping address form ', inputValue);
         try {
@@ -214,18 +204,13 @@ const Checkout = () => {
     }
   }
 
-  // dois envoyer données livraison vers table orders => context shippingInfo, à récupérer dans page de confirmation
-
-  // if (redirect) {
-  //   return <Redirect to="/payment" />;
-  // }
   return (
     <div className="checkout__container">
       <SubHeader title="Livraison et Facturation" />
 
       <section className="checkout__container-forms">
         <div className="checkout__container-form-billing">
-          <EditBillingForm />
+          <EditBillingForm products={products} />
         </div>
         <form
           onSubmit={handleSubmit}

@@ -68,6 +68,7 @@
   }
 
   &-infobox {
+    white-space: pre-line;
     @include media(phone) {
       padding: 1em;
     }
@@ -101,6 +102,10 @@
 
     &-stock {
       color: #77a464;
+    }
+
+    &-category {
+      padding-top: 1em;
     }
   }
 }

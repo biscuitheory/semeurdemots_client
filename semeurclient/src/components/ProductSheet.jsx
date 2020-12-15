@@ -42,16 +42,16 @@ const ProductSheet = ({ description, id, image, name, price, stock, type }) => {
       </section>
       <section className="productsheet__container-infobox">
         <h2>{name}</h2>
-        <p className="productsheet__container-infobox-price"> 
-{' '}
-{price}€</p>
+        <p className="productsheet__container-infobox-price">
+          {price}
+          &nbsp;€
+        </p>
         <p className="productsheet__container-infobox-description">
           {description}
         </p>
         <p className="productsheet__container-infobox-stock">
-          En stock : 
-{' '}
-{stock}
+          En stock :&nbsp;
+          {stock}
         </p>
         <InputCount onChange={onInputCountChange} count={inputCount} />
         {/* <SubmitButton onClick={() => addItem(id)} /> */}
@@ -66,11 +66,14 @@ const ProductSheet = ({ description, id, image, name, price, stock, type }) => {
         >
           Ajouter au panier
         </button>
-        <p>Catégorie :{type}</p>
-        <p>
+        <p className="productsheet__container-infobox-category">
+          Catégorie :&nbsp;
+          {type}
+        </p>
+        {/* <p>
           id
           {id}
-        </p>
+        </p> */}
       </section>
       <ToastContainer />
     </div>

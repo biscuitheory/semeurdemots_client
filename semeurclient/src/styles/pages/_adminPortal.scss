@@ -118,6 +118,7 @@
           padding: 1em;
           border: 0.2px solid $color--brinput;
           overflow: auto;
+          white-space: pre-line;
         }
 
         &-email {
