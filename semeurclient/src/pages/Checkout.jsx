@@ -114,7 +114,6 @@ const Checkout = () => {
               products,
             });
           }
-          // throw res;
         } catch (err) {
           console.log('error from checkout', err);
           setValues({
@@ -124,64 +123,31 @@ const Checkout = () => {
           });
         }
       } else if (user_id && user) {
-        const inputValue = isVisible ? '' : true;
         try {
-          const res = await axios.post(
-            `${API}orders/`,
-            {
-              user_id: values.user_id,
-              status_id: values.status_id,
-              shipping_firstname: values.shippingFirstname
-                ? values.shippingFirstname
-                : user.firstname,
-              shipping_lastname: values.shippingLastname
-                ? values.shippingLastname
-                : user.lastname,
-              shipping_address: values.shippingAddress
-                ? values.shippingAddress
-                : user.address,
-              shipping_zipcode: values.shippingZipcode
-                ? values.shippingZipcode
-                : user.zipcode,
-              shipping_city: values.shippingCity
-                ? values.shippingCity
-                : user.city,
-              shipping_country: values.shippingCountry
-                ? values.shippingCountry
-                : user.country,
-              total_price: totalCart(products),
-              payment: values.payment,
-            }
-            // try {
-            //   const res = await axios.post(
-            //     `${API}orders/`,
-            //     {
-            //       user_id: values.user_id,
-            //       status_id: values.status_id,
-            //       shipping_firstname: inputValue
-            //         ? authState.user.firstname
-            //         : values.shippingFirstname,
-            //       shipping_lastname: inputValue
-            //         ? authState.user.lastname
-            //         : values.shippingLastname,
-            //       shipping_address: inputValue
-            //         ? authState.user.address
-            //         : values.shippingAddress,
-            //       shipping_zipcode: inputValue
-            //         ? authState.user.zipcode
-            //         : values.shippingZipcode,
-            //       shipping_city: inputValue
-            //         ? authState.user.city
-            //         : values.shippingCity,
-            //       shipping_country: inputValue
-            //         ? authState.user.country
-            //         : values.shippingCountry,
-            //       total_price: totalCart(products),
-            //       payment: values.payment,
-            //     }
-            // { headers: { Authorization: `Bearer ${authState.token}` } }
-          );
-          // console.log('inputValue from post orders ', inputValue);
+          const res = await axios.post(`${API}orders/`, {
+            user_id: values.user_id,
+            status_id: values.status_id,
+            shipping_firstname: values.shippingFirstname
+              ? values.shippingFirstname
+              : user.firstname,
+            shipping_lastname: values.shippingLastname
+              ? values.shippingLastname
+              : user.lastname,
+            shipping_address: values.shippingAddress
+              ? values.shippingAddress
+              : user.address,
+            shipping_zipcode: values.shippingZipcode
+              ? values.shippingZipcode
+              : user.zipcode,
+            shipping_city: values.shippingCity
+              ? values.shippingCity
+              : user.city,
+            shipping_country: values.shippingCountry
+              ? values.shippingCountry
+              : user.country,
+            total_price: totalCart(products),
+            payment: values.payment,
+          });
           if (res) {
             console.log('Submitted Succesfully from user_id && user ', res);
             setOrderState(res.data.id);
@@ -191,7 +157,6 @@ const Checkout = () => {
               products,
             });
           }
-          // throw res;
         } catch (err) {
           console.log('error from checkout', err);
           setValues({
@@ -370,10 +335,6 @@ const Checkout = () => {
                     </td>
                   </tr>
                 ))}
-                {/* <tr>
-              <td>Poisson rouge</td>
-              <td>8.00 €</td>
-            </tr> */}
                 <tr className="checkout__container-recap-table-important">
                   <td className="checkout__container-recap-table-lg">
                     Sous-total
