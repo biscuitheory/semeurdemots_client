@@ -191,17 +191,21 @@ function CartProductRow({ id, name, price, image, quantity }) {
           <p>{name}</p>
         </div>
         <div className="cart__container-products-box-price">
-          <p> 
-{' '}
-{price} €</p>
+          <p>
+            &nbsp;
+            {price}
+            &nbsp;€
+          </p>
         </div>
         <div className="cart__container-products-box-quantity">
           <InputCount onChange={onInputCountChange} count={inputCount} />
         </div>
         <div className="cart__container-products-box-subtotal">
-          <p> 
-{' '}
-{price * quantity} €</p>
+          <p>
+            &nbsp;
+            {price * quantity}
+            &nbsp;€
+          </p>
         </div>
       </div>
       {/* <div className="cart__container-products-update">

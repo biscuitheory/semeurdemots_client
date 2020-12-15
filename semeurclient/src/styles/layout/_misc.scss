@@ -75,9 +75,9 @@ input[type='number'] {
   }
 
   @include media(desktop) {
+    width: 40em;
     top: 5em;
-    left: 40em;
-    right: 40em;
+    left: 35%;
     bottom: 5em;
   }
 

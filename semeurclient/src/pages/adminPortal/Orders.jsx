@@ -97,6 +97,7 @@ const OrderTableRow = ({ order }) => {
                 ✕
               </button>
               <OrderDetails
+                order={order}
                 modalIsOpen={modalIsOpen}
                 setModalIsOpen={setModalIsOpen}
               />
