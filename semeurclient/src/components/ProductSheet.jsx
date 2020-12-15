@@ -1,18 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
-// import CartContext from '../contexts/cart';
 
 import InputCount from './Misc';
 
 const ProductSheet = ({ description, id, image, name, price, stock, type }) => {
   const [inputCount, setInputCount] = useState(1);
 
-  // useEffect(() => {
-
-  // }, []);
-
   const onInputCountChange = (count) => {
-    // console.log('fer', count);
     setInputCount(count);
   };
 
@@ -54,9 +48,7 @@ const ProductSheet = ({ description, id, image, name, price, stock, type }) => {
           {stock}
         </p>
         <InputCount onChange={onInputCountChange} count={inputCount} />
-        {/* <SubmitButton onClick={() => addItem(id)} /> */}
         <button
-          // onClick={() => addItem(id, inputCount), notify}
           onClick={() => {
             addItem(id, inputCount);
             notify();

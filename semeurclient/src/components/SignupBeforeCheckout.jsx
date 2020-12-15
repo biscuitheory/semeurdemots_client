@@ -1,25 +1,20 @@
 import React, { useContext } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 
 import useForm from './customedhooks/useForm';
 import validate from './validators/validateSignup';
 import { AuthContext } from '../contexts/auth';
-import CartContext from '../contexts/cart';
 import usePasswordToggle from './customedhooks/usePasswordToggle';
 
 const API = process.env.REACT_APP_API_URL;
 
 const SignupBeforeCheckout = (products) => {
-  const { state: authState } = useContext(AuthContext);
-  // const products = useContext(CartContext).cartState;
-  // console.log('products frm SU ', products);
   const [PasswordInputType, ToggleIcon] = usePasswordToggle();
 
   products = products.product;
 
-  // const location = useLocation();
   console.log('the props passed from parent BC in SUBC ', products);
   // console.log('product location from SU ', location.state.product);
 
