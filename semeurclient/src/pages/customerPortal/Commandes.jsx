@@ -46,14 +46,16 @@ const Commandes = () => {
     <div className="commandes__container">
       {console.log('nb of orders ', orders)}
       <h2 className="commandes__container-title">Mes commandes</h2>
-      {orders.map((order, i) => (
-        <OrderPreview key={i} order={order} index={i} />
-      ))}
+      {orders
+        .sort((a, b) => (a.id < b.id ? 1 : -1))
+        .map((order, i) => (
+          <OrderPreview key={i} order={order} index={i} />
+        ))}
     </div>
   );
 };
 
-const OrderPreview = ({order, index}) => {
+const OrderPreview = ({ order, index }) => {
   const { state: authState } = useContext(AuthContext);
   return (
     <section className="commandes__container-order">

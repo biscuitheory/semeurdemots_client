@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import moment from 'moment';
+import Modal from 'react-modal';
+
+import OrderDetails from '../../components/OrderDetails';
 
 const API = process.env.REACT_APP_API_URL;
+
+Modal.setAppElement('#root');
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
@@ -58,24 +63,54 @@ const Orders = () => {
 };
 
 const OrderTableRow = ({ order }) => {
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   console.log('wewe ', order.User);
   return (
     <>
       <tbody>
         <tr className="adminportal__container-customers-container-main-table-regular">
           <td className="adminportal__container-customers-container-main-table-regular">
-            {order.id}
-            {/* {order.User.firstname} */}
+            <button
+              className="edit-item"
+              type="button"
+              onClick={() => setModalIsOpen(true)}
+            >
+              &nbsp;#
+              {order.id}
+              &nbsp;
+              {order.User.lastname}
+              &nbsp;
+              {order.User.firstname}
+            </button>
+            <Modal
+              isOpen={modalIsOpen}
+              onRequestClose={() => setModalIsOpen(false)}
+              className="Modal"
+              overlayClassName="Overlay"
+            >
+              <button
+                type="button"
+                className="cross-button"
+                title="close modal"
+                onClick={() => setModalIsOpen(false)}
+              >
+                ✕
+              </button>
+              <OrderDetails
+                modalIsOpen={modalIsOpen}
+                setModalIsOpen={setModalIsOpen}
+              />
+            </Modal>
           </td>
           <td className="adminportal__container-customers-container-main-table-regular">
             {moment(order.updatedAt).format('DD/MM/YYYY')}
           </td>
           <td className="adminportal__container-customers-container-main-table-regular">
-            {/* {order.status_id} */}
             {order.Status.name}
           </td>
           <td className="adminportal__container-customers-container-main-table-regular">
             {order.total_price}
+            &nbsp;€
           </td>
         </tr>
       </tbody>
