@@ -17,6 +17,7 @@ import OrderContext from './contexts/order';
 
 import Navbar from './components/Navbar/Navbar';
 import Home from './pages/Homepage';
+import PoissonRouge from './pages/PoissonRouge';
 import Commander from './pages/Commander';
 import CustomerPortal from './pages/CustomerPortal';
 import AdminPortal from './pages/AdminPortal';
@@ -116,9 +117,12 @@ function App() {
           <Navbar />
           <CartContext.Provider value={{ cartState, setCartState }}>
             <OrderContext.Provider value={{ orderState, setOrderState }}>
-              <Switch>
-                <Elements stripe={promise}>
-                  <Route exact path="/" component={Home} />
+              <Elements stripe={promise}>
+                <Switch>
+                  <Route exact path="/" component={Home}>
+                    <Redirect to="/commander" />
+                  </Route>
+                  <Route exact path="/poisson-rouge" component={PoissonRouge} />
                   <Route exact path="/commander" component={Commander} />
                   <Route state={state} path="/compte-client">
                     <CustomerPortal />
@@ -145,10 +149,9 @@ function App() {
                     path="/confirmation-commande"
                     component={OrderConfirmation}
                   />
-                </Elements>
-                <Route path="/404" component={ErrorPage} />
-                <Redirect to="/404" />
-              </Switch>
+                  <Route component={ErrorPage} />
+                </Switch>
+              </Elements>
             </OrderContext.Provider>
           </CartContext.Provider>
           <Footer />

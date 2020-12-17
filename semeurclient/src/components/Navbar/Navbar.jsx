@@ -44,8 +44,8 @@ const Navbar = () => {
       <ul className="navbar__container-list">
         <DropdownItem href="/">Accueil</DropdownItem>
         <DropdownItem href="/poisson-rouge">Poisson rouge</DropdownItem>
-        <DropdownItem href="/ambassadeurs">Ambassadeurs</DropdownItem>
-        <DropdownItem href="/editions">Editions</DropdownItem>
+        {/* <DropdownItem href="/ambassadeurs">Ambassadeurs</DropdownItem>
+        <DropdownItem href="/editions">Editions</DropdownItem> */}
         <DropdownItem href="/commander">Commander</DropdownItem>
         <DropdownItem href="/compte-client">Compte client</DropdownItem>
         <DropdownItem href="/panier">Panier</DropdownItem>
@@ -55,7 +55,11 @@ const Navbar = () => {
 
   function DropdownItem(props) {
     return (
-      <Link to={props.href} className="navbar__container-list-item" onClick={() => setModalIsOpen(false)}>
+      <Link
+        to={props.href}
+        className="navbar__container-list-item"
+        onClick={() => setModalIsOpen(false)}
+      >
         {props.children}
       </Link>
     );

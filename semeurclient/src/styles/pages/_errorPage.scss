@@ -1,0 +1,33 @@
+.errorpage__container {
+  padding: 0 3em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+
+  h1 {
+    margin-bottom: 0.5em;
+    text-transform: none;
+  }
+
+  h2 {
+    font-size: 1.5em;
+    font-weight: 600;
+  }
+
+  p {
+    font-size: 1em;
+    margin-bottom: 1.5em;
+  }
+
+  &-barre {
+    margin: 1em 0;
+    border-top: 1px solid grey;
+    width: 3em;
+  }
+
+  button {
+    text-transform: uppercase;
+    width: 20em;
+  }
+}
