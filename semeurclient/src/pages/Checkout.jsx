@@ -411,7 +411,7 @@ const Checkout = () => {
                 </span>
                 {!isSigned && (
                   <p className="error">
-                    Merci de cocher cette case afin de poursuivre votre achat.
+                    Merci de cocher cette case afin de passer au règlement de votre commande.
                   </p>
                 )}
               </div>
