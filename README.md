@@ -15,6 +15,10 @@ Tech stack: React.js, SASS, Stripe
 
 ![Store](semeurclient/src/assets/images/semeur_responsive.jpg)
 
+### Cart / Panier
+
+![Cart](semeurclient/src/assets/images/panier.jpg)
+
 ### Checkout / Facturation & Livraison
 
 ![Checkout](semeurclient/src/assets/images/checkout.jpg)
