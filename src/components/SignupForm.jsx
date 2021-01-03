@@ -1,32 +1,21 @@
-import React, { useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import React from 'react';
+// import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 
+import usePasswordToggle from './customedhooks/usePasswordToggle';
 import useForm from './customedhooks/useForm';
 import validate from './validators/validateSignup';
-import { AuthContext } from '../contexts/auth';
-import usePasswordToggle from './customedhooks/usePasswordToggle';
 
 const API = process.env.REACT_APP_API_URL;
 
-const SignupBeforeCheckout = (products) => {
+const SignupForm = () => {
   const [PasswordInputType, ToggleIcon] = usePasswordToggle();
-
-  products = products.product;
-
-  console.log('the props passed from parent BC in SUBC ', products);
-  // console.log('product location from SU ', location.state.product);
-
-  // const { product } = location.state;
-
-  const history = useHistory();
 
   const initialState = {
     username: '',
     email: '',
     password: '',
-    admin: false,
   };
 
   const { handleChange, handleSubmit, values, setValues, errors } = useForm(
@@ -41,15 +30,11 @@ const SignupBeforeCheckout = (products) => {
         username: values.username,
         email: values.email,
         password: values.password,
-        admin: values.admin,
       });
 
       if (res.status === 201) {
-        history.push('/beforecheckout', {
-          products,
-        });
         toast.success(
-          "Inscription bien reçue ! Pour poursuivre votre achat, connectez-vous via le formulaire 'S'identifier' !",
+          "Inscription bien reçue ! Pour activer votre compte, cliquez sur le lien d'activation dans l'email que nous venons de vous envoyer 😉",
           {
             position: 'top-center',
             autoClose: 8000,
@@ -80,6 +65,9 @@ const SignupBeforeCheckout = (products) => {
     }
   }
 
+  // if (redirect) {
+  //   return <Redirect to="/mon-compte" />;
+  // } else {
   return (
     <div className="signup__container">
       <h2>Créer un compte client</h2>
@@ -93,7 +81,7 @@ const SignupBeforeCheckout = (products) => {
             htmlFor="username"
             className="signup__container-form-info-label"
           >
-            Nom d&apos;utilisateur
+            Nom d'utilisateur
           </label>
           <span className="required">*</span>
           <div className="signup__container-form-info-inputbox">
@@ -166,6 +154,7 @@ const SignupBeforeCheckout = (products) => {
       <ToastContainer />
     </div>
   );
+  // }
 };
 
-export default SignupBeforeCheckout;
+export default SignupForm;
