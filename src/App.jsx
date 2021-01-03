@@ -32,7 +32,10 @@ import Footer from './components/Footer';
 import 'react-toastify/dist/ReactToastify.css';
 import './styles/App.scss';
 
-const API = process.env.REACT_APP_API_URL;
+const API =
+  process.env.NODE_ENV === 'production'
+    ? process.env.REACT_APP_PROD_API_URL
+    : process.env.REACT_APP_DEV_API_URL;
 
 toast.configure();
 

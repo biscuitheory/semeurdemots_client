@@ -8,7 +8,7 @@ import validate from '../../components/validators/validateEditCustomer';
 import { AuthContext } from '../../contexts/auth';
 // import usePasswordToggle from '../../components/customedhooks/usePasswordToggle';
 
-const API = process.env.REACT_APP_API_URL;
+const API = process.env.NODE_ENV === 'production' ? process.env.REACT_APP_PROD_API_URL : process.env.REACT_APP_DEV_API_URL;
 
 const DetailsCompte = () => {
   // const [PasswordInputType, ToggleIcon] = usePasswordToggle();

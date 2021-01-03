@@ -9,7 +9,10 @@ import InputCount from '../components/Misc';
 import totalCart from '../services/totalCart';
 import CartContext from '../contexts/cart';
 
-const API = process.env.REACT_APP_API_URL;
+const API =
+  process.env.NODE_ENV === 'production'
+    ? process.env.REACT_APP_PROD_API_URL
+    : process.env.REACT_APP_DEV_API_URL;
 
 const Cart = () => {
   // let [cart, setCart] = useState([]);

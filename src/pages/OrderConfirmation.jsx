@@ -4,7 +4,10 @@ import { useLocation, Link, Redirect } from 'react-router-dom';
 
 import { AuthContext } from '../contexts/auth';
 
-const API = process.env.REACT_APP_API_URL;
+const API =
+  process.env.NODE_ENV === 'production'
+    ? process.env.REACT_APP_PROD_API_URL
+    : process.env.REACT_APP_DEV_API_URL;
 
 const OrderConfirmation = () => {
   const location = useLocation();
@@ -89,9 +92,7 @@ const OrderConfirmation = () => {
           <br />
           <p>
             Un email de confirmation vient de vous être envoyé à l'adresse
-            suivante : 
-{' '}
-<strong>{authState.user.email}</strong>
+            suivante : <strong>{authState.user.email}</strong>
           </p>
           <br />
           <p>

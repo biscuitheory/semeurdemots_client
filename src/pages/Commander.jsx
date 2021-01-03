@@ -4,7 +4,10 @@ import axios from 'axios';
 import SubHeader from '../components/SubHeader';
 import ProductSheet from '../components/ProductSheet';
 
-const API = process.env.REACT_APP_API_URL;
+const API =
+  process.env.NODE_ENV === 'production'
+    ? process.env.REACT_APP_PROD_API_URL
+    : process.env.REACT_APP_DEV_API_URL;
 
 const Commander = () => {
   const [products, setProducts] = useState([]);

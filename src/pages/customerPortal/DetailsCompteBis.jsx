@@ -12,7 +12,10 @@ import { AuthContext } from '../../contexts/auth';
 import EditBillingForm from '../../components/EditBillingForm';
 import EditShippingForm from '../../components/EditShippingForm';
 
-const API = process.env.REACT_APP_API_URL;
+const API =
+  process.env.NODE_ENV === 'production'
+    ? process.env.REACT_APP_PROD_API_URL
+    : process.env.REACT_APP_DEV_API_URL;
 
 Modal.setAppElement('#root');
 
@@ -201,7 +204,9 @@ const DetailsCompte = () => {
             </span>
             <p>{authState.user.address}</p>
             <p>
-              {authState.user.zipcode} {authState.user.city}
+              {authState.user.zipcode} 
+{' '}
+{authState.user.city}
             </p>
             <p>{authState.user.country}</p>
             <p>{authState.user.phone}</p>
