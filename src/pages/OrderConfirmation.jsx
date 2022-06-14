@@ -81,8 +81,7 @@ const OrderConfirmation = () => {
         </div>
         <section className="orderconfirmation__container-receipt">
           <p className="orderconfirmation__container-receipt-reference">
-            Votre commande (
-{' '}
+            Votre commande (&nbsp;
             <strong>
               n°
               {order_id}
@@ -91,13 +90,14 @@ const OrderConfirmation = () => {
           </p>
           <br />
           <p>
-            Un email de confirmation vient de vous être envoyé à l'adresse
-            suivante : <strong>{authState.user.email}</strong>
+            Un email de confirmation vient de vous être envoyé à l&apos;adresse
+            suivante :&nbsp;
+            <strong>{authState.user.email}</strong>
           </p>
           <br />
           <p>
-            Vous pouvez consulter l'avancement de votre commande depuis la page
-            principale de votre compte client
+            Vous pouvez consulter l&apos;avancement de votre commande depuis la
+            page principale de votre compte client
           </p>
           <br />
           <Link to="/compte-client/suivi-commandes" target="_blank">
@@ -108,7 +108,7 @@ const OrderConfirmation = () => {
           <br />
           <Link to="/commander">
             <button type="button" className="submit-button">
-              Retour à l'accueil
+              Retour à l&apos;accueil
             </button>
           </Link>
         </section>

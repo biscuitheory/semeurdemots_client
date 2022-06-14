@@ -8,7 +8,10 @@ import validate from './validators/validateSignin';
 import { AuthContext } from '../contexts/auth';
 import usePasswordToggle from './customedhooks/usePasswordToggle';
 
-const API = process.env.NODE_ENV === 'production' ? process.env.REACT_APP_PROD_API_URL : process.env.REACT_APP_DEV_API_URL;
+const API =
+  process.env.NODE_ENV === 'production'
+    ? process.env.REACT_APP_PROD_API_URL
+    : process.env.REACT_APP_DEV_API_URL;
 
 const SigninFormAdmin = () => {
   const { dispatch } = useContext(AuthContext);
@@ -71,7 +74,7 @@ const SigninFormAdmin = () => {
   }
   return (
     <div className="signin__container">
-      <h2>S'identifier</h2>
+      <h2>S&apos;identifier</h2>
       <form
         onSubmit={handleSubmit}
         noValidate
@@ -82,7 +85,7 @@ const SigninFormAdmin = () => {
             htmlFor="emailOrUsername"
             className="signin__container-form-info-label"
           >
-            Nom d'utilisateur ou Email
+            Nom d&apos;utilisateur ou Email
           </label>
           <span className="required">*</span>
           <div className="signin__container-form-info-inputbox">

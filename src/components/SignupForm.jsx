@@ -7,7 +7,10 @@ import usePasswordToggle from './customedhooks/usePasswordToggle';
 import useForm from './customedhooks/useForm';
 import validate from './validators/validateSignup';
 
-const API = process.env.NODE_ENV === 'production' ? process.env.REACT_APP_PROD_API_URL : process.env.REACT_APP_DEV_API_URL;
+const API =
+  process.env.NODE_ENV === 'production'
+    ? process.env.REACT_APP_PROD_API_URL
+    : process.env.REACT_APP_DEV_API_URL;
 
 const SignupForm = () => {
   const [PasswordInputType, ToggleIcon] = usePasswordToggle();
@@ -81,7 +84,7 @@ const SignupForm = () => {
             htmlFor="username"
             className="signup__container-form-info-label"
           >
-            Nom d'utilisateur
+            Nom d&apos;utilisateur
           </label>
           <span className="required">*</span>
           <div className="signup__container-form-info-inputbox">
